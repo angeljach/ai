@@ -1,0 +1,90 @@
+<ui:composition template="/resources/templates/headandcenter.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <h:form id="frmListAuditorTeam">
+
+            <p:growl id="growlMessage" showDetail="true" life="5000" />
+
+            <!-- Tabla con datos generales del Usuario -->
+
+            <p:dataTable id="tblAuditorTeam" var="item" value="#{auditorTeam.items}"
+                         paginator="true" rows="10" 
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="10,20,30,40,50">
+
+                <p:column>
+                    <f:facet name="header">Nombre del Equipo</f:facet>
+                    <h:outputText value="#{item.teamName}" />
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">Lider</f:facet>
+                    <h:outputText value="#{item.toAuditors.auditorName}" />
+                </p:column>
+
+                <p:column style="text-align: center;">
+                    <f:facet name="header">------Acciones------</f:facet>
+                    <p:commandButton icon="ui-icon-search" title="Ver"
+                                     update="frmListAuditorTeam:tblAuditorTeamMembers"
+                                     oncomplete="teamMembersDialog.show()">  
+                        <f:setPropertyActionListener value="#{item}" target="#{auditorTeam.current}" />  
+                    </p:commandButton>
+                    <p:commandButton action="auditorteamnew.xhtml?faces-redirect=true" 
+                                     icon="ui-icon-pencil" title="Modificar">
+                        <f:setPropertyActionListener value="#{item}" target="#{auditorTeam.current}" />
+                        <f:setPropertyActionListener value="TRUE" 
+                                                     target="#{auditorTeam.edit}" />
+                    </p:commandButton>
+                    <p:commandButton icon="ui-icon-closethick" title="Eliminar"
+                                     oncomplete="deleteDialog.show()">
+                        <f:setPropertyActionListener value="#{item}" 
+                                                     target="#{auditorTeam.current}" />
+                    </p:commandButton>
+                </p:column>
+
+                <f:facet name="footer">
+                    <p:commandButton action="#{auditorTeam.prepareCreate()}"
+                                     ajax="false" value="Nuevo" />
+                </f:facet>
+
+            </p:dataTable>
+
+
+            <p:confirmDialog message="Estas seguro de querer eliminar el registro seleccionado" 
+                             header="Confirmación" severity="alert" widgetVar="deleteDialog">
+
+                <p:commandButton value="Si" update="frmListAuditorTeam:tblAuditorTeam"
+                                 actionListener="#{auditorTeam.destroy()}" 
+                                 oncomplete="deleteDialog.hide()" />
+                <p:commandButton value="No" onclick="deleteDialog.hide()" type="button" />
+
+            </p:confirmDialog>
+
+
+            <p:dialog header="Miembros del Equipo" widgetVar="teamMembersDialog"
+                      resizable="false" id="auditorTeamDlg"
+                      showEffect="fade" hideEffect="explode" modal="true">
+
+                <p:dataTable id="tblAuditorTeamMembers" var="item" 
+                             value="#{auditorTeam.current.auditorTeamMembersArray}">
+
+                    <p:column>
+                        <f:facet name="header">Miembro</f:facet>
+                        <h:outputText value="#{item.toAuditors.auditorName}" />
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">Rol</f:facet>
+                        <h:outputText value="#{item.toAuditors.toAuditorRoles.name}" />
+                    </p:column>
+
+                </p:dataTable>
+
+            </p:dialog>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

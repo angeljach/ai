@@ -1,0 +1,49 @@
+<ui:composition template="/resources/templates/general.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="head">
+
+    </ui:define>
+
+    <ui:define name="body">
+        <h:form id="menu">
+
+            <p:growl id="growlMessage" showDetail="true" life="5000" />
+
+            <h:panelGrid columns="2" styleClass="centered">
+
+                <h:outputLabel value="Usuario" />
+                <p:inputText value="#{login.userName}" required="true" 
+                             requiredMessage="Favor de ingresar el usuario" />
+
+                <h:outputLabel value="Contraseña" />
+                <p:password value="#{login.pwd}" required="true" 
+                            requiredMessage="Favor de ingresar la contraseña" 
+                            feedback="false" minLength="1"/> 
+
+                <h:outputLabel value=""/>
+                <h:panelGroup id="grpSelAuditor">
+                    <p:selectBooleanCheckbox id="selAuditor" value="#{login.auditor}">
+                        <p:ajax update="grpSelLocal"/>
+                    </p:selectBooleanCheckbox>
+                    <h:outputLabel value="Auditor" />
+                </h:panelGroup> 
+                
+                <h:outputLabel value=""/>
+                <h:panelGroup id="grpSelLocal">
+                    <p:selectBooleanCheckbox 
+                        id="selLocal" value="#{login.local}" rendered="#{ ! login.auditor}" />
+                    <h:outputLabel id="lblLocal" value="Local" rendered="#{ ! login.auditor}"/>
+                </h:panelGroup>
+                
+
+                <h:outputLabel value="." style="color: white;" />
+                <p:commandButton value="Aceptar" action="#{login.checkValidUser()}" 
+                                 ajax="false"/>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

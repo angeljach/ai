@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="/images/bmv.ico" rel="shortcut icon" type="text/css" />
+        <title><ui:insert name="title">AI</ui:insert></title>
+    </h:head>
+
+    <h:body>
+        <f:view contentType="text/html">
+            <h:outputStylesheet name="css/default.css" />
+            <h:outputStylesheet name="css/cssLayout.css" />
+
+            <h:panelGrid id="headerGrid" columns="4" width="100%" cellpadding="0" cellspacing="0"
+                         columnClasses="headerInfoBlank,headerInfoCol1,headerInfoCol2,headerInfoBlank">
+                <h:outputLabel id="headerGridBlank1" value="" />
+                <h:panelGroup id="headerGridText">
+                    <h:panelGrid id="headerPanelText" columns="1">
+                        <h:outputLabel id="lblHeaderTitle" styleClass="headerInfoTitle">
+                            <ui:insert name="title">AI</ui:insert>
+                        </h:outputLabel>
+                        <h:outputLabel id="lblHeaderCompany" styleClass="headerInfoArea"
+                                       value="Auditoría Interna" />
+                    </h:panelGrid>
+                </h:panelGroup>
+                <h:graphicImage id="imgLogo" alt="Bolsa Mexicana de Valores" value="/images/bmv.jpg" />
+                <h:outputLabel id="headerGridBlank2" value="" />
+                <!--f:facet name="footer">
+                    <h:graphicImage id="imgLineaLogo" alt="" value="/images/linea_boton.gif"
+                                    style="width: 100%; height: 20px" />
+                </f:facet-->
+            </h:panelGrid>
+
+            <div id="header">
+                <h2><ui:insert name="head">Head</ui:insert></h2>
+            </div>
+
+            <div id="content">
+                <ui:insert name="body"/>
+            </div>
+        </f:view>
+    </h:body>
+
+</html>

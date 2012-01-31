@@ -1,0 +1,138 @@
+<ui:composition template="/resources/templates/headandcenter.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <h:form id="frmNewCharge">
+
+            <!--p:messages /-->
+            <p:growl id="growlMessage" showDetail="true" life="5000" />
+
+            <fieldset class="demo_fieldset">
+                <legend class="demo_legend">Información General</legend>
+                <div class="sample-container">
+                    <h:panelGrid columns="4" width="100%" columnClasses="labelGrid4, fieldGrid4, labelGrid4, fieldGrid4" >
+
+                        <h:outputLabel value="Auditoría: " style="font-weight: bold;"/>
+                        <h:panelGroup>
+                            <p:inputText value="#{audit.selected.auditName}" 
+                                         style="width:220px;" required="true"
+                                         label="Nombre de Auditoría" id="auditName" 
+                                         rendered="#{!audit.edit}">
+                                <f:validateLength maximum="256" />
+                            </p:inputText>
+                            <h:outputText value="#{audit.selected.auditName}"
+                                          style="font-weight: bold;"
+                                          rendered="#{audit.edit}"/>
+                        </h:panelGroup>
+                        <h:outputLabel value="Departamento: " style="font-weight: bold;"/>
+                        <h:panelGroup>
+                            <p:selectOneMenu value="#{audit.selectedDepartmentName}"
+                                             rendered="#{!audit.edit}" effect="fade">
+                                <f:selectItems value="#{audit.departmentNameList}" />
+                            </p:selectOneMenu>
+                            <h:outputText value="#{audit.selected.toCompanyDepartments.department}" 
+                                          rendered="#{audit.edit}" style="font-weight: bold;"/>
+                        </h:panelGroup>
+                        
+                        <h:outputLabel value="Tipo: " style="font-weight: bold;"/>
+                        <p:selectOneMenu value="#{audit.selectedAuditTypeName}"
+                                         effect="fade" style="width:220px;">
+                            <f:selectItems value="#{audit.auditTypeNameList}" />
+                        </p:selectOneMenu>
+                        
+                        <h:outputLabel value="Status: " style="font-weight: bold;"/>
+                        <p:selectOneMenu value="#{audit.selectedAuditStatusName}"
+                                         effect="fade">
+                            <f:selectItems value="#{audit.auditStatusNameList}" />
+                        </p:selectOneMenu>
+                            
+                        
+                        <h:outputLabel value="Equipo: " style="font-weight: bold;"/>
+                        <h:panelGroup>
+                            <p:selectOneMenu value="#{audit.selectedAuditorTeamName}"
+                                             rendered="#{!audit.edit}" effect="fade">
+                                <f:selectItems value="#{audit.auditorTeamNameList}" />
+                            </p:selectOneMenu>
+                            <h:outputText value="#{audit.selected.toAuditorTeams.teamName}" 
+                                          rendered="#{audit.edit}" style="font-weight: bold;"/>
+                        </h:panelGroup>
+                        <h:outputLabel value=""/>
+                        <h:outputLabel value=""/>
+                        
+                        <h:outputLabel value="Objetivo: " style="font-weight: bold;"/>
+                        <p:inputTextarea value="#{audit.selected.objective}"
+                                         style="width:220px;height:60px;"
+                                         label="Objetivo" >
+                            <f:validateLength maximum="2048" />
+                        </p:inputTextarea>
+                        
+                        <h:outputLabel value="Alcance: " style="font-weight: bold;"/>
+                        <p:inputTextarea value="#{audit.selected.auditScope}"
+                                         style="width:220px;height:60px;"
+                                         label="Alcance" >
+                            <f:validateLength maximum="2048" />
+                        </p:inputTextarea>
+                    </h:panelGrid>
+
+                </div>
+            </fieldset>
+
+            <fieldset class="demo_fieldset">
+                <legend class="demo_legend">Calendario</legend>
+                <div class="sample-container">
+                    <h:panelGrid columns="4" width="100%" columnClasses="labelGrid4, fieldGrid4, labelGrid4, fieldGrid4" >
+
+                        <h:outputLabel value="F. Inicio Plan:" title="Fecha Inicio de Plan" />
+                        <p:calendar value="#{audit.selected.planningStartDate}" navigator="true"
+                                    effect="slideDown" pattern="dd/MM/yyyy"/>
+                        <h:outputLabel value="F. Fin Plan:" title="Fecha Fin de Plan" />
+                        <p:calendar value="#{audit.selected.planningEndDate}" navigator="true"
+                                    effect="slideDown" pattern="dd/MM/yyyy"/>
+                        
+                        <h:outputLabel value="F. Inicio FW:" title="Fecha Inicio de Trabajo de Campo" />
+                        <p:calendar value="#{audit.selected.fieldworkStartDate}" navigator="true"
+                                    effect="slideDown" pattern="dd/MM/yyyy"/>
+                        <h:outputLabel value="F. Fin FW:" title="Fecha Fin de Trabajo de Campo" />
+                        <p:calendar value="#{audit.selected.fieldworkEndDate}" navigator="true"
+                                    effect="slideDown" pattern="dd/MM/yyyy"/>
+                        
+                        <h:outputLabel value="F. Inicio Obs:" title="Fecha Inicio de Recomendaciones" />
+                        <p:calendar value="#{audit.selected.recommendationStartDate}" navigator="true"
+                                    effect="slideDown" pattern="dd/MM/yyyy"/>
+                        <h:outputLabel value="F. Fin Obs:" title="Fecha Fin de Recomendaciones" />
+                        <p:calendar value="#{audit.selected.recommendationEndDate}" navigator="true"
+                                    effect="slideDown" pattern="dd/MM/yyyy"/>
+                    </h:panelGrid>
+                    
+                    <h:outputLabel value="Horas Empleadas: "  />
+                    <p:inputText value="#{audit.selected.spentHours}" 
+                                 style="width:50px;" >
+                        <f:validateLongRange minimum="0" maximum="10000" />
+                    </p:inputText>
+                    
+                </div>
+            </fieldset>
+
+            <div class="centered">
+                <h:panelGrid columns="1" style="text-align: center;">
+                    <p:commandButton action="#{audit.create()}" ajax="false" 
+                                     icon="ui-icon-plusthick" value="Aceptar"
+                                     rendered="#{!audit.edit}"/>
+                    <p:commandButton action="#{audit.cancelCreate()}" ajax="false" 
+                                 icon="ui-icon-closethick" value="Cancelar"
+                                 rendered="#{!audit.edit}"/>
+
+                    <p:commandButton action="#{audit.update()}" ajax="false" 
+                                     icon="ui-icon-disk" value="Actualizar"
+                                     rendered="#{audit.edit}"/>
+                    <p:commandButton action="#{audit.cancelUpdate()}" ajax="false" 
+                                     icon="ui-icon-closethick" value="Cancelar"
+                                     rendered="#{audit.edit}"/>                    
+                </h:panelGrid>
+            </div>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

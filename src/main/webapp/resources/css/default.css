@@ -1,0 +1,225 @@
+body {
+    background-color: #ffffff;
+    font: 11px Verdana, Arial, Helvetica, sans-serif;
+    color: #000000;  
+    margin: 10px;
+}
+
+h1 {
+    font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    border-bottom: 1px solid #AFAFAF; 
+    font-size:  16px;
+    font-weight: bold;
+    margin: 0px;
+    padding: 0px;
+    color: #D20005;
+}
+
+a:link, a:visited {
+  color: #045491;
+  font-weight : bold;
+  text-decoration: none;
+}
+
+a:link:hover, a:visited:hover  {
+  color: #045491;
+  font-weight : bold;
+  text-decoration : underline;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%
+}
+th {
+    padding: 0 0.5em;
+}
+td {
+    border-width: 0pt
+}
+
+
+.headerInfoBlank {
+    width: 5%;
+}
+.headerInfoCol1 {
+    width: 45%;
+}
+.headerInfoCol2 {
+    width: 45%;
+    border-width: 0pt;
+    text-align: right;
+}
+.headerInfoTitle {
+    font-weight: bold; font-size: x-large;
+}
+.headerInfoArea {
+    font-weight: bold; font-size: large;
+}
+
+.area24Left {
+    text-align: right;
+    width: 10%;
+}
+
+.area24Right {
+    text-align: left;
+    width: 40%;
+}
+
+.standarText {
+    width: 30%;
+    text-align: right;
+}
+.standarInput {
+    width: 70%;
+}
+
+.loginText {
+    width: 30%;
+    text-align: right;
+}
+.loginInput {
+    width: 70%;
+}
+
+.labelGrid4 {
+    width: 16%;
+}
+.fieldGrid4 {
+    width: 34%;
+}
+
+.labelGrid2 {
+    width: 32%;
+}
+.fieldGrid2 {
+    width: 68%;
+}
+
+
+table.tblBursatec, table.tblProblem, table.tblWarning {
+    font: 11px Verdana, Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 90%;
+    text-align: center;
+}
+tr.tblBursatec th, th.tblBursatec, thead.tblBursatec{
+    background-color: #52506A;
+    border: 1px solid #2B2A43;
+    text-align: center;
+    color:white;
+    padding: 0 0.5em;
+}
+tr.tblBursatecRow1 td{
+    background-color: #E9EAED;
+    border:1px solid #000000;
+    color:black;
+    padding: 0 0.5em;
+}
+tr.tblBursatecRow2 td{
+    background-color: #FFFFFF;
+    border:1px solid #000000;
+    color:black;
+    padding: 0 0.5em;
+}
+
+tr.tblProblem th, th.tblProblem, thead.tblProblem{
+    background-color: red;
+    border: 1px solid black;
+    text-align: center;
+    color:white;
+    padding: 0 0.5em;
+}
+tr.tblProblemRow1 td{
+    background-color: #F94200;
+    border:1px solid #000000;
+    color:white;
+    padding: 0 0.5em;
+}
+
+tr.tblWarning th, th.tblWarning, thead.tblWarning{
+    background-color: #F9D801;
+    border: 1px solid black;
+    text-align: center;
+    color:black;
+    padding: 0 0.5em;
+}
+tr.tblWarningRow1 td{
+    background-color: #C7F901;
+    border:1px solid #000000;
+    color:black;
+    padding: 0 0.5em;
+}
+
+img.img16x16 {
+    width:16px;
+    height:16px;
+}
+img.img20x20 {
+    width:20px;
+    height:20px;
+}
+
+.textoNotificacion {
+    font: 16px Verdana, Arial, Helvetica, sans-serif;
+    font-weight:bold;
+    text-align: center;
+    color:#52AA0E;
+}
+.textoError {
+    font: 16px Verdana, Arial, Helvetica, sans-serif;
+    font-weight:bold;
+    text-align: center;
+    color: #ff0000;
+}
+
+.demo_fieldset {
+	margin : 20px;
+	border : 1px solid #ACBECE;
+}
+
+.remarkable_fieldset {
+	margin : 20px;
+	border : 2px solid #FF0000;
+}
+
+.demo_legend {
+	font-weight : bold; 
+	margin : 0px 10px 0px 18px;
+	font-family: Verdana;
+}
+
+.remarkable_legend {
+	font-weight : bold; 
+	margin : 0px 10px 0px 18px;
+	font-family: Verdana;
+        color : red;
+}
+
+.sample-container {
+	padding: 25px 25px 5px 25px;
+}
+
+.centered {
+    margin: 0 auto;
+    width: 400px;
+}
+
+/*PRIMEFACES CSS - http://www.primefaces.org/showcase-labs/css/default.css*/
+.title {
+	height: 30px;
+	margin-left: 10px;
+	padding: 8px 0 0 20px;
+}
+
+.entry {
+	padding: 0 20px;
+}
+
+.tblDatosGrafica td {
+    vertical-align: top;
+}
+
+.tblTestRow1, .tblTestRow1 tr, .tblTestRow1 th, .tblTestRow1 td {
+    border: none; }

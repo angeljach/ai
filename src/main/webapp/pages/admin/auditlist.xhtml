@@ -1,0 +1,155 @@
+<ui:composition template="/resources/templates/headandcenter.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <h:form id="frmListAudits">
+
+            <p:growl id="growlMessage" showDetail="true" life="5000" />
+
+            <!-- Tabla con datos generales del Usuario -->
+
+            <p:dataTable id="tblAudits" var="item" value="#{audit.items}"
+                         paginator="true" rows="10" 
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="10,20,30,40,50">
+
+                <p:column>
+                    <f:facet name="header">Compañía</f:facet>
+                    <h:outputText value="#{item.toCompanyDepartments.toCompanies.shortName}" />
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">Departamento</f:facet>
+                    <h:outputText value="#{item.toCompanyDepartments.department}" />
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">Auditoría</f:facet>
+                    <h:outputText value="#{item.auditName}" />
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">Tipo</f:facet>
+                    <h:outputText value="#{item.toAuditTypes.name}" />
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">Estado</f:facet>
+                    <h:outputText value="#{item.toAuditStatus.name}" />
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">Equipo Auditoría</f:facet>
+                    <h:outputText value="#{item.toAuditorTeams.teamName}" />
+                </p:column>
+                                
+                <p:column>
+                    <f:facet name="header">Horas</f:facet>
+                    <h:outputText value="#{item.spentHours}" />
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">F_Plan_I</f:facet>
+                    <h:outputText value="#{item.planningStartDate}" title="Fecha de Inicio de Planeación" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">F_Obs_F</f:facet>
+                    <h:outputText value="#{item.recommendationEndDate}" title="Fecha de Fin de Observaciones" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                </p:column>
+                
+                <p:column style="text-align: center;">
+                    <f:facet name="header">------Acciones------</f:facet>
+                    <p:commandButton icon="ui-icon-search" title="Ver"
+                                     update="frmListAudits:displayAudit"
+                                     oncomplete="auditDialog.show()">  
+                        <f:setPropertyActionListener value="#{item}" target="#{audit.current}" />  
+                    </p:commandButton>
+                    <p:commandButton action="auditnew.xhtml?faces-redirect=true" 
+                                     icon="ui-icon-pencil" title="Modificar">
+                        <f:setPropertyActionListener value="#{item}" target="#{audit.current}" />
+                        <f:setPropertyActionListener value="TRUE" 
+                                                     target="#{audit.edit}" />
+                    </p:commandButton>
+                    <p:commandButton icon="ui-icon-closethick" title="Eliminar"
+                                     oncomplete="deleteDialog.show()">
+                        <f:setPropertyActionListener value="#{item}" 
+                                                     target="#{audit.current}" />
+                    </p:commandButton>
+                </p:column>
+
+                <f:facet name="footer">
+                    <p:commandButton action="#{audit.prepareCreate()}"
+                                     ajax="false" value="Nuevo" />
+                </f:facet>
+
+            </p:dataTable>
+
+
+            <p:confirmDialog message="Estas seguro de querer eliminar el registro seleccionado" 
+                             header="Confirmación" severity="alert" widgetVar="deleteDialog">
+
+                <p:commandButton value="Si" update="frmListAudits:tblAudits"
+                                 actionListener="#{audit.destroy()}" 
+                                 oncomplete="deleteDialog.hide()" />
+                <p:commandButton value="No" onclick="deleteDialog.hide()" type="button" />
+
+            </p:confirmDialog>
+
+
+            <p:dialog header="Detalle Adicional" widgetVar="auditDialog"
+                      resizable="false" id="auditorTeamDlg"
+                      showEffect="fade" hideEffect="explode" modal="true">
+                
+                <h:panelGrid id="displayAudit" columns="2" cellpadding="4" 
+                             style="margin:0 auto;font-weight:bold;">
+
+                    <h:outputText value="Objetivo: " />
+                    <h:outputText value="#{audit.current.objective}"/>
+
+                    <h:outputText value="Alcance: " />
+                    <h:outputText value="#{audit.current.auditScope}"/>
+
+                    <h:outputText value="F_Plan_I: " title="Fecha de Inicio de Planeación" />
+                    <h:outputText value="#{audit.current.planningStartDate}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+
+                    <h:outputText value="F_Plan_F: " title="Fecha de Fin de Planeación"/>
+                    <h:outputText value="#{audit.current.planningEndDate}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+
+                    <h:outputText value="F_FW_I: " title="Fecha de Inicio de Trabajo de Campo"/>
+                    <h:outputText value="#{audit.current.fieldworkStartDate}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+
+                    <h:outputText value="F_FW_F: " title="Fecha de Fin de Trabajo de Campo"/>
+                    <h:outputText value="#{audit.current.fieldworkEndDate}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                    
+                    <h:outputText value="F_Obs_I: " title="Fecha de Inicio de Observaciones"/>
+                    <h:outputText value="#{audit.current.recommendationStartDate}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+
+                    <h:outputText value="F_Obs_F: " title="Fecha de Fin de Observaciones"/>
+                    <h:outputText value="#{audit.current.recommendationEndDate}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                    
+                </h:panelGrid>
+
+            </p:dialog>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

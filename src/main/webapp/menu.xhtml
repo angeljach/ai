@@ -1,0 +1,35 @@
+<ui:composition template="/resources/templates/headandcenter.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">
+        <h:form id="menu">
+            <h:panelGrid columns="1">
+                <h:outputLabel value="." style="color: white;" />
+                
+                <h1 class="title ui-widget-header ui-corner-all">Bienvenido a la nueva Herramienta de Consejeros</h1>
+                
+                <div class="entry" style="line-height:200%">
+                    <h3>Has iniciado sesión con las siguientes credenciales:</h3>
+                    <h:panelGrid columns="2" styleClass="centered">
+                        <h:outputLabel value="Usuario: " />
+                        <h:outputText value="#{login.userName}" />
+                        
+                        <h:outputLabel value="Nombre: " />
+                        <h:outputText value="#{login.displayName}" />
+                        
+                        <h:outputLabel value="Rol: " />
+                        <h:outputText value="#{login.role}" />
+                        
+                        <h:outputLabel value="Tipo: " />
+                        <h:outputText value="#{login.auditor ? 'Auditor' : 'Usuario'}
+                                      #{login.local ? 'Local' : ''}" />
+                        
+                        <h:outputLabel value="Ambiente: " />
+                        <h:outputText value="#{login.environment}" />
+                    </h:panelGrid>
+                </div> 
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="/images/bmv.ico" rel="shortcut icon" type="text/css" />
+        <title><ui:insert name="title">AI</ui:insert></title>
+    </h:head>
+
+    <h:body>
+        <f:view contentType="text/html">
+
+            <h:outputStylesheet name="css/default.css" />
+            <h:outputStylesheet name="css/cssLayout.css" />
+
+            <h:form>
+                <h:panelGrid id="headerGrid" columns="2" width="100%" cellpadding="0" cellspacing="0"
+                             columnClasses="headerInfoCol1,headerInfoCol2">
+
+                    <h:panelGroup id="headerGridText">
+                        <h:panelGrid id="headerPanelText" columns="1">
+                            <h:outputLabel id="lblHeaderTitle" styleClass="headerInfoTitle">
+                                <ui:insert name="title">AI</ui:insert>
+                            </h:outputLabel>
+                            <h:outputLabel id="lblHeaderCompany" styleClass="headerInfoArea"
+                                           value="Auditoria Interna" />
+                        </h:panelGrid>
+                    </h:panelGroup>
+                    <h:graphicImage id="imgLogo" alt="Bolsa Mexicana de Valores" value="/images/bmv.jpg" />
+                    <!--f:facet name="footer">
+                        <h:graphicImage id="imgLineaLogo" alt="" value="/images/linea_boton.gif"
+                                        style="width: 100%; height: 20px" />
+                    </f:facet-->
+
+                </h:panelGrid>
+
+                <h:panelGrid columns="1">
+
+                    <h:panelGroup>
+                        <p:menubar>
+                            <p:submenu label="Mi Cuenta">
+                                <p:menuitem value="Inicio" url="/faces/menu.xhtml" />
+                                <p:menuitem value="Salir" action="#{login.logOut()}" ajax="false"/>
+                            </p:submenu>
+
+                            <p:submenu label="Administración">
+                                <p:menuitem value="Auditorías" url="/faces/pages/admin/auditlist.xhtml" 
+                                    rendered="#{login.role == 'administrador' or login.auditor}"/>
+                                <p:menuitem value="Usuarios" url="#" />
+                                <p:menuitem value="Equipo Auditores" url="/faces/pages/admin/auditorteamlist.xhtml" 
+                                    rendered="#{login.role == 'administrador'}"/>
+                                <p:menuitem value="Compañías" url="#" />
+                                <p:submenu label="Movimientos">
+                                    <p:submenu label="Usuarios">
+                                        <p:menuitem value="Por Fecha" url="/faces/pages/admin/movementsfromdate.xhtml" />
+                                        <p:menuitem value="Totales" url="/faces/pages/admin/movements.xhtml" />
+                                    </p:submenu>
+                                    <p:submenu label="Auditores">
+                                        <p:menuitem value="Por Fecha" url="/faces/pages/admin/movementsfromdate.xhtml" />
+                                        <p:menuitem value="Totales" url="/faces/pages/admin/movements.xhtml" />
+                                    </p:submenu>
+                                </p:submenu>
+                            </p:submenu>
+
+                            <p:submenu label="Reportes">
+                                <p:menuitem value="Test" url="#" />
+                            </p:submenu>
+
+                            <p:submenu label="Ayuda">
+                                <p:menuitem value="Acerca de..." url="/faces/pages/about.xhtml" />
+                            </p:submenu>
+
+                        </p:menubar>                        
+                    </h:panelGroup>
+                </h:panelGrid>
+            </h:form>
+
+            <div>
+                <div id="content" class="center_content">
+                    <ui:insert name="content">Content</ui:insert>
+                </div>
+            </div>
+
+        </f:view>
+    </h:body>
+</html>
