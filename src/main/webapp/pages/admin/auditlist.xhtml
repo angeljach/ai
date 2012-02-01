@@ -64,7 +64,15 @@
                     </h:outputText>
                 </p:column>
                 
-                <p:column style="text-align: center;">
+                <p:column style="text-align: center;" >
+                    <f:facet name="header">Auditoría</f:facet>
+                    <p:commandButton action="audit.xhtml?faces-redirect=true" 
+                                     icon="ui-icon-home" title="General">
+                        <f:setPropertyActionListener value="#{item}" target="#{audit.current}" />
+                    </p:commandButton>
+                </p:column>
+                    
+                <p:column style="text-align: center;" >
                     <f:facet name="header">------Acciones------</f:facet>
                     <p:commandButton icon="ui-icon-search" title="Ver"
                                      update="frmListAudits:displayAudit"

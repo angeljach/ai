@@ -5,11 +5,18 @@ import com.bmv.auditoria.ai.db.AiDbUtil;
 import com.bmv.auditoria.ai.log.MovementsFromAuditor;
 import com.bmv.auditoria.ai.log.MovementsFromUser;
 import com.bmv.auditoria.ai.login.InfoUsuario;
+import com.bmv.auditoria.ai.persistent.AuditCloseReport;
+import com.bmv.auditoria.ai.persistent.AuditDocuments;
+import com.bmv.auditoria.ai.persistent.AuditInitialReport;
+import com.bmv.auditoria.ai.persistent.AuditJobs;
 import com.bmv.auditoria.ai.persistent.AuditStatus;
 import com.bmv.auditoria.ai.persistent.AuditTypes;
 import com.bmv.auditoria.ai.persistent.AuditorTeams;
 import com.bmv.auditoria.ai.persistent.Audits;
 import com.bmv.auditoria.ai.persistent.CompanyDepartments;
+import com.bmv.auditoria.ai.persistent.Observations;
+import com.bmv.auditoria.ai.persistent.RequirementsInformation;
+import com.bmv.auditoria.ai.persistent.Subprocesses;
 import com.jach.jachtoolkit.log.Movements;
 import com.jach.jachtoolkit.persistence.Crud;
 import java.util.List;
@@ -19,6 +26,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import javax.resource.NotSupportedException;
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.access.DataContext;
 import org.apache.log4j.Logger;
@@ -269,5 +277,33 @@ public class AuditBean implements Crud {
     public void setSelectedAuditorTeamName(String selectedAuditorTeamName) {
         this.selectedAuditorTeamName = selectedAuditorTeamName;
     }
-
+    
+    public List<AuditDocuments> getDocumentsFromAudit() {
+        return this.aiDbUtil.getDocumentsFromAudit(current);
+    }
+    
+    public List<RequirementsInformation> getRequirementsInformationFromAudit() {
+        return this.aiDbUtil.getRequirementsInformationFromAudit(current);
+    }
+    
+    public List<Observations> getObservationsFromAudit() {
+        return this.aiDbUtil.getObservationsFromAudit(current);
+    }
+    
+    public List<AuditJobs> getJobsFromAudit() {
+        return this.aiDbUtil.getJobsFromAudit(current);
+    }
+    
+    public List<Subprocesses> getSubprocessesFromAudit() {
+        return this.aiDbUtil.getSubprocessesFromAudit(current);
+    }
+    
+    public AuditInitialReport getInitialReportFromAudit() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    public AuditCloseReport getCloseReportFromAudit() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
 }

@@ -222,4 +222,13 @@ img.img20x20 {
 }
 
 .tblTestRow1, .tblTestRow1 tr, .tblTestRow1 th, .tblTestRow1 td {
-    border: none; }
+    border: none;
+}
+
+.tblTopVerticalAlign td {
+    vertical-align: top;
+}
+
+.tbl50 {
+    width: 50%;
+}

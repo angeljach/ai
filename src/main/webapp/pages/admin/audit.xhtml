@@ -1,0 +1,328 @@
+<ui:composition template="/resources/templates/headandcenter.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <h:form id="frmAudit">
+
+            <!--p:messages /-->
+            <p:growl id="growlMessage" showDetail="true" life="5000" />
+
+            <fieldset class="demo_fieldset">
+                <legend class="demo_legend">Información General de la Auditoría</legend>
+                <div class="sample-container">
+                    <h:panelGrid columns="4" width="100%" columnClasses="labelGrid4, fieldGrid4, labelGrid4, fieldGrid4" >
+
+                        <h:outputLabel value="Nombre: " style="font-weight: bold;" />
+                        <h:outputText value="#{audit.selected.auditName}" />
+                        <h:outputLabel value="Departamento: " style="font-weight: bold;" />
+                        <h:outputText value="#{audit.selected.toCompanyDepartments.department}" />
+                        
+                        <h:outputLabel value="Tipo: " style="font-weight: bold;" />
+                        <h:outputText value="#{audit.selected.toAuditTypes.name}" />
+                        <h:outputLabel value="Compañía: " style="font-weight: bold;" />
+                        <h:outputText value="#{audit.selected.toCompanyDepartments.toCompanies.shortName}" />
+
+                        <h:outputLabel value="Status: " style="font-weight: bold;" />
+                        <h:outputText value="#{audit.selected.toAuditStatus.name}" />
+                        <h:outputLabel value="Equipo: " style="font-weight: bold;" />
+                        <h:outputText value="#{audit.selected.toAuditorTeams.teamName}" />
+                        
+                        <h:outputLabel value="Objetivo: " style="font-weight: bold;"/>
+                        <p:inputTextarea value="#{audit.selected.objective}"
+                                         style="width:220px;height:60px;"
+                                         disabled="true" />
+                        <h:outputLabel value="Alcance: " style="font-weight: bold;"/>
+                        <p:inputTextarea value="#{audit.selected.auditScope}"
+                                         style="width:220px;height:60px;"
+                                         disabled="true" />
+                        
+                        <h:outputLabel value="F. Inicio Plan: " style="font-weight: bold;"/>
+                        <h:outputText value="#{audit.selected.planningStartDate}" >
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                        <h:outputLabel value="F. Fin Plan: " style="font-weight: bold;"/>
+                        <h:outputText value="#{audit.selected.planningEndDate}" >
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                        
+                        <h:outputLabel value="F. Inicio Revisión: " style="font-weight: bold;"/>
+                        <h:outputText value="#{audit.selected.fieldworkStartDate}" >
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                        <h:outputLabel value="F. Fin Revisión: " style="font-weight: bold;"/>
+                        <h:outputText value="#{audit.selected.fieldworkEndDate}" >
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                        
+                        <h:outputLabel value="F. Inicio Obs.: " style="font-weight: bold;"/>
+                        <h:outputText value="#{audit.selected.recommendationStartDate}" >
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                        <h:outputLabel value="F. Fin Obs.: " style="font-weight: bold;"/>
+                        <h:outputText value="#{audit.selected.recommendationEndDate}" >
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                        
+                        <h:outputLabel value="Horas Gastadas: " style="font-weight: bold;" />
+                        <h:outputText value="#{audit.selected.spentHours}" />
+                        <h:outputLabel value="" />
+                        <h:outputLabel value="" />
+                        
+                    </h:panelGrid>
+
+                </div>
+            </fieldset>
+
+            <fieldset class="demo_fieldset">
+                <legend class="demo_legend">Cartas</legend>
+                <div class="sample-container">
+                    <h:panelGrid columns="4" width="100%" columnClasses="labelGrid4, fieldGrid4, labelGrid4, fieldGrid4" >
+                        <h:outputLabel value="Carta de Inicio" />
+                        <h:outputLabel value="Carta de Inicio" />
+                        <h:outputLabel value="Carta de Cierre" />
+                        <h:outputLabel value="Carta de Cierre" />
+                    </h:panelGrid>
+
+                </div>
+            </fieldset>
+            
+            
+            
+            <p:spacer width="100" height="20" />
+            
+            
+            
+            <h:panelGrid columns="2" styleClass="tblTopVerticalAlign" columnClasses="tbl50,tbl50">
+                
+                <h:panelGroup>
+                    <p:dataTable id="tblDocFromAudit" var="itemDoc" value="#{audit.documentsFromAudit}"
+                                 paginator="true" rows="5" 
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+                        <f:facet name="header">
+                            <h:outputText value="ARCHIVOS ADJUNTOS" />
+                        </f:facet>
+
+                        <p:column>
+                            <f:facet name="header">Autor</f:facet>
+                            <h:outputText value="#{itemDoc.toAuditors.auditorName}" />
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">Archivo</f:facet>
+                            <h:outputText value="#{itemDoc.pathFile}" />
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">Descripción</f:facet>
+                            <h:outputText value="#{itemDoc.description}" />
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">F. Modif.</f:facet>
+                            <h:outputText value="#{itemDoc.updateDate}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">Tamaño</f:facet>
+                            <h:outputText value="#{itemDoc.bitsSize}" />
+                        </p:column>
+
+                        <!--f:facet name="footer">
+                            <p:commandButton action="# {audit.addNewFile()}"
+                                             ajax="false" value="Nuevo" />
+                        </f:facet-->
+
+                    </p:dataTable>
+                </h:panelGroup>
+                
+                <h:panelGroup>
+                    <p:dataTable id="tblReqInfFromAudit" var="itemReqInf" value="#{audit.requirementsInformationFromAudit}"
+                                 paginator="true" rows="5" 
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+                        <f:facet name="header">
+                            <h:outputText value="REQUERIMIENTO DE INFORMACION" />
+                        </f:facet>
+
+                        <p:column>
+                            <f:facet name="header">Nombre</f:facet>
+                            <h:outputText value="#{itemReqInf.name}" />
+                        </p:column>
+
+                        <!--p:column>
+                            <f:facet name="header">Descripción</f:facet>
+                            <h:outputText value="# {itemReqInf.description}" />
+                        </p:column-->
+
+                        <!--p:column>
+                            <f:facet name="header">F. Sol.</f:facet>
+                            <h:outputText value="# {itemReqInf.dateRequest}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column-->
+
+                        <!--p:column>
+                            <f:facet name="header">F. Entrega</f:facet>
+                            <h:outputText value="# {itemReqInf.dateDelivery}" >
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </h:outputText>
+                        </p:column-->
+
+                        <!--p:column>
+                            <f:facet name="header">Usuario</f:facet>
+                            <h:outputText value="# {itemReqInf.toUsers.userName}" />
+                        </p:column-->
+
+                        <!--p:column>
+                            <f:facet name="header">Auditor</f:facet>
+                            <h:outputText value="# {itemReqInf.toAuditors.auditorName}" />
+                        </p:column-->
+
+                        <p:column>
+                            <f:facet name="header">Estado</f:facet>
+                            <h:outputText value="#{itemReqInf.toRequirementStatus.name}" />
+                        </p:column>
+
+                    </p:dataTable>
+                </h:panelGroup>
+                
+            </h:panelGrid>
+            
+            
+            
+            <p:spacer width="100" height="20" />
+            
+            
+            
+            <p:dataTable id="tblObsFromAudit" var="itemObs" value="#{audit.observationsFromAudit}"
+                         paginator="true" rows="5" 
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                
+                <f:facet name="header">
+                    <h:outputText value="OBSERVACIONES" />
+                </f:facet>
+                
+                <p:column>
+                    <f:facet name="header">Nombre</f:facet>
+                    <h:outputText value="#{itemObs.observation}" />
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">Descripción</f:facet>
+                    <h:outputText value="#{itemObs.description}" />
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">Recomendación</f:facet>
+                    <h:outputText value="#{itemObs.recommendation}" />
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">F. Creac.</f:facet>
+                    <h:outputText value="#{itemObs.creationDate}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">F. Sol.</f:facet>
+                    <h:outputText value="#{itemObs.solutionDate}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">Hallazgo</f:facet>
+                    <h:outputText value="#{itemObs.toObsFindings.name}" />
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">Impacto</f:facet>
+                    <h:outputText value="#{itemObs.toObsImpacts.name}" />
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">Complejidad</f:facet>
+                    <h:outputText value="#{itemObs.toObsComplexities.name}" />
+                </p:column>
+                
+            </p:dataTable>
+            
+            
+            
+            <p:spacer width="100" height="20" />
+            
+            
+            
+            <p:dataTable id="tblJobsFromAudit" var="itemJob" value="#{audit.jobsFromAudit}"
+                         paginator="true" rows="5" 
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                
+                <f:facet name="header">
+                    <h:outputText value="ESFUERZOS" />
+                </f:facet>
+                
+                <p:column>
+                    <f:facet name="header">Fase</f:facet>
+                    <h:outputText value="#{itemJob.toJobStatus.name}" />
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">Esfuerzo</f:facet>
+                    <h:outputText value="#{itemJob.jobName}" />
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">Detalle</f:facet>
+                    <h:outputText value="#{itemJob.jobDetail}" />
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">Auditor</f:facet>
+                    <h:outputText value="#{itemJob.toAuditors.auditorName}" />
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">Estado</f:facet>
+                    <h:outputText value="#{itemJob.toJobStatus.name}" />
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">F. Inicio</f:facet>
+                    <h:outputText value="#{itemJob.dateInit}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">F. Fin</f:facet>
+                    <h:outputText value="#{itemJob.dateEnd}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                </p:column>
+                
+            </p:dataTable>
+            
+            
+            <p:spacer width="100" height="20" />
+            
+            
+            <p:dataTable id="tblSubprocessesFromAudit" var="itemSubp" value="#{audit.subprocessesFromAudit}"
+                         paginator="true" rows="5" 
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                
+                <f:facet name="header">
+                    <h:outputText value="SUBPROCESOS - OBTENER LA LISTA DE RIESGOS" />
+                </f:facet>
+                
+            </p:dataTable>
+            
+            
+        </h:form>
+    </ui:define>
+</ui:composition>
