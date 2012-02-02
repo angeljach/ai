@@ -10,9 +10,17 @@ import org.apache.cayenne.CayenneDataObject;
  */
 public abstract class _InherentRiskLevels extends CayenneDataObject {
 
+    public static final String ICON_PROPERTY = "icon";
     public static final String NAME_PROPERTY = "name";
 
     public static final String ID_INHERENT_RISK_PK_COLUMN = "ID_INHERENT_RISK";
+
+    public void setIcon(String icon) {
+        writeProperty("icon", icon);
+    }
+    public String getIcon() {
+        return (String)readProperty("icon");
+    }
 
     public void setName(String name) {
         writeProperty("name", name);

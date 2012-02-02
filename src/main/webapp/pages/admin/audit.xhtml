@@ -223,6 +223,11 @@
                 </p:column>
                 
                 <p:column>
+                    <f:facet name="header">Estado</f:facet>
+                    <h:outputText value="#{itemObs.toObsStatus.name}" />
+                </p:column>
+                
+                <p:column>
                     <f:facet name="header">F. Creac.</f:facet>
                     <h:outputText value="#{itemObs.creationDate}" >
                         <f:convertDateTime pattern="dd/MM/yyyy" />
@@ -236,19 +241,23 @@
                     </h:outputText>
                 </p:column>
 
-                <p:column>
+                <p:column style="text-align: center;" >
                     <f:facet name="header">Hallazgo</f:facet>
-                    <h:outputText value="#{itemObs.toObsFindings.name}" />
+                    <!--h:outputText value="# {itemObs.toObsFindings.name}" /-->
+                    <h:graphicImage value="/images/#{itemObs.toObsFindings.icon}" 
+                                    styleClass="img16x16" title="#{itemObs.toObsFindings.name}"/>
                 </p:column>
                 
-                <p:column>
+                <p:column style="text-align: center;" >
                     <f:facet name="header">Impacto</f:facet>
-                    <h:outputText value="#{itemObs.toObsImpacts.name}" />
+                    <h:graphicImage value="/images/#{itemObs.toObsImpacts.icon}" 
+                                    styleClass="img16x16" title="#{itemObs.toObsImpacts.name}"/>
                 </p:column>
                 
-                <p:column>
+                <p:column style="text-align: center;" >
                     <f:facet name="header">Complejidad</f:facet>
-                    <h:outputText value="#{itemObs.toObsComplexities.name}" />
+                    <h:graphicImage value="/images/#{itemObs.toObsComplexities.icon}" 
+                                    styleClass="img16x16" title="#{itemObs.toObsComplexities.name}"/>
                 </p:column>
                 
             </p:dataTable>

@@ -134,6 +134,7 @@
 		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
 	<db-entity name="INHERENT_RISK_LEVELS" schema="AI" catalog="TESTDB">
+		<db-attribute name="ICON" type="VARCHAR" length="128"/>
 		<db-attribute name="ID_INHERENT_RISK" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
@@ -179,14 +180,17 @@
 		<db-attribute name="ID_OBS_AUD_COM" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 	</db-entity>
 	<db-entity name="OBS_COMPLEXITIES" schema="AI" catalog="TESTDB">
+		<db-attribute name="ICON" type="VARCHAR" length="128"/>
 		<db-attribute name="ID_COMPLEXITY" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
 	<db-entity name="OBS_FINDINGS" schema="AI" catalog="TESTDB">
+		<db-attribute name="ICON" type="VARCHAR" length="128"/>
 		<db-attribute name="ID_FINDING" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
 	<db-entity name="OBS_IMPACTS" schema="AI" catalog="TESTDB">
+		<db-attribute name="ICON" type="VARCHAR" length="128"/>
 		<db-attribute name="ID_IMPACT" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
@@ -240,6 +244,7 @@
 		<db-attribute name="UPDATE_DATE" type="TIMESTAMP" isMandatory="true" length="23"/>
 	</db-entity>
 	<db-entity name="RESIDUAL_RISK_LEVELS" schema="AI" catalog="TESTDB">
+		<db-attribute name="ICON" type="VARCHAR" length="128"/>
 		<db-attribute name="ID_RESIDUAL_RISK" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
@@ -360,6 +365,7 @@
 		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
 	</obj-entity>
 	<obj-entity name="InherentRiskLevels" className="com.bmv.auditoria.ai.persistent.InherentRiskLevels" dbEntityName="INHERENT_RISK_LEVELS">
+		<obj-attribute name="icon" type="java.lang.String" db-attribute-path="ICON"/>
 		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
 	</obj-entity>
 	<obj-entity name="JobStatus" className="com.bmv.auditoria.ai.persistent.JobStatus" dbEntityName="JOB_STATUS">
@@ -381,12 +387,15 @@
 		<obj-attribute name="commentDate" type="java.util.Date" db-attribute-path="COMMENT_DATE"/>
 	</obj-entity>
 	<obj-entity name="ObsComplexities" className="com.bmv.auditoria.ai.persistent.ObsComplexities" dbEntityName="OBS_COMPLEXITIES">
+		<obj-attribute name="icon" type="java.lang.String" db-attribute-path="ICON"/>
 		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
 	</obj-entity>
 	<obj-entity name="ObsFindings" className="com.bmv.auditoria.ai.persistent.ObsFindings" dbEntityName="OBS_FINDINGS">
+		<obj-attribute name="icon" type="java.lang.String" db-attribute-path="ICON"/>
 		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
 	</obj-entity>
 	<obj-entity name="ObsImpacts" className="com.bmv.auditoria.ai.persistent.ObsImpacts" dbEntityName="OBS_IMPACTS">
+		<obj-attribute name="icon" type="java.lang.String" db-attribute-path="ICON"/>
 		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
 	</obj-entity>
 	<obj-entity name="ObsStatus" className="com.bmv.auditoria.ai.persistent.ObsStatus" dbEntityName="OBS_STATUS">
@@ -429,6 +438,7 @@
 		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
 	</obj-entity>
 	<obj-entity name="ResidualRiskLevels" className="com.bmv.auditoria.ai.persistent.ResidualRiskLevels" dbEntityName="RESIDUAL_RISK_LEVELS">
+		<obj-attribute name="icon" type="java.lang.String" db-attribute-path="ICON"/>
 		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
 	</obj-entity>
 	<obj-entity name="RiskImpacts" className="com.bmv.auditoria.ai.persistent.RiskImpacts" dbEntityName="RISK_IMPACTS">

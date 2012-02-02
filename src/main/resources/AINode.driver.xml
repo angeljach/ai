@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<driver project-version="3.0.0.1" class="com.microsoft.sqlserver.jdbc.SQLServerDriver">
-	<url value="jdbc:sqlserver://BMVKIANRIESGOS;databaseName=AuditoriaInterna"/>
+<driver project-version="3.0.0.1" class="org.h2.Driver">
+	<url value="jdbc:h2:tcp://localhost:9192//home/jach/Documents/trabajo/bd/data/testdb"/>
 	<connectionPool min="1" max="1"/>
-	<login userName="ai" password="4ud1t0_iA"/>
+	<login userName="sa" password="sa"/>
 </driver>
