@@ -137,8 +137,11 @@
                             <p:commandButton icon="ui-icon-search" title="Ver">
                                 
                             </p:commandButton>
-                            <p:commandButton icon="ui-icon-pencil" title="Modificar">
-                                
+                            <p:commandButton action="auditfilenew.xhtml?faces-redirect=true" 
+                                icon="ui-icon-pencil" title="Modificar">
+                                <f:setPropertyActionListener value="#{itemDoc}" target="#{auditFile.current}" />
+                                <f:setPropertyActionListener value="TRUE" 
+                                                             target="#{auditFile.edit}" />
                             </p:commandButton>
                             <p:commandButton icon="ui-icon-closethick" title="Eliminar">
                                 
@@ -147,11 +150,11 @@
 
                         <f:facet name="footer">
                             <!-- Solo lo pueden ver auditores -->
-                            <p:commandButton action="#{audit.auditFile.prepareCreate()}"
+                            <p:commandButton action="#{auditFile.prepareCreate()}"
                                              ajax="false" value="Nuevo Archivo" 
                                              rendered="#{login.auditor}">
-                                <f:setPropertyActionListener value="#{audit.current}" 
-                                                             target="#{audit.auditFile.audit}" />
+                                <f:setPropertyActionListener value="#{audit.selected}" 
+                                                             target="#{auditFile.audit}" />
                             </p:commandButton>
                         </f:facet>
 

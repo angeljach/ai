@@ -1,5 +1,6 @@
 package com.bmv.auditoria.ai.bean;
 
+import com.bmv.auditoria.ai.controller.AuditFileController;
 import com.bmv.auditoria.ai.db.AiDbUtil;
 import com.bmv.auditoria.ai.log.MovementsFromAuditor;
 import com.bmv.auditoria.ai.log.MovementsFromUser;
@@ -9,8 +10,10 @@ import com.bmv.auditoria.ai.persistent.Audits;
 import com.jach.jachtoolkit.log.Movements;
 import com.jach.jachtoolkit.persistence.Crud;
 import java.io.Serializable;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import org.apache.log4j.Logger;
@@ -44,7 +47,7 @@ public class AuditFileBean implements Crud, Serializable{
     private boolean edit;
     
     private static final String NEW_PAGE = "auditfilenew";
-    private static final String LIST_PAGE = "auditfilelist";
+    private static final String LIST_PAGE = "audit";
     private static final String EDIT_PAGE = "auditfilenew";
 
     public AuditFileBean() {
@@ -82,17 +85,41 @@ public class AuditFileBean implements Crud, Serializable{
     
     @Override
     public String prepareEdit() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Implementación no necesaria.");
     }
 
     @Override
     public String update() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        FacesContext notifyCntx = FacesContext.getCurrentInstance();
+        try {
+            AuditFileController.update(current, mov);
+            edit = false;
+            notifyCntx.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_INFO, "Modificación exitosa", 
+                    "La Auditoría fue modificada de manera exitosa"));
+            return LIST_PAGE;
+        } catch(Exception ex) {
+            notifyCntx.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Problema", ex.getMessage()));
+            return null;
+        }
     }
 
     @Override
     public String cancelUpdate() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        FacesContext notifyCntx = FacesContext.getCurrentInstance();
+        try {
+            AuditFileController.cancelUpdate(current);
+            edit = false;
+            notifyCntx.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_INFO, "Cancelación exitosa", 
+                    "La modificación de la Auditoría ha sido cancelada"));
+            return LIST_PAGE;
+        } catch(Exception ex) {
+            notifyCntx.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Problema", ex.getMessage()));
+            return null;
+        }
     }
 
     @Override
