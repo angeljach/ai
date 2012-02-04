@@ -30,7 +30,7 @@ public abstract class _RequirementsInformation extends CayenneDataObject {
     public static final String TO_REQUIREMENT_STATUS_PROPERTY = "toRequirementStatus";
     public static final String TO_USERS_PROPERTY = "toUsers";
 
-    public static final String ID_REQ_INFO_PK_COLUMN = "ID_REQ_INFO";
+    public static final String ID_REQ_INFO_PK_COLUMN = "id_req_info";
 
     public void setDateDelivery(Date dateDelivery) {
         writeProperty("dateDelivery", dateDelivery);

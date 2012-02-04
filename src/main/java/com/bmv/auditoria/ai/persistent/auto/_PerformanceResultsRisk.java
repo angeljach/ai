@@ -12,7 +12,7 @@ public abstract class _PerformanceResultsRisk extends CayenneDataObject {
 
     public static final String NAME_PROPERTY = "name";
 
-    public static final String ID_PERFORMANCE_RESULT_PK_COLUMN = "ID_PERFORMANCE_RESULT";
+    public static final String ID_PERFORMANCE_RESULT_PK_COLUMN = "id_performance_result";
 
     public void setName(String name) {
         writeProperty("name", name);

@@ -12,7 +12,7 @@ public abstract class _ControlMethodsRisk extends CayenneDataObject {
 
     public static final String NAME_PROPERTY = "name";
 
-    public static final String ID_CONTROL_METHOD_PK_COLUMN = "ID_CONTROL_METHOD";
+    public static final String ID_CONTROL_METHOD_PK_COLUMN = "id_control_method";
 
     public void setName(String name) {
         writeProperty("name", name);

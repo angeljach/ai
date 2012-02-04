@@ -22,7 +22,7 @@ public abstract class _AuditDocuments extends CayenneDataObject {
     public static final String TO_AUDITORS_PROPERTY = "toAuditors";
     public static final String TO_AUDITS_PROPERTY = "toAudits";
 
-    public static final String ID_DOC_PK_COLUMN = "ID_DOC";
+    public static final String ID_DOC_PK_COLUMN = "id_doc";
 
     public void setBitsSize(Long bitsSize) {
         writeProperty("bitsSize", bitsSize);

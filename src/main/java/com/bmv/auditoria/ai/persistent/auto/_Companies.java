@@ -20,7 +20,7 @@ public abstract class _Companies extends CayenneDataObject {
     public static final String SHORT_NAME_PROPERTY = "shortName";
     public static final String COMPANY_DEPARTMENTS_ARRAY_PROPERTY = "companyDepartmentsArray";
 
-    public static final String ID_COMPANY_PK_COLUMN = "ID_COMPANY";
+    public static final String ID_COMPANY_PK_COLUMN = "id_company";
 
     public void setCompleteName(String completeName) {
         writeProperty("completeName", completeName);

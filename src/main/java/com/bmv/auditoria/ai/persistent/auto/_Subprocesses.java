@@ -16,7 +16,7 @@ public abstract class _Subprocesses extends CayenneDataObject {
     public static final String SUBPROCESS_NAME_PROPERTY = "subprocessName";
     public static final String TO_AUDITS_PROPERTY = "toAudits";
 
-    public static final String ID_SUBPROCESS_PK_COLUMN = "ID_SUBPROCESS";
+    public static final String ID_SUBPROCESS_PK_COLUMN = "id_subprocess";
 
     public void setSubprocessDescription(String subprocessDescription) {
         writeProperty("subprocessDescription", subprocessDescription);

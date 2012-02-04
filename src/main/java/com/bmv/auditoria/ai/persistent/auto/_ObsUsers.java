@@ -17,7 +17,7 @@ public abstract class _ObsUsers extends CayenneDataObject {
     public static final String TO_OBSERVATIONS_PROPERTY = "toObservations";
     public static final String TO_USERS_PROPERTY = "toUsers";
 
-    public static final String ID_OBS_USERS_PK_COLUMN = "ID_OBS_USERS";
+    public static final String ID_OBS_USERS_PK_COLUMN = "id_obs_users";
 
     public void setCanEdit(Boolean canEdit) {
         writeProperty("canEdit", canEdit);

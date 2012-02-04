@@ -13,7 +13,7 @@ public abstract class _InherentRiskLevels extends CayenneDataObject {
     public static final String ICON_PROPERTY = "icon";
     public static final String NAME_PROPERTY = "name";
 
-    public static final String ID_INHERENT_RISK_PK_COLUMN = "ID_INHERENT_RISK";
+    public static final String ID_INHERENT_RISK_PK_COLUMN = "id_inherent_risk";
 
     public void setIcon(String icon) {
         writeProperty("icon", icon);

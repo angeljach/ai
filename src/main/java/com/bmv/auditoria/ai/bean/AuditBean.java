@@ -1,24 +1,20 @@
 package com.bmv.auditoria.ai.bean;
 
-import com.bmv.auditoria.ai.db.AiDbObjectFromString;
+import com.bmv.auditoria.ai.controller.AuditController;
 import com.bmv.auditoria.ai.db.AiDbUtil;
 import com.bmv.auditoria.ai.log.MovementsFromAuditor;
 import com.bmv.auditoria.ai.log.MovementsFromUser;
 import com.bmv.auditoria.ai.login.InfoUsuario;
 import com.bmv.auditoria.ai.persistent.AuditCloseReport;
-import com.bmv.auditoria.ai.persistent.AuditDocuments;
 import com.bmv.auditoria.ai.persistent.AuditInitialReport;
 import com.bmv.auditoria.ai.persistent.AuditJobs;
-import com.bmv.auditoria.ai.persistent.AuditStatus;
-import com.bmv.auditoria.ai.persistent.AuditTypes;
-import com.bmv.auditoria.ai.persistent.AuditorTeams;
 import com.bmv.auditoria.ai.persistent.Audits;
-import com.bmv.auditoria.ai.persistent.CompanyDepartments;
 import com.bmv.auditoria.ai.persistent.Observations;
 import com.bmv.auditoria.ai.persistent.RequirementsInformation;
 import com.bmv.auditoria.ai.persistent.Subprocesses;
 import com.jach.jachtoolkit.log.Movements;
 import com.jach.jachtoolkit.persistence.Crud;
+import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -26,9 +22,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
-import javax.resource.NotSupportedException;
-import org.apache.cayenne.ObjectContext;
-import org.apache.cayenne.access.DataContext;
 import org.apache.log4j.Logger;
 
 /**
@@ -40,10 +33,12 @@ import org.apache.log4j.Logger;
  */
 @ManagedBean(name = "audit")
 @SessionScoped
-public class AuditBean implements Crud {
+public class AuditBean implements Crud, Serializable {
     
     private Audits current;
     private DataModel items = new ListDataModel();
+    
+    AuditFileBean auditFile;
     
     private String selectedDepartmentName;    
     private String selectedAuditTypeName;
@@ -63,7 +58,7 @@ public class AuditBean implements Crud {
     private static final String LIST_PAGE = "auditlist";
     //private static final String EDIT_PAGE = "edituser";
     private static final String EDIT_PAGE = "auditnew";
-
+    
     public AuditBean() {
         infoUsr = new InfoUsuario();
         
@@ -72,11 +67,22 @@ public class AuditBean implements Crud {
         
         aiDbUtil = new AiDbUtil();
         current = new Audits();
-        
+                
         edit = false;
+        
+        
+        //
+        //
+        auditFile = new AuditFileBean(current);
     }
     
     public Audits getSelected() {
+//        if (current == null) {
+//            current = new Audits();
+//            
+//            auditFile = new AuditFileBean(current);
+//        }
+//        return current;
         return (current == null) ? (new Audits()) : current;
     }
 
@@ -90,48 +96,36 @@ public class AuditBean implements Crud {
 
     @Override
     public String update() {
-        String tmpAudit = current.getAuditName();
-        String tmpCia = current.getToCompanyDepartments().getToCompanies().getShortName();
-        String tmpDepto = current.getToCompanyDepartments().getDepartment();
-        logger.debug(String.format("Tratando de actualizar la información de la "
-                + "auditoría '%s' del departamento '%s' de la empresa '%s'", tmpAudit, tmpDepto, tmpCia));
+        FacesContext notifyCntx = FacesContext.getCurrentInstance();
         try {
-            (current.getObjectContext()).commitChanges();
-            String tmpMsg = String.format("Modificación de la información de la "
-                + "auditoría '%s' del departamento '%s' de la empresa '%s'", 
-                tmpAudit, tmpDepto, tmpCia);
-            mov.save(tmpMsg);
-            logger.info(tmpMsg);
-        } catch (Exception ex) {
-            logger.error(String.format("Ocurrió un error al tratar de modificar "
-                    + "la información de la auditoría '%s' del departamento "
-                    + "'%s' de la empresa '%s'", tmpAudit, tmpDepto, tmpCia));
-            logger.error(ex.getMessage());
+            AuditController.update(current, mov);
+            edit = false;
+            notifyCntx.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_INFO, "Modificación exitosa", 
+                    "La Auditoría fue modificada de manera exitosa"));
+            return LIST_PAGE;
+        } catch(Exception ex) {
+            notifyCntx.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Problema", ex.getMessage()));
             return null;
         }
-        edit = false;
-        return LIST_PAGE;
     }
 
     @Override
     public String cancelUpdate() {
-        String tmpAudit = current.getAuditName();
-        String tmpCia = current.getToCompanyDepartments().getToCompanies().getShortName();
-        String tmpDepto = current.getToCompanyDepartments().getDepartment();
-        logger.debug(String.format("Cancelando la edición de la auditoría '%s' "
-                + "del departamento '%s' de la empresa '%s'", 
-                tmpAudit, tmpDepto, tmpCia));
+        FacesContext notifyCntx = FacesContext.getCurrentInstance();
         try {
-            current.getObjectContext().rollbackChanges();
-        } catch (Exception e) {
-            logger.error(String.format("Ocurrió un error al tratar de hacer "
-                    + "rollback a los cambios para la modificación de la "
-                    + "auditoría '%s' del departamento '%s' de la empresa '%s'", 
-                    tmpAudit, tmpDepto, tmpCia));
-            logger.error(e.getMessage());
+            AuditController.cancelUpdate(current);
+            edit = false;
+            notifyCntx.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_INFO, "Cancelación exitosa", 
+                    "La modificación de la Auditoría ha sido cancelada"));
+            return LIST_PAGE;
+        } catch(Exception ex) {
+            notifyCntx.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Problema", ex.getMessage()));
+            return null;
         }
-        edit = false;
-        return LIST_PAGE;
     }
 
     @Override
@@ -145,51 +139,19 @@ public class AuditBean implements Crud {
     @Override
     public String create() {
         FacesContext notifyCntx = FacesContext.getCurrentInstance();
-        String tmpAudit = "", tmpCia = "", tmpDepto = "", tmpMsg = "";
-        try {
-            ObjectContext context = DataContext.createDataContext();
-            
-            CompanyDepartments objDep 
-                    = AiDbObjectFromString.getCompanyDepartmentsObjectFromString(context, selectedDepartmentName);
-            AuditTypes objAtypes 
-                    = AiDbObjectFromString.getAuditTypesFromString(context, selectedAuditTypeName);
-            AuditStatus objAstatus 
-                    = AiDbObjectFromString.getAuditStatusFromString(context, selectedAuditStatusName);
-            AuditorTeams objAteam 
-                    = AiDbObjectFromString.getAuditorTeamsObjectFromString(context, selectedAuditorTeamName);
-
-            current.setToCompanyDepartments(objDep);
-            current.setToAuditTypes(objAtypes);
-            current.setToAuditStatus(objAstatus);
-            current.setToAuditorTeams(objAteam);            
-            
-            tmpAudit = current.getAuditName();
-            tmpCia = current.getToCompanyDepartments().getToCompanies().getShortName();
-            tmpDepto = current.getToCompanyDepartments().getDepartment();
-            logger.debug(String.format("Tratando de crear la auditoría '%s' "
-                    + "del departamento '%s' de la empresa '%s'", 
-                    tmpAudit, tmpDepto, tmpCia));
-            
-            context.commitChanges();
-
-            tmpMsg = String.format("Creación de la auditoría '%s' "
-                    + "del departamento '%s' de la empresa '%s'", 
-                    tmpAudit, tmpDepto, tmpCia);
-            mov.save(tmpMsg);
-            logger.info(tmpMsg);
+         try {
+            AuditController.create(current, mov, 
+                    selectedDepartmentName, 
+                    selectedAuditTypeName, 
+                    selectedAuditStatusName, 
+                    selectedAuditorTeamName);
             notifyCntx.addMessage(null, new FacesMessage(
-                    FacesMessage.SEVERITY_INFO, "Creación exitosa", tmpMsg));
-
-            //return prepareCreate();
+                    FacesMessage.SEVERITY_INFO, "Creación exitosa", 
+                    "La Auditoría fue creada de manera exitosa"));
             return LIST_PAGE;
-        } catch (Exception ex) {
-            tmpMsg = String.format("Ocurrió un error al tratar de crear la "
-                    + "auditoría '%s' del departamento '%s' de la empresa '%s'", 
-                    tmpAudit, tmpDepto, tmpCia);
-            logger.error(tmpMsg);
-            logger.error(ex.getMessage());
+        } catch(Exception ex) {
             notifyCntx.addMessage(null, new FacesMessage(
-                    FacesMessage.SEVERITY_ERROR, "Problema", tmpMsg));
+                    FacesMessage.SEVERITY_ERROR, "Problema", ex.getMessage()));
             return null;
         }
     }
@@ -211,6 +173,13 @@ public class AuditBean implements Crud {
     }
 
     public void setCurrent(Audits current) {
+        //Defino la 
+        auditFile.setAudit(current);
+        //
+        //
+        //
+        
+        
         this.current = current;
     }
     
@@ -278,9 +247,13 @@ public class AuditBean implements Crud {
         this.selectedAuditorTeamName = selectedAuditorTeamName;
     }
     
-    public List<AuditDocuments> getDocumentsFromAudit() {
-        return this.aiDbUtil.getDocumentsFromAudit(current);
-    }
+    
+    
+    // TODO Lo de aqui abajo debera desaparecer vvvvvvvvv
+//    
+//    public List<AuditDocuments> getDocumentsFromAudit() {
+//        return this.aiDbUtil.getDocumentsFromAudit(current);
+//    }
     
     public List<RequirementsInformation> getRequirementsInformationFromAudit() {
         return this.aiDbUtil.getRequirementsInformationFromAudit(current);
@@ -305,5 +278,15 @@ public class AuditBean implements Crud {
     public AuditCloseReport getCloseReportFromAudit() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    
+    
+    
+    //
+
+    public AuditFileBean getAuditFile() {
+        return auditFile;
+    }
+    
     
 }

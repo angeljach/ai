@@ -8,6 +8,7 @@ import com.bmv.auditoria.ai.persistent.AuditCloseReport;
 import com.bmv.auditoria.ai.persistent.AuditInitialReport;
 import com.bmv.auditoria.ai.persistent.CompanyDepartments;
 import com.bmv.auditoria.ai.persistent.MovementsUser;
+import com.bmv.auditoria.ai.persistent.ObsUserComments;
 import com.bmv.auditoria.ai.persistent.ObsUsers;
 import com.bmv.auditoria.ai.persistent.Observations;
 import com.bmv.auditoria.ai.persistent.RequirementsInformation;
@@ -28,12 +29,13 @@ public abstract class _Users extends CayenneDataObject {
     public static final String AUDIT_INITIAL_REPORT_ARRAY_PROPERTY = "auditInitialReportArray";
     public static final String COMPANY_DEPARTMENTS_ARRAY_PROPERTY = "companyDepartmentsArray";
     public static final String MOVEMENTS_USER_ARRAY_PROPERTY = "movementsUserArray";
+    public static final String OBS_USER_COMMENTS_ARRAY_PROPERTY = "obsUserCommentsArray";
     public static final String OBS_USERS_ARRAY_PROPERTY = "obsUsersArray";
     public static final String OBSERVATIONS_ARRAY_PROPERTY = "observationsArray";
     public static final String REQUIREMENTS_INFORMATION_ARRAY_PROPERTY = "requirementsInformationArray";
     public static final String TO_USER_ROLES_PROPERTY = "toUserRoles";
 
-    public static final String ID_USER_PK_COLUMN = "ID_USER";
+    public static final String ID_USER_PK_COLUMN = "id_user";
 
     public void setIsLocal(Boolean isLocal) {
         writeProperty("isLocal", isLocal);
@@ -101,6 +103,18 @@ public abstract class _Users extends CayenneDataObject {
     @SuppressWarnings("unchecked")
     public List<MovementsUser> getMovementsUserArray() {
         return (List<MovementsUser>)readProperty("movementsUserArray");
+    }
+
+
+    public void addToObsUserCommentsArray(ObsUserComments obj) {
+        addToManyTarget("obsUserCommentsArray", obj, true);
+    }
+    public void removeFromObsUserCommentsArray(ObsUserComments obj) {
+        removeToManyTarget("obsUserCommentsArray", obj, true);
+    }
+    @SuppressWarnings("unchecked")
+    public List<ObsUserComments> getObsUserCommentsArray() {
+        return (List<ObsUserComments>)readProperty("obsUserCommentsArray");
     }
 
 

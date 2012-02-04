@@ -12,7 +12,7 @@ public abstract class _DesignEvaluationsRisk extends CayenneDataObject {
 
     public static final String NAME_PROPERTY = "name";
 
-    public static final String ID_DESIGN_EVALUATION_PK_COLUMN = "ID_DESIGN_EVALUATION";
+    public static final String ID_DESIGN_EVALUATION_PK_COLUMN = "id_design_evaluation";
 
     public void setName(String name) {
         writeProperty("name", name);

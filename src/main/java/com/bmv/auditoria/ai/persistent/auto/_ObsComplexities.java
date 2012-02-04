@@ -18,7 +18,7 @@ public abstract class _ObsComplexities extends CayenneDataObject {
     public static final String NAME_PROPERTY = "name";
     public static final String OBSERVATIONS_ARRAY_PROPERTY = "observationsArray";
 
-    public static final String ID_COMPLEXITY_PK_COLUMN = "ID_COMPLEXITY";
+    public static final String ID_COMPLEXITY_PK_COLUMN = "id_complexity";
 
     public void setIcon(String icon) {
         writeProperty("icon", icon);

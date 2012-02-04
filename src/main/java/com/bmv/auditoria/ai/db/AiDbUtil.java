@@ -4,6 +4,7 @@ import com.bmv.auditoria.ai.persistent.AuditDocuments;
 import com.bmv.auditoria.ai.persistent.AuditJobs;
 import com.bmv.auditoria.ai.persistent.AuditStatus;
 import com.bmv.auditoria.ai.persistent.AuditTypes;
+import com.bmv.auditoria.ai.persistent.AuditorTeamMembers;
 import com.bmv.auditoria.ai.persistent.AuditorTeams;
 import com.bmv.auditoria.ai.persistent.Auditors;
 import com.bmv.auditoria.ai.persistent.Audits;
@@ -98,20 +99,29 @@ public class AiDbUtil implements Serializable {
         if (isAuditor) {
             //---|| Devuelvo aquellas en las cuales sea líder.
             Expression e = ExpressionFactory.matchExp(Auditors.AUDITOR_NAME_PROPERTY, userName);
-            SelectQuery sel = new SelectQuery(Audits.class, e);
+            SelectQuery sel = new SelectQuery(Auditors.class, e);
 
-            Audits objUser = (Audits) DataObjectUtils.objectForQuery(context, sel);
+            Auditors objUser = (Auditors) DataObjectUtils.objectForQuery(context, sel);
 
             if (objUser != null) {
-                //where id_auditor=
+                //donde el auditor sea miembro
+                e = ExpressionFactory.matchDbExp(AuditorTeamMembers.TO_AUDITORS_PROPERTY, objUser);
+
+                sel = new SelectQuery(AuditorTeamMembers.class, e);
+                List<AuditorTeamMembers> atListMemb = (List<AuditorTeamMembers>) context.performQuery(sel);
+
+
+
+                //donde el auditor sea lider o miembro
                 e = ExpressionFactory.matchDbExp(AuditorTeams.TO_AUDITORS_PROPERTY, objUser);
+                e = e.orExp(ExpressionFactory.inDbExp(AuditorTeams.AUDITOR_TEAM_MEMBERS_ARRAY_PROPERTY, atListMemb));
 
                 sel = new SelectQuery(AuditorTeams.class, e);
                 List<AuditorTeams> atList = (List<AuditorTeams>) context.performQuery(sel);
 
 
                 if (!atList.isEmpty()) {
-                    e = ExpressionFactory.matchDbExp(Audits.TO_AUDITOR_TEAMS_PROPERTY, atList);
+                    e = ExpressionFactory.inDbExp(Audits.TO_AUDITOR_TEAMS_PROPERTY, atList);
 
                     sel = new SelectQuery(Audits.class, e);
                     return (List<Audits>) context.performQuery(sel);
@@ -226,4 +236,5 @@ public class AiDbUtil implements Serializable {
 
         return (List<Subprocesses>) audit.getObjectContext().performQuery(sel);
     }
+    
 }

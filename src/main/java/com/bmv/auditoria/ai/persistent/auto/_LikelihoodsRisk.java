@@ -12,7 +12,7 @@ public abstract class _LikelihoodsRisk extends CayenneDataObject {
 
     public static final String NAME_PROPERTY = "name";
 
-    public static final String ID_LIKELIHOOD_PK_COLUMN = "ID_LIKELIHOOD";
+    public static final String ID_LIKELIHOOD_PK_COLUMN = "id_likelihood";
 
     public void setName(String name) {
         writeProperty("name", name);

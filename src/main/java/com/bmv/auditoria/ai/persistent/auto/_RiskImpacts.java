@@ -12,7 +12,7 @@ public abstract class _RiskImpacts extends CayenneDataObject {
 
     public static final String NAME_PROPERTY = "name";
 
-    public static final String ID_IMPACT_PK_COLUMN = "ID_IMPACT";
+    public static final String ID_IMPACT_PK_COLUMN = "id_impact";
 
     public void setName(String name) {
         writeProperty("name", name);

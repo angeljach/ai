@@ -12,7 +12,7 @@ public abstract class _TestingAuditRisk extends CayenneDataObject {
 
     public static final String NAME_PROPERTY = "name";
 
-    public static final String ID_TEST_AUDIT_PK_COLUMN = "ID_TEST_AUDIT";
+    public static final String ID_TEST_AUDIT_PK_COLUMN = "id_test_audit";
 
     public void setName(String name) {
         writeProperty("name", name);

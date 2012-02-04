@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.apache.cayenne.CayenneDataObject;
 
+import com.bmv.auditoria.ai.persistent.Auditors;
 import com.bmv.auditoria.ai.persistent.Observations;
 
 /**
@@ -16,9 +17,10 @@ public abstract class _ObsAuditorComments extends CayenneDataObject {
 
     public static final String COMMENT_PROPERTY = "comment";
     public static final String COMMENT_DATE_PROPERTY = "commentDate";
+    public static final String TO_AUDITORS_PROPERTY = "toAuditors";
     public static final String TO_OBSERVATIONS_PROPERTY = "toObservations";
 
-    public static final String ID_OBS_AUD_COM_PK_COLUMN = "ID_OBS_AUD_COM";
+    public static final String ID_OBS_AUD_COM_PK_COLUMN = "id_obs_aud_com";
 
     public void setComment(String comment) {
         writeProperty("comment", comment);
@@ -33,6 +35,15 @@ public abstract class _ObsAuditorComments extends CayenneDataObject {
     public Date getCommentDate() {
         return (Date)readProperty("commentDate");
     }
+
+    public void setToAuditors(Auditors toAuditors) {
+        setToOneTarget("toAuditors", toAuditors, true);
+    }
+
+    public Auditors getToAuditors() {
+        return (Auditors)readProperty("toAuditors");
+    }
+
 
     public void setToObservations(Observations toObservations) {
         setToOneTarget("toObservations", toObservations, true);

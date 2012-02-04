@@ -12,7 +12,7 @@ public abstract class _FrequenciesRisk extends CayenneDataObject {
 
     public static final String NAME_PROPERTY = "name";
 
-    public static final String ID_FREQUENCY_PK_COLUMN = "ID_FREQUENCY";
+    public static final String ID_FREQUENCY_PK_COLUMN = "id_frequency";
 
     public void setName(String name) {
         writeProperty("name", name);

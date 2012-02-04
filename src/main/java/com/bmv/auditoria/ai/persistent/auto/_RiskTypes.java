@@ -12,7 +12,7 @@ public abstract class _RiskTypes extends CayenneDataObject {
 
     public static final String NAME_PROPERTY = "name";
 
-    public static final String ID_RISK_TYPE_PK_COLUMN = "ID_RISK_TYPE";
+    public static final String ID_RISK_TYPE_PK_COLUMN = "id_risk_type";
 
     public void setName(String name) {
         writeProperty("name", name);

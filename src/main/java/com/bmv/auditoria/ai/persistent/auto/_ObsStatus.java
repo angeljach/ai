@@ -17,7 +17,7 @@ public abstract class _ObsStatus extends CayenneDataObject {
     public static final String NAME_PROPERTY = "name";
     public static final String OBSERVATIONS_ARRAY_PROPERTY = "observationsArray";
 
-    public static final String ID_STATUS_PK_COLUMN = "ID_STATUS";
+    public static final String ID_STATUS_PK_COLUMN = "id_status";
 
     public void setName(String name) {
         writeProperty("name", name);

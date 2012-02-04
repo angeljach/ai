@@ -76,7 +76,7 @@
                     <f:facet name="header">------Acciones------</f:facet>
                     <p:commandButton icon="ui-icon-search" title="Ver"
                                      update="frmListAudits:displayAudit"
-                                     oncomplete="auditDialog.show()">  
+                                     oncomplete="auditDialog.show()">
                         <f:setPropertyActionListener value="#{item}" target="#{audit.current}" />  
                     </p:commandButton>
                     <p:commandButton action="auditnew.xhtml?faces-redirect=true" 

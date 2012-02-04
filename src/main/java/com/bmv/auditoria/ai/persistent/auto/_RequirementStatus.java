@@ -17,7 +17,7 @@ public abstract class _RequirementStatus extends CayenneDataObject {
     public static final String NAME_PROPERTY = "name";
     public static final String REQUIREMENTS_INFORMATION_ARRAY_PROPERTY = "requirementsInformationArray";
 
-    public static final String ID_REQ_STATUS_PK_COLUMN = "ID_REQ_STATUS";
+    public static final String ID_REQ_STATUS_PK_COLUMN = "id_req_status";
 
     public void setName(String name) {
         writeProperty("name", name);

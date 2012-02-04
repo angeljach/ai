@@ -17,7 +17,7 @@ public abstract class _AuditorRoles extends CayenneDataObject {
     public static final String NAME_PROPERTY = "name";
     public static final String AUDITORS_ARRAY_PROPERTY = "auditorsArray";
 
-    public static final String ID_AUDITOR_ROLE_PK_COLUMN = "ID_AUDITOR_ROLE";
+    public static final String ID_AUDITOR_ROLE_PK_COLUMN = "id_auditor_role";
 
     public void setName(String name) {
         writeProperty("name", name);

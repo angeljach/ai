@@ -40,7 +40,7 @@ public abstract class _Observations extends CayenneDataObject {
     public static final String TO_OBS_STATUS_PROPERTY = "toObsStatus";
     public static final String TO_USERS_PROPERTY = "toUsers";
 
-    public static final String ID_OBSERVATION_PK_COLUMN = "ID_OBSERVATION";
+    public static final String ID_OBSERVATION_PK_COLUMN = "id_observation";
 
     public void setCreationDate(Date creationDate) {
         writeProperty("creationDate", creationDate);

@@ -229,6 +229,30 @@ img.img20x20 {
     vertical-align: top;
 }
 
+.tbl02 {
+    width: 2%;
+}
+
+.tbl10 {
+    width: 10%;
+}
+
+.tbl20 {
+    width: 20%;
+}
+
+.tbl30 {
+    width: 30%;
+}
+
+.tbl40 {
+    width: 40%;
+}
+
+.tbl49 {
+    width: 49%;
+}
+
 .tbl50 {
     width: 50%;
 }

@@ -18,7 +18,7 @@ public abstract class _ObsFindings extends CayenneDataObject {
     public static final String NAME_PROPERTY = "name";
     public static final String OBSERVATIONS_ARRAY_PROPERTY = "observationsArray";
 
-    public static final String ID_FINDING_PK_COLUMN = "ID_FINDING";
+    public static final String ID_FINDING_PK_COLUMN = "id_finding";
 
     public void setIcon(String icon) {
         writeProperty("icon", icon);

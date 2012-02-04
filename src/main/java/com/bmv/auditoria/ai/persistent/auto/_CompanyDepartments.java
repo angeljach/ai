@@ -21,7 +21,7 @@ public abstract class _CompanyDepartments extends CayenneDataObject {
     public static final String TO_COMPANIES_PROPERTY = "toCompanies";
     public static final String TO_USERS_PROPERTY = "toUsers";
 
-    public static final String ID_COMPANY_DEPARTMENT_PK_COLUMN = "ID_COMPANY_DEPARTMENT";
+    public static final String ID_COMPANY_DEPARTMENT_PK_COLUMN = "id_company_department";
 
     public void setDepartment(String department) {
         writeProperty("department", department);

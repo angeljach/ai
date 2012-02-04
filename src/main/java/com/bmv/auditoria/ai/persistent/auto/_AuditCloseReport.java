@@ -23,7 +23,7 @@ public abstract class _AuditCloseReport extends CayenneDataObject {
     public static final String TO_AUDITS_PROPERTY = "toAudits";
     public static final String TO_USERS_PROPERTY = "toUsers";
 
-    public static final String ID_CLOSE_REPORT_PK_COLUMN = "ID_CLOSE_REPORT";
+    public static final String ID_CLOSE_REPORT_PK_COLUMN = "id_close_report";
 
     public void setCcpTail(String ccpTail) {
         writeProperty("ccpTail", ccpTail);

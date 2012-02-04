@@ -17,7 +17,7 @@ public abstract class _JobStatus extends CayenneDataObject {
     public static final String NAME_PROPERTY = "name";
     public static final String AUDIT_JOBS_ARRAY_PROPERTY = "auditJobsArray";
 
-    public static final String ID_JOB_STATUS_PK_COLUMN = "ID_JOB_STATUS";
+    public static final String ID_JOB_STATUS_PK_COLUMN = "id_job_status";
 
     public void setName(String name) {
         writeProperty("name", name);

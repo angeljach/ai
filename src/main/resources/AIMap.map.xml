@@ -5,720 +5,734 @@
   project-version="3.0.0.1">
 	<property name="defaultPackage" value="com.bmv.auditoria.ai.persistent"/>
 	<property name="defaultSchema" value="ai"/>
-	<db-entity name="AUDITORS" schema="AI" catalog="TESTDB">
-		<db-attribute name="AUDITOR_NAME" type="VARCHAR" isMandatory="true" length="128"/>
-		<db-attribute name="ID_AUDITOR" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="ID_AUDITOR_ROLE" type="INTEGER" isMandatory="true" length="10"/>
+	<db-entity name="audit_close_report" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="ccp_tail" type="VARCHAR" isMandatory="true" length="2048"/>
+		<db-attribute name="id_audit" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_close_report" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="id_to" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="report_body" type="VARCHAR" isMandatory="true" length="8000"/>
+		<db-attribute name="report_date" type="TIMESTAMP" isMandatory="true" length="23"/>
+		<db-attribute name="subject" type="VARCHAR" isMandatory="true" length="256"/>
+		<db-attribute name="to_job_title" type="VARCHAR" isMandatory="true" length="256"/>
 	</db-entity>
-	<db-entity name="AUDITOR_ROLES" schema="AI" catalog="TESTDB">
-		<db-attribute name="ID_AUDITOR_ROLE" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
+	<db-entity name="audit_documents" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="bits_size" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="description" type="VARCHAR" isMandatory="true" length="2048"/>
+		<db-attribute name="id_audit" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_author" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_doc" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="path_file" type="VARCHAR" isMandatory="true" length="1024"/>
+		<db-attribute name="update_date" type="TIMESTAMP" isMandatory="true" length="23"/>
 	</db-entity>
-	<db-entity name="AUDITOR_TEAMS" schema="AI" catalog="TESTDB">
-		<db-attribute name="ID_AUDITOR_TEAM" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="ID_TEAM_LEADER" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="TEAM_NAME" type="VARCHAR" isMandatory="true" length="128"/>
+	<db-entity name="audit_initial_report" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="ccp_tail" type="VARCHAR" isMandatory="true" length="2048"/>
+		<db-attribute name="id_audit" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_initial_report" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="id_to" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="initial_date" type="TIMESTAMP" isMandatory="true" length="23"/>
+		<db-attribute name="report_body" type="VARCHAR" isMandatory="true" length="8000"/>
+		<db-attribute name="report_date" type="TIMESTAMP" isMandatory="true" length="23"/>
+		<db-attribute name="subject" type="VARCHAR" isMandatory="true" length="256"/>
+		<db-attribute name="to_job_title" type="VARCHAR" isMandatory="true" length="256"/>
 	</db-entity>
-	<db-entity name="AUDITOR_TEAM_MEMBERS" schema="AI" catalog="TESTDB">
-		<db-attribute name="ID_AUDITOR" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_AUDITOR_TEAM" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_AUDITOR_TEAM_MEMBER" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+	<db-entity name="audit_jobs" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="date_end" type="TIMESTAMP" length="23"/>
+		<db-attribute name="date_init" type="TIMESTAMP" length="23"/>
+		<db-attribute name="effort_detail" type="VARCHAR" length="8000"/>
+		<db-attribute name="id_audit" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_audit_job" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="id_audit_phases_type" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_auditor" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_job_status" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="job_detail" type="VARCHAR" isMandatory="true" length="8000"/>
+		<db-attribute name="job_name" type="VARCHAR" isMandatory="true" length="256"/>
 	</db-entity>
-	<db-entity name="AUDITS" schema="AI" catalog="TESTDB">
-		<db-attribute name="AUDIT_NAME" type="VARCHAR" isMandatory="true" length="256"/>
-		<db-attribute name="AUDIT_SCOPE" type="VARCHAR" length="2048"/>
-		<db-attribute name="FIELDWORK_END_DATE" type="TIMESTAMP" length="23"/>
-		<db-attribute name="FIELDWORK_START_DATE" type="TIMESTAMP" length="23"/>
-		<db-attribute name="ID_AUDIT" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="ID_AUDITOR_TEAM" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_AUDIT_STATUS" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_AUDIT_TYPE" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_COMPANY_DEPARTMENT" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="OBJECTIVE" type="VARCHAR" length="2048"/>
-		<db-attribute name="PLANNING_END_DATE" type="TIMESTAMP" length="23"/>
-		<db-attribute name="PLANNING_START_DATE" type="TIMESTAMP" length="23"/>
-		<db-attribute name="RECOMMENDATION_END_DATE" type="TIMESTAMP" length="23"/>
-		<db-attribute name="RECOMMENDATION_START_DATE" type="TIMESTAMP" length="23"/>
-		<db-attribute name="SPENT_HOURS" type="INTEGER" length="10"/>
+	<db-entity name="audit_phases_types" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="id_audit_phases_type" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
-	<db-entity name="AUDIT_CLOSE_REPORT" schema="AI" catalog="TESTDB">
-		<db-attribute name="CCP_TAIL" type="VARCHAR" isMandatory="true" length="2048"/>
-		<db-attribute name="ID_AUDIT" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_CLOSE_REPORT" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="ID_TO" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="REPORT_BODY" type="VARCHAR" isMandatory="true" length="8000"/>
-		<db-attribute name="REPORT_DATE" type="TIMESTAMP" isMandatory="true" length="23"/>
-		<db-attribute name="SUBJECT" type="VARCHAR" isMandatory="true" length="256"/>
-		<db-attribute name="TO_JOB_TITLE" type="VARCHAR" isMandatory="true" length="256"/>
+	<db-entity name="audit_status" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="id_audit_status" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
-	<db-entity name="AUDIT_DOCUMENTS" schema="AI" catalog="TESTDB">
-		<db-attribute name="BITS_SIZE" type="BIGINT" isMandatory="true" length="19"/>
-		<db-attribute name="DESCRIPTION" type="VARCHAR" isMandatory="true" length="2048"/>
-		<db-attribute name="ID_AUDIT" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_AUTHOR" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_DOC" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="PATH_FILE" type="VARCHAR" isMandatory="true" length="1024"/>
-		<db-attribute name="UPDATE_DATE" type="TIMESTAMP" isMandatory="true" length="23"/>
+	<db-entity name="audit_types" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="id_audit_type" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
-	<db-entity name="AUDIT_INITIAL_REPORT" schema="AI" catalog="TESTDB">
-		<db-attribute name="CCP_TAIL" type="VARCHAR" isMandatory="true" length="2048"/>
-		<db-attribute name="ID_AUDIT" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_INITIAL_REPORT" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="ID_TO" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="INITIAL_DATE" type="TIMESTAMP" isMandatory="true" length="23"/>
-		<db-attribute name="REPORT_BODY" type="VARCHAR" isMandatory="true" length="8000"/>
-		<db-attribute name="REPORT_DATE" type="TIMESTAMP" isMandatory="true" length="23"/>
-		<db-attribute name="SUBJECT" type="VARCHAR" isMandatory="true" length="256"/>
-		<db-attribute name="TO_JOB_TITLE" type="VARCHAR" isMandatory="true" length="256"/>
+	<db-entity name="auditor_roles" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="id_auditor_role" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
-	<db-entity name="AUDIT_JOBS" schema="AI" catalog="TESTDB">
-		<db-attribute name="DATE_END" type="TIMESTAMP" length="23"/>
-		<db-attribute name="DATE_INIT" type="TIMESTAMP" length="23"/>
-		<db-attribute name="EFFORT_DETAIL" type="VARCHAR" length="8000"/>
-		<db-attribute name="ID_AUDIT" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_AUDITOR" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_AUDIT_JOB" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="ID_AUDIT_PHASES_TYPE" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_JOB_STATUS" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="JOB_DETAIL" type="VARCHAR" isMandatory="true" length="8000"/>
-		<db-attribute name="JOB_NAME" type="VARCHAR" isMandatory="true" length="256"/>
+	<db-entity name="auditor_team_members" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="id_auditor" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_auditor_team" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_auditor_team_member" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 	</db-entity>
-	<db-entity name="AUDIT_PHASES_TYPES" schema="AI" catalog="TESTDB">
-		<db-attribute name="ID_AUDIT_PHASES_TYPE" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
+	<db-entity name="auditor_teams" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="id_auditor_team" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="id_team_leader" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="team_name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
-	<db-entity name="AUDIT_STATUS" schema="AI" catalog="TESTDB">
-		<db-attribute name="ID_AUDIT_STATUS" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
+	<db-entity name="auditors" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="auditor_name" type="VARCHAR" isMandatory="true" length="128"/>
+		<db-attribute name="id_auditor" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="id_auditor_role" type="INTEGER" isMandatory="true" length="10"/>
 	</db-entity>
-	<db-entity name="AUDIT_TYPES" schema="AI" catalog="TESTDB">
-		<db-attribute name="ID_AUDIT_TYPE" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
+	<db-entity name="audits" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="audit_name" type="VARCHAR" isMandatory="true" length="256"/>
+		<db-attribute name="audit_scope" type="VARCHAR" length="2048"/>
+		<db-attribute name="fieldwork_end_date" type="TIMESTAMP" length="23"/>
+		<db-attribute name="fieldwork_start_date" type="TIMESTAMP" length="23"/>
+		<db-attribute name="id_audit" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="id_audit_status" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_audit_type" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_auditor_team" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_company_department" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="objective" type="VARCHAR" length="2048"/>
+		<db-attribute name="planning_end_date" type="TIMESTAMP" length="23"/>
+		<db-attribute name="planning_start_date" type="TIMESTAMP" length="23"/>
+		<db-attribute name="recommendation_end_date" type="TIMESTAMP" length="23"/>
+		<db-attribute name="recommendation_start_date" type="TIMESTAMP" length="23"/>
+		<db-attribute name="spent_hours" type="INTEGER" length="10"/>
 	</db-entity>
-	<db-entity name="COMPANIES" schema="AI" catalog="TESTDB">
-		<db-attribute name="COMPLETE_NAME" type="VARCHAR" length="256"/>
-		<db-attribute name="ID_COMPANY" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="PATH_ICO" type="VARCHAR" length="512"/>
-		<db-attribute name="PATH_LOGO" type="VARCHAR" length="512"/>
-		<db-attribute name="SHORT_NAME" type="VARCHAR" isMandatory="true" length="32"/>
+	<db-entity name="companies" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="complete_name" type="VARCHAR" length="256"/>
+		<db-attribute name="id_company" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="path_ico" type="VARCHAR" length="512"/>
+		<db-attribute name="path_logo" type="VARCHAR" length="512"/>
+		<db-attribute name="short_name" type="VARCHAR" isMandatory="true" length="32"/>
 	</db-entity>
-	<db-entity name="COMPANY_DEPARTMENTS" schema="AI" catalog="TESTDB">
-		<db-attribute name="DEPARTMENT" type="VARCHAR" isMandatory="true" length="256"/>
-		<db-attribute name="ID_COMPANY" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_COMPANY_DEPARTMENT" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="ID_USER_RESPONSABLE" type="INTEGER" isMandatory="true" length="10"/>
+	<db-entity name="company_departments" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="department" type="VARCHAR" isMandatory="true" length="256"/>
+		<db-attribute name="id_company" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_company_department" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="id_user_responsable" type="INTEGER" isMandatory="true" length="10"/>
 	</db-entity>
-	<db-entity name="CONTROL_METHODS_RISK" schema="AI" catalog="TESTDB">
-		<db-attribute name="ID_CONTROL_METHOD" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
+	<db-entity name="control_methods_risk" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="id_control_method" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
-	<db-entity name="CONTROL_STRATEGIES_RISK" schema="AI" catalog="TESTDB">
-		<db-attribute name="ID_CONTROL_STRATEGY" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
+	<db-entity name="control_strategies_risk" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="id_control_strategy" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
-	<db-entity name="DESIGN_EVALUATIONS_RISK" schema="AI" catalog="TESTDB">
-		<db-attribute name="ID_DESIGN_EVALUATION" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
+	<db-entity name="design_evaluations_risk" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="id_design_evaluation" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
-	<db-entity name="EFFORT_DOCUMENTS" schema="AI" catalog="TESTDB">
-		<db-attribute name="BITS_SIZE" type="BIGINT" isMandatory="true" length="19"/>
-		<db-attribute name="DESCRIPTION" type="VARCHAR" isMandatory="true" length="2048"/>
-		<db-attribute name="ID_AUDIT_JOB" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_AUTHOR" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_DOC" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="PATH_FILE" type="VARCHAR" isMandatory="true" length="1024"/>
-		<db-attribute name="UPDATE_DATE" type="TIMESTAMP" isMandatory="true" length="23"/>
+	<db-entity name="effort_documents" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="bits_size" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="description" type="VARCHAR" isMandatory="true" length="2048"/>
+		<db-attribute name="id_audit_job" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_author" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_doc" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="path_file" type="VARCHAR" isMandatory="true" length="1024"/>
+		<db-attribute name="update_date" type="TIMESTAMP" isMandatory="true" length="23"/>
 	</db-entity>
-	<db-entity name="FREQUENCIES_RISK" schema="AI" catalog="TESTDB">
-		<db-attribute name="ID_FREQUENCY" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
+	<db-entity name="frequencies_risk" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="id_frequency" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
-	<db-entity name="INHERENT_RISK_LEVELS" schema="AI" catalog="TESTDB">
-		<db-attribute name="ICON" type="VARCHAR" length="128"/>
-		<db-attribute name="ID_INHERENT_RISK" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
+	<db-entity name="inherent_risk_levels" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="icon" type="VARCHAR" length="128"/>
+		<db-attribute name="id_inherent_risk" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
-	<db-entity name="JOB_STATUS" schema="AI" catalog="TESTDB">
-		<db-attribute name="ID_JOB_STATUS" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
+	<db-entity name="job_status" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="id_job_status" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
-	<db-entity name="LIKELIHOODS_RISK" schema="AI" catalog="TESTDB">
-		<db-attribute name="ID_LIKELIHOOD" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
+	<db-entity name="likelihoods_risk" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="id_likelihood" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
-	<db-entity name="MOVEMENTS_AUDITOR" schema="AI" catalog="TESTDB">
-		<db-attribute name="DETAIL" type="VARCHAR" isMandatory="true" length="256"/>
-		<db-attribute name="ID_AUDITOR" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_MOV" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="MOV_DATE" type="TIMESTAMP" isMandatory="true" length="23"/>
+	<db-entity name="movements_auditor" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="detail" type="VARCHAR" isMandatory="true" length="256"/>
+		<db-attribute name="id_auditor" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_mov" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="mov_date" type="TIMESTAMP" isMandatory="true" length="23"/>
 	</db-entity>
-	<db-entity name="MOVEMENTS_USER" schema="AI" catalog="TESTDB">
-		<db-attribute name="DETAIL" type="VARCHAR" isMandatory="true" length="256"/>
-		<db-attribute name="ID_MOV" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="ID_USER" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="MOV_DATE" type="TIMESTAMP" isMandatory="true" length="23"/>
+	<db-entity name="movements_user" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="detail" type="VARCHAR" isMandatory="true" length="256"/>
+		<db-attribute name="id_mov" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="id_user" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="mov_date" type="TIMESTAMP" isMandatory="true" length="23"/>
 	</db-entity>
-	<db-entity name="OBSERVATIONS" schema="AI" catalog="TESTDB">
-		<db-attribute name="CREATION_DATE" type="TIMESTAMP" isMandatory="true" length="23"/>
-		<db-attribute name="DESCRIPTION" type="VARCHAR" isMandatory="true" length="2048"/>
-		<db-attribute name="ID_AUDIT" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_AUDITOR" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_COMPLEXITY" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_FINDING" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_IMPACT" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_OBSERVATION" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="ID_RESPONSIBLE" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_STATUS" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="OBSERVATION" type="VARCHAR" isMandatory="true" length="2048"/>
-		<db-attribute name="RECOMMENDATION" type="VARCHAR" isMandatory="true" length="2048"/>
-		<db-attribute name="SOLUTION_DATE" type="TIMESTAMP" isMandatory="true" length="23"/>
+	<db-entity name="obs_auditor_comments" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="comment" type="VARCHAR" isMandatory="true" length="8000"/>
+		<db-attribute name="comment_date" type="TIMESTAMP" isMandatory="true" length="23"/>
+		<db-attribute name="id_auditor" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_obs_aud_com" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="id_observation" type="INTEGER" isMandatory="true" length="10"/>
 	</db-entity>
-	<db-entity name="OBS_AUDITOR_COMMENTS" schema="AI" catalog="TESTDB">
-		<db-attribute name="COMMENT" type="VARCHAR" isMandatory="true" length="8000"/>
-		<db-attribute name="COMMENT_DATE" type="TIMESTAMP" isMandatory="true" length="23"/>
-		<db-attribute name="ID_OBSERVATION" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_OBS_AUD_COM" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+	<db-entity name="obs_complexities" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="icon" type="VARCHAR" length="128"/>
+		<db-attribute name="id_complexity" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
-	<db-entity name="OBS_COMPLEXITIES" schema="AI" catalog="TESTDB">
-		<db-attribute name="ICON" type="VARCHAR" length="128"/>
-		<db-attribute name="ID_COMPLEXITY" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
+	<db-entity name="obs_findings" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="icon" type="VARCHAR" length="128"/>
+		<db-attribute name="id_finding" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
-	<db-entity name="OBS_FINDINGS" schema="AI" catalog="TESTDB">
-		<db-attribute name="ICON" type="VARCHAR" length="128"/>
-		<db-attribute name="ID_FINDING" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
+	<db-entity name="obs_impacts" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="icon" type="VARCHAR" length="128"/>
+		<db-attribute name="id_impact" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
-	<db-entity name="OBS_IMPACTS" schema="AI" catalog="TESTDB">
-		<db-attribute name="ICON" type="VARCHAR" length="128"/>
-		<db-attribute name="ID_IMPACT" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
+	<db-entity name="obs_status" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="id_status" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
-	<db-entity name="OBS_STATUS" schema="AI" catalog="TESTDB">
-		<db-attribute name="ID_STATUS" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
+	<db-entity name="obs_user_comments" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="comment" type="VARCHAR" isMandatory="true" length="8000"/>
+		<db-attribute name="comment_date" type="TIMESTAMP" isMandatory="true" length="23"/>
+		<db-attribute name="id_obs_user_com" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="id_observation" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_user" type="INTEGER" isMandatory="true" length="10"/>
 	</db-entity>
-	<db-entity name="OBS_USERS" schema="AI" catalog="TESTDB">
-		<db-attribute name="CAN_EDIT" type="BOOLEAN" isMandatory="true" length="1"/>
-		<db-attribute name="ID_OBSERVATION" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_OBS_USERS" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="ID_USER" type="INTEGER" isMandatory="true" length="10"/>
+	<db-entity name="obs_users" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="can_edit" type="BIT" isMandatory="true" length="1"/>
+		<db-attribute name="id_obs_users" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="id_observation" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_user" type="INTEGER" isMandatory="true" length="10"/>
 	</db-entity>
-	<db-entity name="OBS_USER_COMMENTS" schema="AI" catalog="TESTDB">
-		<db-attribute name="COMMENT" type="VARCHAR" isMandatory="true" length="8000"/>
-		<db-attribute name="COMMENT_DATE" type="TIMESTAMP" isMandatory="true" length="23"/>
-		<db-attribute name="ID_OBSERVATION" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_OBS_USER_COM" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+	<db-entity name="observations" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="creation_date" type="TIMESTAMP" isMandatory="true" length="23"/>
+		<db-attribute name="description" type="VARCHAR" isMandatory="true" length="2048"/>
+		<db-attribute name="id_audit" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_auditor" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_complexity" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_finding" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_impact" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_observation" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="id_responsible" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_status" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="observation" type="VARCHAR" isMandatory="true" length="2048"/>
+		<db-attribute name="recommendation" type="VARCHAR" isMandatory="true" length="2048"/>
+		<db-attribute name="solution_date" type="TIMESTAMP" isMandatory="true" length="23"/>
 	</db-entity>
-	<db-entity name="PERFORMANCE_RESULTS_RISK" schema="AI" catalog="TESTDB">
-		<db-attribute name="ID_PERFORMANCE_RESULT" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
+	<db-entity name="performance_results_risk" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="id_performance_result" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
-	<db-entity name="PROCESS_STAGES_RISK" schema="AI" catalog="TESTDB">
-		<db-attribute name="ID_PROCESS_STAGE" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
+	<db-entity name="process_stages_risk" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="id_process_stage" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
-	<db-entity name="REQUIREMENTS_INFORMATION" schema="AI" catalog="TESTDB">
-		<db-attribute name="DATE_DELIVERY" type="TIMESTAMP" length="23"/>
-		<db-attribute name="DATE_REQUEST" type="TIMESTAMP" isMandatory="true" length="23"/>
-		<db-attribute name="DELIVERY_COMMENT" type="VARCHAR" length="2048"/>
-		<db-attribute name="DESCRIPTION" type="VARCHAR" length="2048"/>
-		<db-attribute name="ID_AUDIT" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_AUDITOR_APPLICANT" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_REQ_INFO" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="ID_REQ_STATUS" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_USER" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="512"/>
+	<db-entity name="req_documents" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="bits_size" type="BIGINT" isMandatory="true" length="19"/>
+		<db-attribute name="description" type="VARCHAR" isMandatory="true" length="2048"/>
+		<db-attribute name="id_author" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_doc" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="id_req_info" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="path_file" type="VARCHAR" isMandatory="true" length="1024"/>
+		<db-attribute name="update_date" type="TIMESTAMP" isMandatory="true" length="23"/>
 	</db-entity>
-	<db-entity name="REQUIREMENT_STATUS" schema="AI" catalog="TESTDB">
-		<db-attribute name="ID_REQ_STATUS" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
+	<db-entity name="requirement_status" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="id_req_status" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
-	<db-entity name="REQ_DOCUMENTS" schema="AI" catalog="TESTDB">
-		<db-attribute name="BITS_SIZE" type="BIGINT" isMandatory="true" length="19"/>
-		<db-attribute name="DESCRIPTION" type="VARCHAR" isMandatory="true" length="2048"/>
-		<db-attribute name="ID_AUTHOR" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_DOC" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="ID_REQ_INFO" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="PATH_FILE" type="VARCHAR" isMandatory="true" length="1024"/>
-		<db-attribute name="UPDATE_DATE" type="TIMESTAMP" isMandatory="true" length="23"/>
+	<db-entity name="requirements_information" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="date_delivery" type="TIMESTAMP" length="23"/>
+		<db-attribute name="date_request" type="TIMESTAMP" isMandatory="true" length="23"/>
+		<db-attribute name="delivery_comment" type="VARCHAR" length="2048"/>
+		<db-attribute name="description" type="VARCHAR" length="2048"/>
+		<db-attribute name="id_audit" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_auditor_applicant" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_req_info" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="id_req_status" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_user" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="512"/>
 	</db-entity>
-	<db-entity name="RESIDUAL_RISK_LEVELS" schema="AI" catalog="TESTDB">
-		<db-attribute name="ICON" type="VARCHAR" length="128"/>
-		<db-attribute name="ID_RESIDUAL_RISK" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
+	<db-entity name="residual_risk_levels" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="icon" type="VARCHAR" length="128"/>
+		<db-attribute name="id_residual_risk" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
-	<db-entity name="RISK_IMPACTS" schema="AI" catalog="TESTDB">
-		<db-attribute name="ID_IMPACT" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
+	<db-entity name="risk_impacts" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="id_impact" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
-	<db-entity name="RISK_TYPES" schema="AI" catalog="TESTDB">
-		<db-attribute name="ID_RISK_TYPE" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
+	<db-entity name="risk_types" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="id_risk_type" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
-	<db-entity name="SUBPROCESSES" schema="AI" catalog="TESTDB">
-		<db-attribute name="ID_AUDIT" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="ID_SUBPROCESS" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="SUBPROCESS_DESCRIPTION" type="VARCHAR" length="2048"/>
-		<db-attribute name="SUBPROCESS_NAME" type="VARCHAR" isMandatory="true" length="512"/>
+	<db-entity name="subprocesses" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="id_audit" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="id_subprocess" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="subprocess_description" type="VARCHAR" length="2048"/>
+		<db-attribute name="subprocess_name" type="VARCHAR" isMandatory="true" length="512"/>
 	</db-entity>
-	<db-entity name="TESTING_AUDIT_RISK" schema="AI" catalog="TESTDB">
-		<db-attribute name="ID_TEST_AUDIT" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
+	<db-entity name="testing_audit_risk" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="id_test_audit" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
-	<db-entity name="USERS" schema="AI" catalog="TESTDB">
-		<db-attribute name="ID_USER" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="ID_USER_ROLE" type="INTEGER" isMandatory="true" length="10"/>
-		<db-attribute name="IS_LOCAL" type="BOOLEAN" isMandatory="true" length="1"/>
-		<db-attribute name="PASSWORD" type="VARCHAR" length="128"/>
-		<db-attribute name="USER_NAME" type="VARCHAR" isMandatory="true" length="128"/>
+	<db-entity name="user_roles" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="id_user_role" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
-	<db-entity name="USER_ROLES" schema="AI" catalog="TESTDB">
-		<db-attribute name="ID_USER_ROLE" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
-		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
+	<db-entity name="users" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="id_user" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
+		<db-attribute name="id_user_role" type="INTEGER" isMandatory="true" length="10"/>
+		<db-attribute name="is_local" type="BIT" isMandatory="true" length="1"/>
+		<db-attribute name="password" type="VARCHAR" length="128"/>
+		<db-attribute name="user_name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
-	<obj-entity name="AuditCloseReport" className="com.bmv.auditoria.ai.persistent.AuditCloseReport" dbEntityName="AUDIT_CLOSE_REPORT">
-		<obj-attribute name="ccpTail" type="java.lang.String" db-attribute-path="CCP_TAIL"/>
-		<obj-attribute name="reportBody" type="java.lang.String" db-attribute-path="REPORT_BODY"/>
-		<obj-attribute name="reportDate" type="java.util.Date" db-attribute-path="REPORT_DATE"/>
-		<obj-attribute name="subject" type="java.lang.String" db-attribute-path="SUBJECT"/>
-		<obj-attribute name="toJobTitle" type="java.lang.String" db-attribute-path="TO_JOB_TITLE"/>
+	<obj-entity name="AuditCloseReport" className="com.bmv.auditoria.ai.persistent.AuditCloseReport" dbEntityName="audit_close_report">
+		<obj-attribute name="ccpTail" type="java.lang.String" db-attribute-path="ccp_tail"/>
+		<obj-attribute name="reportBody" type="java.lang.String" db-attribute-path="report_body"/>
+		<obj-attribute name="reportDate" type="java.util.Date" db-attribute-path="report_date"/>
+		<obj-attribute name="subject" type="java.lang.String" db-attribute-path="subject"/>
+		<obj-attribute name="toJobTitle" type="java.lang.String" db-attribute-path="to_job_title"/>
 	</obj-entity>
-	<obj-entity name="AuditDocuments" className="com.bmv.auditoria.ai.persistent.AuditDocuments" dbEntityName="AUDIT_DOCUMENTS">
-		<obj-attribute name="bitsSize" type="java.lang.Long" db-attribute-path="BITS_SIZE"/>
-		<obj-attribute name="description" type="java.lang.String" db-attribute-path="DESCRIPTION"/>
-		<obj-attribute name="pathFile" type="java.lang.String" db-attribute-path="PATH_FILE"/>
-		<obj-attribute name="updateDate" type="java.util.Date" db-attribute-path="UPDATE_DATE"/>
+	<obj-entity name="AuditDocuments" className="com.bmv.auditoria.ai.persistent.AuditDocuments" dbEntityName="audit_documents">
+		<obj-attribute name="bitsSize" type="java.lang.Long" db-attribute-path="bits_size"/>
+		<obj-attribute name="description" type="java.lang.String" db-attribute-path="description"/>
+		<obj-attribute name="pathFile" type="java.lang.String" db-attribute-path="path_file"/>
+		<obj-attribute name="updateDate" type="java.util.Date" db-attribute-path="update_date"/>
 	</obj-entity>
-	<obj-entity name="AuditInitialReport" className="com.bmv.auditoria.ai.persistent.AuditInitialReport" dbEntityName="AUDIT_INITIAL_REPORT">
-		<obj-attribute name="ccpTail" type="java.lang.String" db-attribute-path="CCP_TAIL"/>
-		<obj-attribute name="initialDate" type="java.util.Date" db-attribute-path="INITIAL_DATE"/>
-		<obj-attribute name="reportBody" type="java.lang.String" db-attribute-path="REPORT_BODY"/>
-		<obj-attribute name="reportDate" type="java.util.Date" db-attribute-path="REPORT_DATE"/>
-		<obj-attribute name="subject" type="java.lang.String" db-attribute-path="SUBJECT"/>
-		<obj-attribute name="toJobTitle" type="java.lang.String" db-attribute-path="TO_JOB_TITLE"/>
+	<obj-entity name="AuditInitialReport" className="com.bmv.auditoria.ai.persistent.AuditInitialReport" dbEntityName="audit_initial_report">
+		<obj-attribute name="ccpTail" type="java.lang.String" db-attribute-path="ccp_tail"/>
+		<obj-attribute name="initialDate" type="java.util.Date" db-attribute-path="initial_date"/>
+		<obj-attribute name="reportBody" type="java.lang.String" db-attribute-path="report_body"/>
+		<obj-attribute name="reportDate" type="java.util.Date" db-attribute-path="report_date"/>
+		<obj-attribute name="subject" type="java.lang.String" db-attribute-path="subject"/>
+		<obj-attribute name="toJobTitle" type="java.lang.String" db-attribute-path="to_job_title"/>
 	</obj-entity>
-	<obj-entity name="AuditJobs" className="com.bmv.auditoria.ai.persistent.AuditJobs" dbEntityName="AUDIT_JOBS">
-		<obj-attribute name="dateEnd" type="java.util.Date" db-attribute-path="DATE_END"/>
-		<obj-attribute name="dateInit" type="java.util.Date" db-attribute-path="DATE_INIT"/>
-		<obj-attribute name="effortDetail" type="java.lang.String" db-attribute-path="EFFORT_DETAIL"/>
-		<obj-attribute name="jobDetail" type="java.lang.String" db-attribute-path="JOB_DETAIL"/>
-		<obj-attribute name="jobName" type="java.lang.String" db-attribute-path="JOB_NAME"/>
+	<obj-entity name="AuditJobs" className="com.bmv.auditoria.ai.persistent.AuditJobs" dbEntityName="audit_jobs">
+		<obj-attribute name="dateEnd" type="java.util.Date" db-attribute-path="date_end"/>
+		<obj-attribute name="dateInit" type="java.util.Date" db-attribute-path="date_init"/>
+		<obj-attribute name="effortDetail" type="java.lang.String" db-attribute-path="effort_detail"/>
+		<obj-attribute name="jobDetail" type="java.lang.String" db-attribute-path="job_detail"/>
+		<obj-attribute name="jobName" type="java.lang.String" db-attribute-path="job_name"/>
 	</obj-entity>
-	<obj-entity name="AuditPhasesTypes" className="com.bmv.auditoria.ai.persistent.AuditPhasesTypes" dbEntityName="AUDIT_PHASES_TYPES">
-		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
+	<obj-entity name="AuditPhasesTypes" className="com.bmv.auditoria.ai.persistent.AuditPhasesTypes" dbEntityName="audit_phases_types">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
-	<obj-entity name="AuditStatus" className="com.bmv.auditoria.ai.persistent.AuditStatus" dbEntityName="AUDIT_STATUS">
-		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
+	<obj-entity name="AuditStatus" className="com.bmv.auditoria.ai.persistent.AuditStatus" dbEntityName="audit_status">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
-	<obj-entity name="AuditTypes" className="com.bmv.auditoria.ai.persistent.AuditTypes" dbEntityName="AUDIT_TYPES">
-		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
+	<obj-entity name="AuditTypes" className="com.bmv.auditoria.ai.persistent.AuditTypes" dbEntityName="audit_types">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
-	<obj-entity name="AuditorRoles" className="com.bmv.auditoria.ai.persistent.AuditorRoles" dbEntityName="AUDITOR_ROLES">
-		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
+	<obj-entity name="AuditorRoles" className="com.bmv.auditoria.ai.persistent.AuditorRoles" dbEntityName="auditor_roles">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
-	<obj-entity name="AuditorTeamMembers" className="com.bmv.auditoria.ai.persistent.AuditorTeamMembers" dbEntityName="AUDITOR_TEAM_MEMBERS">
+	<obj-entity name="AuditorTeamMembers" className="com.bmv.auditoria.ai.persistent.AuditorTeamMembers" dbEntityName="auditor_team_members">
 	</obj-entity>
-	<obj-entity name="AuditorTeams" className="com.bmv.auditoria.ai.persistent.AuditorTeams" dbEntityName="AUDITOR_TEAMS">
-		<obj-attribute name="teamName" type="java.lang.String" db-attribute-path="TEAM_NAME"/>
+	<obj-entity name="AuditorTeams" className="com.bmv.auditoria.ai.persistent.AuditorTeams" dbEntityName="auditor_teams">
+		<obj-attribute name="teamName" type="java.lang.String" db-attribute-path="team_name"/>
 	</obj-entity>
-	<obj-entity name="Auditors" className="com.bmv.auditoria.ai.persistent.Auditors" dbEntityName="AUDITORS">
-		<obj-attribute name="auditorName" type="java.lang.String" db-attribute-path="AUDITOR_NAME"/>
+	<obj-entity name="Auditors" className="com.bmv.auditoria.ai.persistent.Auditors" dbEntityName="auditors">
+		<obj-attribute name="auditorName" type="java.lang.String" db-attribute-path="auditor_name"/>
 	</obj-entity>
-	<obj-entity name="Audits" className="com.bmv.auditoria.ai.persistent.Audits" dbEntityName="AUDITS">
-		<obj-attribute name="auditName" type="java.lang.String" db-attribute-path="AUDIT_NAME"/>
-		<obj-attribute name="auditScope" type="java.lang.String" db-attribute-path="AUDIT_SCOPE"/>
-		<obj-attribute name="fieldworkEndDate" type="java.util.Date" db-attribute-path="FIELDWORK_END_DATE"/>
-		<obj-attribute name="fieldworkStartDate" type="java.util.Date" db-attribute-path="FIELDWORK_START_DATE"/>
-		<obj-attribute name="objective" type="java.lang.String" db-attribute-path="OBJECTIVE"/>
-		<obj-attribute name="planningEndDate" type="java.util.Date" db-attribute-path="PLANNING_END_DATE"/>
-		<obj-attribute name="planningStartDate" type="java.util.Date" db-attribute-path="PLANNING_START_DATE"/>
-		<obj-attribute name="recommendationEndDate" type="java.util.Date" db-attribute-path="RECOMMENDATION_END_DATE"/>
-		<obj-attribute name="recommendationStartDate" type="java.util.Date" db-attribute-path="RECOMMENDATION_START_DATE"/>
-		<obj-attribute name="spentHours" type="java.lang.Integer" db-attribute-path="SPENT_HOURS"/>
+	<obj-entity name="Audits" className="com.bmv.auditoria.ai.persistent.Audits" dbEntityName="audits">
+		<obj-attribute name="auditName" type="java.lang.String" db-attribute-path="audit_name"/>
+		<obj-attribute name="auditScope" type="java.lang.String" db-attribute-path="audit_scope"/>
+		<obj-attribute name="fieldworkEndDate" type="java.util.Date" db-attribute-path="fieldwork_end_date"/>
+		<obj-attribute name="fieldworkStartDate" type="java.util.Date" db-attribute-path="fieldwork_start_date"/>
+		<obj-attribute name="objective" type="java.lang.String" db-attribute-path="objective"/>
+		<obj-attribute name="planningEndDate" type="java.util.Date" db-attribute-path="planning_end_date"/>
+		<obj-attribute name="planningStartDate" type="java.util.Date" db-attribute-path="planning_start_date"/>
+		<obj-attribute name="recommendationEndDate" type="java.util.Date" db-attribute-path="recommendation_end_date"/>
+		<obj-attribute name="recommendationStartDate" type="java.util.Date" db-attribute-path="recommendation_start_date"/>
+		<obj-attribute name="spentHours" type="java.lang.Integer" db-attribute-path="spent_hours"/>
 	</obj-entity>
-	<obj-entity name="Companies" className="com.bmv.auditoria.ai.persistent.Companies" dbEntityName="COMPANIES">
-		<obj-attribute name="completeName" type="java.lang.String" db-attribute-path="COMPLETE_NAME"/>
-		<obj-attribute name="pathIco" type="java.lang.String" db-attribute-path="PATH_ICO"/>
-		<obj-attribute name="pathLogo" type="java.lang.String" db-attribute-path="PATH_LOGO"/>
-		<obj-attribute name="shortName" type="java.lang.String" db-attribute-path="SHORT_NAME"/>
+	<obj-entity name="Companies" className="com.bmv.auditoria.ai.persistent.Companies" dbEntityName="companies">
+		<obj-attribute name="completeName" type="java.lang.String" db-attribute-path="complete_name"/>
+		<obj-attribute name="pathIco" type="java.lang.String" db-attribute-path="path_ico"/>
+		<obj-attribute name="pathLogo" type="java.lang.String" db-attribute-path="path_logo"/>
+		<obj-attribute name="shortName" type="java.lang.String" db-attribute-path="short_name"/>
 	</obj-entity>
-	<obj-entity name="CompanyDepartments" className="com.bmv.auditoria.ai.persistent.CompanyDepartments" dbEntityName="COMPANY_DEPARTMENTS">
-		<obj-attribute name="department" type="java.lang.String" db-attribute-path="DEPARTMENT"/>
+	<obj-entity name="CompanyDepartments" className="com.bmv.auditoria.ai.persistent.CompanyDepartments" dbEntityName="company_departments">
+		<obj-attribute name="department" type="java.lang.String" db-attribute-path="department"/>
 	</obj-entity>
-	<obj-entity name="ControlMethodsRisk" className="com.bmv.auditoria.ai.persistent.ControlMethodsRisk" dbEntityName="CONTROL_METHODS_RISK">
-		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
+	<obj-entity name="ControlMethodsRisk" className="com.bmv.auditoria.ai.persistent.ControlMethodsRisk" dbEntityName="control_methods_risk">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
-	<obj-entity name="ControlStrategiesRisk" className="com.bmv.auditoria.ai.persistent.ControlStrategiesRisk" dbEntityName="CONTROL_STRATEGIES_RISK">
-		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
+	<obj-entity name="ControlStrategiesRisk" className="com.bmv.auditoria.ai.persistent.ControlStrategiesRisk" dbEntityName="control_strategies_risk">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
-	<obj-entity name="DesignEvaluationsRisk" className="com.bmv.auditoria.ai.persistent.DesignEvaluationsRisk" dbEntityName="DESIGN_EVALUATIONS_RISK">
-		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
+	<obj-entity name="DesignEvaluationsRisk" className="com.bmv.auditoria.ai.persistent.DesignEvaluationsRisk" dbEntityName="design_evaluations_risk">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
-	<obj-entity name="EffortDocuments" className="com.bmv.auditoria.ai.persistent.EffortDocuments" dbEntityName="EFFORT_DOCUMENTS">
-		<obj-attribute name="bitsSize" type="java.lang.Long" db-attribute-path="BITS_SIZE"/>
-		<obj-attribute name="description" type="java.lang.String" db-attribute-path="DESCRIPTION"/>
-		<obj-attribute name="pathFile" type="java.lang.String" db-attribute-path="PATH_FILE"/>
-		<obj-attribute name="updateDate" type="java.util.Date" db-attribute-path="UPDATE_DATE"/>
+	<obj-entity name="EffortDocuments" className="com.bmv.auditoria.ai.persistent.EffortDocuments" dbEntityName="effort_documents">
+		<obj-attribute name="bitsSize" type="java.lang.Long" db-attribute-path="bits_size"/>
+		<obj-attribute name="description" type="java.lang.String" db-attribute-path="description"/>
+		<obj-attribute name="pathFile" type="java.lang.String" db-attribute-path="path_file"/>
+		<obj-attribute name="updateDate" type="java.util.Date" db-attribute-path="update_date"/>
 	</obj-entity>
-	<obj-entity name="FrequenciesRisk" className="com.bmv.auditoria.ai.persistent.FrequenciesRisk" dbEntityName="FREQUENCIES_RISK">
-		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
+	<obj-entity name="FrequenciesRisk" className="com.bmv.auditoria.ai.persistent.FrequenciesRisk" dbEntityName="frequencies_risk">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
-	<obj-entity name="InherentRiskLevels" className="com.bmv.auditoria.ai.persistent.InherentRiskLevels" dbEntityName="INHERENT_RISK_LEVELS">
-		<obj-attribute name="icon" type="java.lang.String" db-attribute-path="ICON"/>
-		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
+	<obj-entity name="InherentRiskLevels" className="com.bmv.auditoria.ai.persistent.InherentRiskLevels" dbEntityName="inherent_risk_levels">
+		<obj-attribute name="icon" type="java.lang.String" db-attribute-path="icon"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
-	<obj-entity name="JobStatus" className="com.bmv.auditoria.ai.persistent.JobStatus" dbEntityName="JOB_STATUS">
-		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
+	<obj-entity name="JobStatus" className="com.bmv.auditoria.ai.persistent.JobStatus" dbEntityName="job_status">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
-	<obj-entity name="LikelihoodsRisk" className="com.bmv.auditoria.ai.persistent.LikelihoodsRisk" dbEntityName="LIKELIHOODS_RISK">
-		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
+	<obj-entity name="LikelihoodsRisk" className="com.bmv.auditoria.ai.persistent.LikelihoodsRisk" dbEntityName="likelihoods_risk">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
-	<obj-entity name="MovementsAuditor" className="com.bmv.auditoria.ai.persistent.MovementsAuditor" dbEntityName="MOVEMENTS_AUDITOR">
-		<obj-attribute name="detail" type="java.lang.String" db-attribute-path="DETAIL"/>
-		<obj-attribute name="movDate" type="java.util.Date" db-attribute-path="MOV_DATE"/>
+	<obj-entity name="MovementsAuditor" className="com.bmv.auditoria.ai.persistent.MovementsAuditor" dbEntityName="movements_auditor">
+		<obj-attribute name="detail" type="java.lang.String" db-attribute-path="detail"/>
+		<obj-attribute name="movDate" type="java.util.Date" db-attribute-path="mov_date"/>
 	</obj-entity>
-	<obj-entity name="MovementsUser" className="com.bmv.auditoria.ai.persistent.MovementsUser" dbEntityName="MOVEMENTS_USER">
-		<obj-attribute name="detail" type="java.lang.String" db-attribute-path="DETAIL"/>
-		<obj-attribute name="movDate" type="java.util.Date" db-attribute-path="MOV_DATE"/>
+	<obj-entity name="MovementsUser" className="com.bmv.auditoria.ai.persistent.MovementsUser" dbEntityName="movements_user">
+		<obj-attribute name="detail" type="java.lang.String" db-attribute-path="detail"/>
+		<obj-attribute name="movDate" type="java.util.Date" db-attribute-path="mov_date"/>
 	</obj-entity>
-	<obj-entity name="ObsAuditorComments" className="com.bmv.auditoria.ai.persistent.ObsAuditorComments" dbEntityName="OBS_AUDITOR_COMMENTS">
-		<obj-attribute name="comment" type="java.lang.String" db-attribute-path="COMMENT"/>
-		<obj-attribute name="commentDate" type="java.util.Date" db-attribute-path="COMMENT_DATE"/>
+	<obj-entity name="ObsAuditorComments" className="com.bmv.auditoria.ai.persistent.ObsAuditorComments" dbEntityName="obs_auditor_comments">
+		<obj-attribute name="comment" type="java.lang.String" db-attribute-path="comment"/>
+		<obj-attribute name="commentDate" type="java.util.Date" db-attribute-path="comment_date"/>
 	</obj-entity>
-	<obj-entity name="ObsComplexities" className="com.bmv.auditoria.ai.persistent.ObsComplexities" dbEntityName="OBS_COMPLEXITIES">
-		<obj-attribute name="icon" type="java.lang.String" db-attribute-path="ICON"/>
-		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
+	<obj-entity name="ObsComplexities" className="com.bmv.auditoria.ai.persistent.ObsComplexities" dbEntityName="obs_complexities">
+		<obj-attribute name="icon" type="java.lang.String" db-attribute-path="icon"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
-	<obj-entity name="ObsFindings" className="com.bmv.auditoria.ai.persistent.ObsFindings" dbEntityName="OBS_FINDINGS">
-		<obj-attribute name="icon" type="java.lang.String" db-attribute-path="ICON"/>
-		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
+	<obj-entity name="ObsFindings" className="com.bmv.auditoria.ai.persistent.ObsFindings" dbEntityName="obs_findings">
+		<obj-attribute name="icon" type="java.lang.String" db-attribute-path="icon"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
-	<obj-entity name="ObsImpacts" className="com.bmv.auditoria.ai.persistent.ObsImpacts" dbEntityName="OBS_IMPACTS">
-		<obj-attribute name="icon" type="java.lang.String" db-attribute-path="ICON"/>
-		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
+	<obj-entity name="ObsImpacts" className="com.bmv.auditoria.ai.persistent.ObsImpacts" dbEntityName="obs_impacts">
+		<obj-attribute name="icon" type="java.lang.String" db-attribute-path="icon"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
-	<obj-entity name="ObsStatus" className="com.bmv.auditoria.ai.persistent.ObsStatus" dbEntityName="OBS_STATUS">
-		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
+	<obj-entity name="ObsStatus" className="com.bmv.auditoria.ai.persistent.ObsStatus" dbEntityName="obs_status">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
-	<obj-entity name="ObsUserComments" className="com.bmv.auditoria.ai.persistent.ObsUserComments" dbEntityName="OBS_USER_COMMENTS">
-		<obj-attribute name="comment" type="java.lang.String" db-attribute-path="COMMENT"/>
-		<obj-attribute name="commentDate" type="java.util.Date" db-attribute-path="COMMENT_DATE"/>
+	<obj-entity name="ObsUserComments" className="com.bmv.auditoria.ai.persistent.ObsUserComments" dbEntityName="obs_user_comments">
+		<obj-attribute name="comment" type="java.lang.String" db-attribute-path="comment"/>
+		<obj-attribute name="commentDate" type="java.util.Date" db-attribute-path="comment_date"/>
 	</obj-entity>
-	<obj-entity name="ObsUsers" className="com.bmv.auditoria.ai.persistent.ObsUsers" dbEntityName="OBS_USERS">
-		<obj-attribute name="canEdit" type="java.lang.Boolean" db-attribute-path="CAN_EDIT"/>
+	<obj-entity name="ObsUsers" className="com.bmv.auditoria.ai.persistent.ObsUsers" dbEntityName="obs_users">
+		<obj-attribute name="canEdit" type="java.lang.Boolean" db-attribute-path="can_edit"/>
 	</obj-entity>
-	<obj-entity name="Observations" className="com.bmv.auditoria.ai.persistent.Observations" dbEntityName="OBSERVATIONS">
-		<obj-attribute name="creationDate" type="java.util.Date" db-attribute-path="CREATION_DATE"/>
-		<obj-attribute name="description" type="java.lang.String" db-attribute-path="DESCRIPTION"/>
-		<obj-attribute name="observation" type="java.lang.String" db-attribute-path="OBSERVATION"/>
-		<obj-attribute name="recommendation" type="java.lang.String" db-attribute-path="RECOMMENDATION"/>
-		<obj-attribute name="solutionDate" type="java.util.Date" db-attribute-path="SOLUTION_DATE"/>
+	<obj-entity name="Observations" className="com.bmv.auditoria.ai.persistent.Observations" dbEntityName="observations">
+		<obj-attribute name="creationDate" type="java.util.Date" db-attribute-path="creation_date"/>
+		<obj-attribute name="description" type="java.lang.String" db-attribute-path="description"/>
+		<obj-attribute name="observation" type="java.lang.String" db-attribute-path="observation"/>
+		<obj-attribute name="recommendation" type="java.lang.String" db-attribute-path="recommendation"/>
+		<obj-attribute name="solutionDate" type="java.util.Date" db-attribute-path="solution_date"/>
 	</obj-entity>
-	<obj-entity name="PerformanceResultsRisk" className="com.bmv.auditoria.ai.persistent.PerformanceResultsRisk" dbEntityName="PERFORMANCE_RESULTS_RISK">
-		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
+	<obj-entity name="PerformanceResultsRisk" className="com.bmv.auditoria.ai.persistent.PerformanceResultsRisk" dbEntityName="performance_results_risk">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
-	<obj-entity name="ProcessStagesRisk" className="com.bmv.auditoria.ai.persistent.ProcessStagesRisk" dbEntityName="PROCESS_STAGES_RISK">
-		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
+	<obj-entity name="ProcessStagesRisk" className="com.bmv.auditoria.ai.persistent.ProcessStagesRisk" dbEntityName="process_stages_risk">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
-	<obj-entity name="ReqDocuments" className="com.bmv.auditoria.ai.persistent.ReqDocuments" dbEntityName="REQ_DOCUMENTS">
-		<obj-attribute name="bitsSize" type="java.lang.Long" db-attribute-path="BITS_SIZE"/>
-		<obj-attribute name="description" type="java.lang.String" db-attribute-path="DESCRIPTION"/>
-		<obj-attribute name="pathFile" type="java.lang.String" db-attribute-path="PATH_FILE"/>
-		<obj-attribute name="updateDate" type="java.util.Date" db-attribute-path="UPDATE_DATE"/>
+	<obj-entity name="ReqDocuments" className="com.bmv.auditoria.ai.persistent.ReqDocuments" dbEntityName="req_documents">
+		<obj-attribute name="bitsSize" type="java.lang.Long" db-attribute-path="bits_size"/>
+		<obj-attribute name="description" type="java.lang.String" db-attribute-path="description"/>
+		<obj-attribute name="pathFile" type="java.lang.String" db-attribute-path="path_file"/>
+		<obj-attribute name="updateDate" type="java.util.Date" db-attribute-path="update_date"/>
 	</obj-entity>
-	<obj-entity name="RequirementStatus" className="com.bmv.auditoria.ai.persistent.RequirementStatus" dbEntityName="REQUIREMENT_STATUS">
-		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
+	<obj-entity name="RequirementStatus" className="com.bmv.auditoria.ai.persistent.RequirementStatus" dbEntityName="requirement_status">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
-	<obj-entity name="RequirementsInformation" className="com.bmv.auditoria.ai.persistent.RequirementsInformation" dbEntityName="REQUIREMENTS_INFORMATION">
-		<obj-attribute name="dateDelivery" type="java.util.Date" db-attribute-path="DATE_DELIVERY"/>
-		<obj-attribute name="dateRequest" type="java.util.Date" db-attribute-path="DATE_REQUEST"/>
-		<obj-attribute name="deliveryComment" type="java.lang.String" db-attribute-path="DELIVERY_COMMENT"/>
-		<obj-attribute name="description" type="java.lang.String" db-attribute-path="DESCRIPTION"/>
-		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
+	<obj-entity name="RequirementsInformation" className="com.bmv.auditoria.ai.persistent.RequirementsInformation" dbEntityName="requirements_information">
+		<obj-attribute name="dateDelivery" type="java.util.Date" db-attribute-path="date_delivery"/>
+		<obj-attribute name="dateRequest" type="java.util.Date" db-attribute-path="date_request"/>
+		<obj-attribute name="deliveryComment" type="java.lang.String" db-attribute-path="delivery_comment"/>
+		<obj-attribute name="description" type="java.lang.String" db-attribute-path="description"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
-	<obj-entity name="ResidualRiskLevels" className="com.bmv.auditoria.ai.persistent.ResidualRiskLevels" dbEntityName="RESIDUAL_RISK_LEVELS">
-		<obj-attribute name="icon" type="java.lang.String" db-attribute-path="ICON"/>
-		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
+	<obj-entity name="ResidualRiskLevels" className="com.bmv.auditoria.ai.persistent.ResidualRiskLevels" dbEntityName="residual_risk_levels">
+		<obj-attribute name="icon" type="java.lang.String" db-attribute-path="icon"/>
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
-	<obj-entity name="RiskImpacts" className="com.bmv.auditoria.ai.persistent.RiskImpacts" dbEntityName="RISK_IMPACTS">
-		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
+	<obj-entity name="RiskImpacts" className="com.bmv.auditoria.ai.persistent.RiskImpacts" dbEntityName="risk_impacts">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
-	<obj-entity name="RiskTypes" className="com.bmv.auditoria.ai.persistent.RiskTypes" dbEntityName="RISK_TYPES">
-		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
+	<obj-entity name="RiskTypes" className="com.bmv.auditoria.ai.persistent.RiskTypes" dbEntityName="risk_types">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
-	<obj-entity name="Subprocesses" className="com.bmv.auditoria.ai.persistent.Subprocesses" dbEntityName="SUBPROCESSES">
-		<obj-attribute name="subprocessDescription" type="java.lang.String" db-attribute-path="SUBPROCESS_DESCRIPTION"/>
-		<obj-attribute name="subprocessName" type="java.lang.String" db-attribute-path="SUBPROCESS_NAME"/>
+	<obj-entity name="Subprocesses" className="com.bmv.auditoria.ai.persistent.Subprocesses" dbEntityName="subprocesses">
+		<obj-attribute name="subprocessDescription" type="java.lang.String" db-attribute-path="subprocess_description"/>
+		<obj-attribute name="subprocessName" type="java.lang.String" db-attribute-path="subprocess_name"/>
 	</obj-entity>
-	<obj-entity name="TestingAuditRisk" className="com.bmv.auditoria.ai.persistent.TestingAuditRisk" dbEntityName="TESTING_AUDIT_RISK">
-		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
+	<obj-entity name="TestingAuditRisk" className="com.bmv.auditoria.ai.persistent.TestingAuditRisk" dbEntityName="testing_audit_risk">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
-	<obj-entity name="UserRoles" className="com.bmv.auditoria.ai.persistent.UserRoles" dbEntityName="USER_ROLES">
-		<obj-attribute name="name" type="java.lang.String" db-attribute-path="NAME"/>
+	<obj-entity name="UserRoles" className="com.bmv.auditoria.ai.persistent.UserRoles" dbEntityName="user_roles">
+		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
-	<obj-entity name="Users" className="com.bmv.auditoria.ai.persistent.Users" dbEntityName="USERS">
-		<obj-attribute name="isLocal" type="java.lang.Boolean" db-attribute-path="IS_LOCAL"/>
-		<obj-attribute name="password" type="java.lang.String" db-attribute-path="PASSWORD"/>
-		<obj-attribute name="userName" type="java.lang.String" db-attribute-path="USER_NAME"/>
+	<obj-entity name="Users" className="com.bmv.auditoria.ai.persistent.Users" dbEntityName="users">
+		<obj-attribute name="isLocal" type="java.lang.Boolean" db-attribute-path="is_local"/>
+		<obj-attribute name="password" type="java.lang.String" db-attribute-path="password"/>
+		<obj-attribute name="userName" type="java.lang.String" db-attribute-path="user_name"/>
 	</obj-entity>
-	<db-relationship name="auditDocumentsArray" source="AUDITORS" target="AUDIT_DOCUMENTS" toMany="true">
-		<db-attribute-pair source="ID_AUDITOR" target="ID_AUTHOR"/>
+	<db-relationship name="toAudits" source="audit_close_report" target="audits" toMany="false">
+		<db-attribute-pair source="id_audit" target="id_audit"/>
 	</db-relationship>
-	<db-relationship name="auditJobsArray" source="AUDITORS" target="AUDIT_JOBS" toMany="true">
-		<db-attribute-pair source="ID_AUDITOR" target="ID_AUDITOR"/>
+	<db-relationship name="toUsers" source="audit_close_report" target="users" toMany="false">
+		<db-attribute-pair source="id_to" target="id_user"/>
 	</db-relationship>
-	<db-relationship name="auditorTeamMembersArray" source="AUDITORS" target="AUDITOR_TEAM_MEMBERS" toMany="true">
-		<db-attribute-pair source="ID_AUDITOR" target="ID_AUDITOR"/>
+	<db-relationship name="toAuditors" source="audit_documents" target="auditors" toMany="false">
+		<db-attribute-pair source="id_author" target="id_auditor"/>
 	</db-relationship>
-	<db-relationship name="auditorTeamsArray" source="AUDITORS" target="AUDITOR_TEAMS" toMany="true">
-		<db-attribute-pair source="ID_AUDITOR" target="ID_TEAM_LEADER"/>
+	<db-relationship name="toAudits" source="audit_documents" target="audits" toMany="false">
+		<db-attribute-pair source="id_audit" target="id_audit"/>
 	</db-relationship>
-	<db-relationship name="effortDocumentsArray" source="AUDITORS" target="EFFORT_DOCUMENTS" toMany="true">
-		<db-attribute-pair source="ID_AUDITOR" target="ID_AUTHOR"/>
+	<db-relationship name="toAudits" source="audit_initial_report" target="audits" toMany="false">
+		<db-attribute-pair source="id_audit" target="id_audit"/>
 	</db-relationship>
-	<db-relationship name="movementsAuditorArray" source="AUDITORS" target="MOVEMENTS_AUDITOR" toMany="true">
-		<db-attribute-pair source="ID_AUDITOR" target="ID_AUDITOR"/>
+	<db-relationship name="toUsers" source="audit_initial_report" target="users" toMany="false">
+		<db-attribute-pair source="id_to" target="id_user"/>
 	</db-relationship>
-	<db-relationship name="observationsArray" source="AUDITORS" target="OBSERVATIONS" toMany="true">
-		<db-attribute-pair source="ID_AUDITOR" target="ID_AUDITOR"/>
+	<db-relationship name="effortDocumentsArray" source="audit_jobs" target="effort_documents" toMany="true">
+		<db-attribute-pair source="id_audit_job" target="id_audit_job"/>
 	</db-relationship>
-	<db-relationship name="reqDocumentsArray" source="AUDITORS" target="REQ_DOCUMENTS" toMany="true">
-		<db-attribute-pair source="ID_AUDITOR" target="ID_AUTHOR"/>
+	<db-relationship name="toAuditPhasesTypes" source="audit_jobs" target="audit_phases_types" toMany="false">
+		<db-attribute-pair source="id_audit_phases_type" target="id_audit_phases_type"/>
 	</db-relationship>
-	<db-relationship name="requirementsInformationArray" source="AUDITORS" target="REQUIREMENTS_INFORMATION" toMany="true">
-		<db-attribute-pair source="ID_AUDITOR" target="ID_AUDITOR_APPLICANT"/>
+	<db-relationship name="toAuditors" source="audit_jobs" target="auditors" toMany="false">
+		<db-attribute-pair source="id_auditor" target="id_auditor"/>
 	</db-relationship>
-	<db-relationship name="toAuditorRoles" source="AUDITORS" target="AUDITOR_ROLES" toMany="false">
-		<db-attribute-pair source="ID_AUDITOR_ROLE" target="ID_AUDITOR_ROLE"/>
+	<db-relationship name="toAudits" source="audit_jobs" target="audits" toMany="false">
+		<db-attribute-pair source="id_audit" target="id_audit"/>
 	</db-relationship>
-	<db-relationship name="auditorsArray" source="AUDITOR_ROLES" target="AUDITORS" toMany="true">
-		<db-attribute-pair source="ID_AUDITOR_ROLE" target="ID_AUDITOR_ROLE"/>
+	<db-relationship name="toJobStatus" source="audit_jobs" target="job_status" toMany="false">
+		<db-attribute-pair source="id_job_status" target="id_job_status"/>
 	</db-relationship>
-	<db-relationship name="auditorTeamMembersArray" source="AUDITOR_TEAMS" target="AUDITOR_TEAM_MEMBERS" toMany="true">
-		<db-attribute-pair source="ID_AUDITOR_TEAM" target="ID_AUDITOR_TEAM"/>
+	<db-relationship name="auditJobsArray" source="audit_phases_types" target="audit_jobs" toMany="true">
+		<db-attribute-pair source="id_audit_phases_type" target="id_audit_phases_type"/>
 	</db-relationship>
-	<db-relationship name="auditsArray" source="AUDITOR_TEAMS" target="AUDITS" toMany="true">
-		<db-attribute-pair source="ID_AUDITOR_TEAM" target="ID_AUDITOR_TEAM"/>
+	<db-relationship name="auditsArray" source="audit_status" target="audits" toMany="true">
+		<db-attribute-pair source="id_audit_status" target="id_audit_status"/>
 	</db-relationship>
-	<db-relationship name="toAuditors" source="AUDITOR_TEAMS" target="AUDITORS" toMany="false">
-		<db-attribute-pair source="ID_TEAM_LEADER" target="ID_AUDITOR"/>
+	<db-relationship name="auditsArray" source="audit_types" target="audits" toMany="true">
+		<db-attribute-pair source="id_audit_type" target="id_audit_type"/>
 	</db-relationship>
-	<db-relationship name="toAuditorTeams" source="AUDITOR_TEAM_MEMBERS" target="AUDITOR_TEAMS" toMany="false">
-		<db-attribute-pair source="ID_AUDITOR_TEAM" target="ID_AUDITOR_TEAM"/>
+	<db-relationship name="auditorsArray" source="auditor_roles" target="auditors" toMany="true">
+		<db-attribute-pair source="id_auditor_role" target="id_auditor_role"/>
 	</db-relationship>
-	<db-relationship name="toAuditors" source="AUDITOR_TEAM_MEMBERS" target="AUDITORS" toMany="false">
-		<db-attribute-pair source="ID_AUDITOR" target="ID_AUDITOR"/>
+	<db-relationship name="toAuditorTeams" source="auditor_team_members" target="auditor_teams" toMany="false">
+		<db-attribute-pair source="id_auditor_team" target="id_auditor_team"/>
 	</db-relationship>
-	<db-relationship name="auditCloseReportArray" source="AUDITS" target="AUDIT_CLOSE_REPORT" toMany="true">
-		<db-attribute-pair source="ID_AUDIT" target="ID_AUDIT"/>
+	<db-relationship name="toAuditors" source="auditor_team_members" target="auditors" toMany="false">
+		<db-attribute-pair source="id_auditor" target="id_auditor"/>
 	</db-relationship>
-	<db-relationship name="auditDocumentsArray" source="AUDITS" target="AUDIT_DOCUMENTS" toMany="true">
-		<db-attribute-pair source="ID_AUDIT" target="ID_AUDIT"/>
+	<db-relationship name="auditorTeamMembersArray" source="auditor_teams" target="auditor_team_members" toMany="true">
+		<db-attribute-pair source="id_auditor_team" target="id_auditor_team"/>
 	</db-relationship>
-	<db-relationship name="auditInitialReportArray" source="AUDITS" target="AUDIT_INITIAL_REPORT" toMany="true">
-		<db-attribute-pair source="ID_AUDIT" target="ID_AUDIT"/>
+	<db-relationship name="auditsArray" source="auditor_teams" target="audits" toMany="true">
+		<db-attribute-pair source="id_auditor_team" target="id_auditor_team"/>
 	</db-relationship>
-	<db-relationship name="auditJobsArray" source="AUDITS" target="AUDIT_JOBS" toMany="true">
-		<db-attribute-pair source="ID_AUDIT" target="ID_AUDIT"/>
+	<db-relationship name="toAuditors" source="auditor_teams" target="auditors" toMany="false">
+		<db-attribute-pair source="id_team_leader" target="id_auditor"/>
 	</db-relationship>
-	<db-relationship name="observationsArray" source="AUDITS" target="OBSERVATIONS" toMany="true">
-		<db-attribute-pair source="ID_AUDIT" target="ID_AUDIT"/>
+	<db-relationship name="auditDocumentsArray" source="auditors" target="audit_documents" toMany="true">
+		<db-attribute-pair source="id_auditor" target="id_author"/>
 	</db-relationship>
-	<db-relationship name="requirementsInformationArray" source="AUDITS" target="REQUIREMENTS_INFORMATION" toMany="true">
-		<db-attribute-pair source="ID_AUDIT" target="ID_AUDIT"/>
+	<db-relationship name="auditJobsArray" source="auditors" target="audit_jobs" toMany="true">
+		<db-attribute-pair source="id_auditor" target="id_auditor"/>
 	</db-relationship>
-	<db-relationship name="subprocessesArray" source="AUDITS" target="SUBPROCESSES" toMany="true">
-		<db-attribute-pair source="ID_AUDIT" target="ID_AUDIT"/>
+	<db-relationship name="auditorTeamMembersArray" source="auditors" target="auditor_team_members" toMany="true">
+		<db-attribute-pair source="id_auditor" target="id_auditor"/>
 	</db-relationship>
-	<db-relationship name="toAuditStatus" source="AUDITS" target="AUDIT_STATUS" toMany="false">
-		<db-attribute-pair source="ID_AUDIT_STATUS" target="ID_AUDIT_STATUS"/>
+	<db-relationship name="auditorTeamsArray" source="auditors" target="auditor_teams" toMany="true">
+		<db-attribute-pair source="id_auditor" target="id_team_leader"/>
 	</db-relationship>
-	<db-relationship name="toAuditTypes" source="AUDITS" target="AUDIT_TYPES" toMany="false">
-		<db-attribute-pair source="ID_AUDIT_TYPE" target="ID_AUDIT_TYPE"/>
+	<db-relationship name="effortDocumentsArray" source="auditors" target="effort_documents" toMany="true">
+		<db-attribute-pair source="id_auditor" target="id_author"/>
 	</db-relationship>
-	<db-relationship name="toAuditorTeams" source="AUDITS" target="AUDITOR_TEAMS" toMany="false">
-		<db-attribute-pair source="ID_AUDITOR_TEAM" target="ID_AUDITOR_TEAM"/>
+	<db-relationship name="movementsAuditorArray" source="auditors" target="movements_auditor" toMany="true">
+		<db-attribute-pair source="id_auditor" target="id_auditor"/>
 	</db-relationship>
-	<db-relationship name="toCompanyDepartments" source="AUDITS" target="COMPANY_DEPARTMENTS" toMany="false">
-		<db-attribute-pair source="ID_COMPANY_DEPARTMENT" target="ID_COMPANY_DEPARTMENT"/>
+	<db-relationship name="obsAuditorCommentsArray" source="auditors" target="obs_auditor_comments" toMany="true">
+		<db-attribute-pair source="id_auditor" target="id_auditor"/>
 	</db-relationship>
-	<db-relationship name="toAudits" source="AUDIT_CLOSE_REPORT" target="AUDITS" toMany="false">
-		<db-attribute-pair source="ID_AUDIT" target="ID_AUDIT"/>
+	<db-relationship name="observationsArray" source="auditors" target="observations" toMany="true">
+		<db-attribute-pair source="id_auditor" target="id_auditor"/>
 	</db-relationship>
-	<db-relationship name="toUsers" source="AUDIT_CLOSE_REPORT" target="USERS" toMany="false">
-		<db-attribute-pair source="ID_TO" target="ID_USER"/>
+	<db-relationship name="reqDocumentsArray" source="auditors" target="req_documents" toMany="true">
+		<db-attribute-pair source="id_auditor" target="id_author"/>
 	</db-relationship>
-	<db-relationship name="toAuditors" source="AUDIT_DOCUMENTS" target="AUDITORS" toMany="false">
-		<db-attribute-pair source="ID_AUTHOR" target="ID_AUDITOR"/>
+	<db-relationship name="requirementsInformationArray" source="auditors" target="requirements_information" toMany="true">
+		<db-attribute-pair source="id_auditor" target="id_auditor_applicant"/>
 	</db-relationship>
-	<db-relationship name="toAudits" source="AUDIT_DOCUMENTS" target="AUDITS" toMany="false">
-		<db-attribute-pair source="ID_AUDIT" target="ID_AUDIT"/>
+	<db-relationship name="toAuditorRoles" source="auditors" target="auditor_roles" toMany="false">
+		<db-attribute-pair source="id_auditor_role" target="id_auditor_role"/>
 	</db-relationship>
-	<db-relationship name="toAudits" source="AUDIT_INITIAL_REPORT" target="AUDITS" toMany="false">
-		<db-attribute-pair source="ID_AUDIT" target="ID_AUDIT"/>
+	<db-relationship name="auditCloseReportArray" source="audits" target="audit_close_report" toMany="true">
+		<db-attribute-pair source="id_audit" target="id_audit"/>
 	</db-relationship>
-	<db-relationship name="toUsers" source="AUDIT_INITIAL_REPORT" target="USERS" toMany="false">
-		<db-attribute-pair source="ID_TO" target="ID_USER"/>
+	<db-relationship name="auditDocumentsArray" source="audits" target="audit_documents" toMany="true">
+		<db-attribute-pair source="id_audit" target="id_audit"/>
 	</db-relationship>
-	<db-relationship name="effortDocumentsArray" source="AUDIT_JOBS" target="EFFORT_DOCUMENTS" toMany="true">
-		<db-attribute-pair source="ID_AUDIT_JOB" target="ID_AUDIT_JOB"/>
+	<db-relationship name="auditInitialReportArray" source="audits" target="audit_initial_report" toMany="true">
+		<db-attribute-pair source="id_audit" target="id_audit"/>
 	</db-relationship>
-	<db-relationship name="toAuditPhasesTypes" source="AUDIT_JOBS" target="AUDIT_PHASES_TYPES" toMany="false">
-		<db-attribute-pair source="ID_AUDIT_PHASES_TYPE" target="ID_AUDIT_PHASES_TYPE"/>
+	<db-relationship name="auditJobsArray" source="audits" target="audit_jobs" toMany="true">
+		<db-attribute-pair source="id_audit" target="id_audit"/>
 	</db-relationship>
-	<db-relationship name="toAuditors" source="AUDIT_JOBS" target="AUDITORS" toMany="false">
-		<db-attribute-pair source="ID_AUDITOR" target="ID_AUDITOR"/>
+	<db-relationship name="observationsArray" source="audits" target="observations" toMany="true">
+		<db-attribute-pair source="id_audit" target="id_audit"/>
 	</db-relationship>
-	<db-relationship name="toAudits" source="AUDIT_JOBS" target="AUDITS" toMany="false">
-		<db-attribute-pair source="ID_AUDIT" target="ID_AUDIT"/>
+	<db-relationship name="requirementsInformationArray" source="audits" target="requirements_information" toMany="true">
+		<db-attribute-pair source="id_audit" target="id_audit"/>
 	</db-relationship>
-	<db-relationship name="toJobStatus" source="AUDIT_JOBS" target="JOB_STATUS" toMany="false">
-		<db-attribute-pair source="ID_JOB_STATUS" target="ID_JOB_STATUS"/>
+	<db-relationship name="subprocessesArray" source="audits" target="subprocesses" toMany="true">
+		<db-attribute-pair source="id_audit" target="id_audit"/>
 	</db-relationship>
-	<db-relationship name="auditJobsArray" source="AUDIT_PHASES_TYPES" target="AUDIT_JOBS" toMany="true">
-		<db-attribute-pair source="ID_AUDIT_PHASES_TYPE" target="ID_AUDIT_PHASES_TYPE"/>
+	<db-relationship name="toAuditStatus" source="audits" target="audit_status" toMany="false">
+		<db-attribute-pair source="id_audit_status" target="id_audit_status"/>
 	</db-relationship>
-	<db-relationship name="auditsArray" source="AUDIT_STATUS" target="AUDITS" toMany="true">
-		<db-attribute-pair source="ID_AUDIT_STATUS" target="ID_AUDIT_STATUS"/>
+	<db-relationship name="toAuditTypes" source="audits" target="audit_types" toMany="false">
+		<db-attribute-pair source="id_audit_type" target="id_audit_type"/>
 	</db-relationship>
-	<db-relationship name="auditsArray" source="AUDIT_TYPES" target="AUDITS" toMany="true">
-		<db-attribute-pair source="ID_AUDIT_TYPE" target="ID_AUDIT_TYPE"/>
+	<db-relationship name="toAuditorTeams" source="audits" target="auditor_teams" toMany="false">
+		<db-attribute-pair source="id_auditor_team" target="id_auditor_team"/>
 	</db-relationship>
-	<db-relationship name="companyDepartmentsArray" source="COMPANIES" target="COMPANY_DEPARTMENTS" toMany="true">
-		<db-attribute-pair source="ID_COMPANY" target="ID_COMPANY"/>
+	<db-relationship name="toCompanyDepartments" source="audits" target="company_departments" toMany="false">
+		<db-attribute-pair source="id_company_department" target="id_company_department"/>
 	</db-relationship>
-	<db-relationship name="auditsArray" source="COMPANY_DEPARTMENTS" target="AUDITS" toMany="true">
-		<db-attribute-pair source="ID_COMPANY_DEPARTMENT" target="ID_COMPANY_DEPARTMENT"/>
+	<db-relationship name="companyDepartmentsArray" source="companies" target="company_departments" toMany="true">
+		<db-attribute-pair source="id_company" target="id_company"/>
 	</db-relationship>
-	<db-relationship name="toCompanies" source="COMPANY_DEPARTMENTS" target="COMPANIES" toMany="false">
-		<db-attribute-pair source="ID_COMPANY" target="ID_COMPANY"/>
+	<db-relationship name="auditsArray" source="company_departments" target="audits" toMany="true">
+		<db-attribute-pair source="id_company_department" target="id_company_department"/>
 	</db-relationship>
-	<db-relationship name="toUsers" source="COMPANY_DEPARTMENTS" target="USERS" toMany="false">
-		<db-attribute-pair source="ID_USER_RESPONSABLE" target="ID_USER"/>
+	<db-relationship name="toCompanies" source="company_departments" target="companies" toMany="false">
+		<db-attribute-pair source="id_company" target="id_company"/>
 	</db-relationship>
-	<db-relationship name="toAuditJobs" source="EFFORT_DOCUMENTS" target="AUDIT_JOBS" toMany="false">
-		<db-attribute-pair source="ID_AUDIT_JOB" target="ID_AUDIT_JOB"/>
+	<db-relationship name="toUsers" source="company_departments" target="users" toMany="false">
+		<db-attribute-pair source="id_user_responsable" target="id_user"/>
 	</db-relationship>
-	<db-relationship name="toAuditors" source="EFFORT_DOCUMENTS" target="AUDITORS" toMany="false">
-		<db-attribute-pair source="ID_AUTHOR" target="ID_AUDITOR"/>
+	<db-relationship name="toAuditJobs" source="effort_documents" target="audit_jobs" toMany="false">
+		<db-attribute-pair source="id_audit_job" target="id_audit_job"/>
 	</db-relationship>
-	<db-relationship name="auditJobsArray" source="JOB_STATUS" target="AUDIT_JOBS" toMany="true">
-		<db-attribute-pair source="ID_JOB_STATUS" target="ID_JOB_STATUS"/>
+	<db-relationship name="toAuditors" source="effort_documents" target="auditors" toMany="false">
+		<db-attribute-pair source="id_author" target="id_auditor"/>
 	</db-relationship>
-	<db-relationship name="toAuditors" source="MOVEMENTS_AUDITOR" target="AUDITORS" toMany="false">
-		<db-attribute-pair source="ID_AUDITOR" target="ID_AUDITOR"/>
+	<db-relationship name="auditJobsArray" source="job_status" target="audit_jobs" toMany="true">
+		<db-attribute-pair source="id_job_status" target="id_job_status"/>
 	</db-relationship>
-	<db-relationship name="toUsers" source="MOVEMENTS_USER" target="USERS" toMany="false">
-		<db-attribute-pair source="ID_USER" target="ID_USER"/>
+	<db-relationship name="toAuditors" source="movements_auditor" target="auditors" toMany="false">
+		<db-attribute-pair source="id_auditor" target="id_auditor"/>
 	</db-relationship>
-	<db-relationship name="obsAuditorCommentsArray" source="OBSERVATIONS" target="OBS_AUDITOR_COMMENTS" toMany="true">
-		<db-attribute-pair source="ID_OBSERVATION" target="ID_OBSERVATION"/>
+	<db-relationship name="toUsers" source="movements_user" target="users" toMany="false">
+		<db-attribute-pair source="id_user" target="id_user"/>
 	</db-relationship>
-	<db-relationship name="obsUserCommentsArray" source="OBSERVATIONS" target="OBS_USER_COMMENTS" toMany="true">
-		<db-attribute-pair source="ID_OBSERVATION" target="ID_OBSERVATION"/>
+	<db-relationship name="toAuditors" source="obs_auditor_comments" target="auditors" toMany="false">
+		<db-attribute-pair source="id_auditor" target="id_auditor"/>
 	</db-relationship>
-	<db-relationship name="obsUsersArray" source="OBSERVATIONS" target="OBS_USERS" toMany="true">
-		<db-attribute-pair source="ID_OBSERVATION" target="ID_OBSERVATION"/>
+	<db-relationship name="toObservations" source="obs_auditor_comments" target="observations" toMany="false">
+		<db-attribute-pair source="id_observation" target="id_observation"/>
 	</db-relationship>
-	<db-relationship name="toAuditors" source="OBSERVATIONS" target="AUDITORS" toMany="false">
-		<db-attribute-pair source="ID_AUDITOR" target="ID_AUDITOR"/>
+	<db-relationship name="observationsArray" source="obs_complexities" target="observations" toMany="true">
+		<db-attribute-pair source="id_complexity" target="id_complexity"/>
 	</db-relationship>
-	<db-relationship name="toAudits" source="OBSERVATIONS" target="AUDITS" toMany="false">
-		<db-attribute-pair source="ID_AUDIT" target="ID_AUDIT"/>
+	<db-relationship name="observationsArray" source="obs_findings" target="observations" toMany="true">
+		<db-attribute-pair source="id_finding" target="id_finding"/>
 	</db-relationship>
-	<db-relationship name="toObsComplexities" source="OBSERVATIONS" target="OBS_COMPLEXITIES" toMany="false">
-		<db-attribute-pair source="ID_COMPLEXITY" target="ID_COMPLEXITY"/>
+	<db-relationship name="observationsArray" source="obs_impacts" target="observations" toMany="true">
+		<db-attribute-pair source="id_impact" target="id_impact"/>
 	</db-relationship>
-	<db-relationship name="toObsFindings" source="OBSERVATIONS" target="OBS_FINDINGS" toMany="false">
-		<db-attribute-pair source="ID_FINDING" target="ID_FINDING"/>
+	<db-relationship name="observationsArray" source="obs_status" target="observations" toMany="true">
+		<db-attribute-pair source="id_status" target="id_status"/>
 	</db-relationship>
-	<db-relationship name="toObsImpacts" source="OBSERVATIONS" target="OBS_IMPACTS" toMany="false">
-		<db-attribute-pair source="ID_IMPACT" target="ID_IMPACT"/>
+	<db-relationship name="toObservations" source="obs_user_comments" target="observations" toMany="false">
+		<db-attribute-pair source="id_observation" target="id_observation"/>
 	</db-relationship>
-	<db-relationship name="toObsStatus" source="OBSERVATIONS" target="OBS_STATUS" toMany="false">
-		<db-attribute-pair source="ID_STATUS" target="ID_STATUS"/>
+	<db-relationship name="toUsers" source="obs_user_comments" target="users" toMany="false">
+		<db-attribute-pair source="id_user" target="id_user"/>
 	</db-relationship>
-	<db-relationship name="toUsers" source="OBSERVATIONS" target="USERS" toMany="false">
-		<db-attribute-pair source="ID_RESPONSIBLE" target="ID_USER"/>
+	<db-relationship name="toObservations" source="obs_users" target="observations" toMany="false">
+		<db-attribute-pair source="id_observation" target="id_observation"/>
 	</db-relationship>
-	<db-relationship name="toObservations" source="OBS_AUDITOR_COMMENTS" target="OBSERVATIONS" toMany="false">
-		<db-attribute-pair source="ID_OBSERVATION" target="ID_OBSERVATION"/>
+	<db-relationship name="toUsers" source="obs_users" target="users" toMany="false">
+		<db-attribute-pair source="id_user" target="id_user"/>
 	</db-relationship>
-	<db-relationship name="observationsArray" source="OBS_COMPLEXITIES" target="OBSERVATIONS" toMany="true">
-		<db-attribute-pair source="ID_COMPLEXITY" target="ID_COMPLEXITY"/>
+	<db-relationship name="obsAuditorCommentsArray" source="observations" target="obs_auditor_comments" toMany="true">
+		<db-attribute-pair source="id_observation" target="id_observation"/>
 	</db-relationship>
-	<db-relationship name="observationsArray" source="OBS_FINDINGS" target="OBSERVATIONS" toMany="true">
-		<db-attribute-pair source="ID_FINDING" target="ID_FINDING"/>
+	<db-relationship name="obsUserCommentsArray" source="observations" target="obs_user_comments" toMany="true">
+		<db-attribute-pair source="id_observation" target="id_observation"/>
 	</db-relationship>
-	<db-relationship name="observationsArray" source="OBS_IMPACTS" target="OBSERVATIONS" toMany="true">
-		<db-attribute-pair source="ID_IMPACT" target="ID_IMPACT"/>
+	<db-relationship name="obsUsersArray" source="observations" target="obs_users" toMany="true">
+		<db-attribute-pair source="id_observation" target="id_observation"/>
 	</db-relationship>
-	<db-relationship name="observationsArray" source="OBS_STATUS" target="OBSERVATIONS" toMany="true">
-		<db-attribute-pair source="ID_STATUS" target="ID_STATUS"/>
+	<db-relationship name="toAuditors" source="observations" target="auditors" toMany="false">
+		<db-attribute-pair source="id_auditor" target="id_auditor"/>
 	</db-relationship>
-	<db-relationship name="toObservations" source="OBS_USERS" target="OBSERVATIONS" toMany="false">
-		<db-attribute-pair source="ID_OBSERVATION" target="ID_OBSERVATION"/>
+	<db-relationship name="toAudits" source="observations" target="audits" toMany="false">
+		<db-attribute-pair source="id_audit" target="id_audit"/>
 	</db-relationship>
-	<db-relationship name="toUsers" source="OBS_USERS" target="USERS" toMany="false">
-		<db-attribute-pair source="ID_USER" target="ID_USER"/>
+	<db-relationship name="toObsComplexities" source="observations" target="obs_complexities" toMany="false">
+		<db-attribute-pair source="id_complexity" target="id_complexity"/>
 	</db-relationship>
-	<db-relationship name="toObservations" source="OBS_USER_COMMENTS" target="OBSERVATIONS" toMany="false">
-		<db-attribute-pair source="ID_OBSERVATION" target="ID_OBSERVATION"/>
+	<db-relationship name="toObsFindings" source="observations" target="obs_findings" toMany="false">
+		<db-attribute-pair source="id_finding" target="id_finding"/>
 	</db-relationship>
-	<db-relationship name="reqDocumentsArray" source="REQUIREMENTS_INFORMATION" target="REQ_DOCUMENTS" toMany="true">
-		<db-attribute-pair source="ID_REQ_INFO" target="ID_REQ_INFO"/>
+	<db-relationship name="toObsImpacts" source="observations" target="obs_impacts" toMany="false">
+		<db-attribute-pair source="id_impact" target="id_impact"/>
 	</db-relationship>
-	<db-relationship name="toAuditors" source="REQUIREMENTS_INFORMATION" target="AUDITORS" toMany="false">
-		<db-attribute-pair source="ID_AUDITOR_APPLICANT" target="ID_AUDITOR"/>
+	<db-relationship name="toObsStatus" source="observations" target="obs_status" toMany="false">
+		<db-attribute-pair source="id_status" target="id_status"/>
 	</db-relationship>
-	<db-relationship name="toAudits" source="REQUIREMENTS_INFORMATION" target="AUDITS" toMany="false">
-		<db-attribute-pair source="ID_AUDIT" target="ID_AUDIT"/>
+	<db-relationship name="toUsers" source="observations" target="users" toMany="false">
+		<db-attribute-pair source="id_responsible" target="id_user"/>
 	</db-relationship>
-	<db-relationship name="toRequirementStatus" source="REQUIREMENTS_INFORMATION" target="REQUIREMENT_STATUS" toMany="false">
-		<db-attribute-pair source="ID_REQ_STATUS" target="ID_REQ_STATUS"/>
+	<db-relationship name="toAuditors" source="req_documents" target="auditors" toMany="false">
+		<db-attribute-pair source="id_author" target="id_auditor"/>
 	</db-relationship>
-	<db-relationship name="toUsers" source="REQUIREMENTS_INFORMATION" target="USERS" toMany="false">
-		<db-attribute-pair source="ID_USER" target="ID_USER"/>
+	<db-relationship name="toRequirementsInformation" source="req_documents" target="requirements_information" toMany="false">
+		<db-attribute-pair source="id_req_info" target="id_req_info"/>
 	</db-relationship>
-	<db-relationship name="requirementsInformationArray" source="REQUIREMENT_STATUS" target="REQUIREMENTS_INFORMATION" toMany="true">
-		<db-attribute-pair source="ID_REQ_STATUS" target="ID_REQ_STATUS"/>
+	<db-relationship name="requirementsInformationArray" source="requirement_status" target="requirements_information" toMany="true">
+		<db-attribute-pair source="id_req_status" target="id_req_status"/>
 	</db-relationship>
-	<db-relationship name="toAuditors" source="REQ_DOCUMENTS" target="AUDITORS" toMany="false">
-		<db-attribute-pair source="ID_AUTHOR" target="ID_AUDITOR"/>
+	<db-relationship name="reqDocumentsArray" source="requirements_information" target="req_documents" toMany="true">
+		<db-attribute-pair source="id_req_info" target="id_req_info"/>
 	</db-relationship>
-	<db-relationship name="toRequirementsInformation" source="REQ_DOCUMENTS" target="REQUIREMENTS_INFORMATION" toMany="false">
-		<db-attribute-pair source="ID_REQ_INFO" target="ID_REQ_INFO"/>
+	<db-relationship name="toAuditors" source="requirements_information" target="auditors" toMany="false">
+		<db-attribute-pair source="id_auditor_applicant" target="id_auditor"/>
 	</db-relationship>
-	<db-relationship name="toAudits" source="SUBPROCESSES" target="AUDITS" toMany="false">
-		<db-attribute-pair source="ID_AUDIT" target="ID_AUDIT"/>
+	<db-relationship name="toAudits" source="requirements_information" target="audits" toMany="false">
+		<db-attribute-pair source="id_audit" target="id_audit"/>
 	</db-relationship>
-	<db-relationship name="auditCloseReportArray" source="USERS" target="AUDIT_CLOSE_REPORT" toMany="true">
-		<db-attribute-pair source="ID_USER" target="ID_TO"/>
+	<db-relationship name="toRequirementStatus" source="requirements_information" target="requirement_status" toMany="false">
+		<db-attribute-pair source="id_req_status" target="id_req_status"/>
 	</db-relationship>
-	<db-relationship name="auditInitialReportArray" source="USERS" target="AUDIT_INITIAL_REPORT" toMany="true">
-		<db-attribute-pair source="ID_USER" target="ID_TO"/>
+	<db-relationship name="toUsers" source="requirements_information" target="users" toMany="false">
+		<db-attribute-pair source="id_user" target="id_user"/>
 	</db-relationship>
-	<db-relationship name="companyDepartmentsArray" source="USERS" target="COMPANY_DEPARTMENTS" toMany="true">
-		<db-attribute-pair source="ID_USER" target="ID_USER_RESPONSABLE"/>
+	<db-relationship name="toAudits" source="subprocesses" target="audits" toMany="false">
+		<db-attribute-pair source="id_audit" target="id_audit"/>
 	</db-relationship>
-	<db-relationship name="movementsUserArray" source="USERS" target="MOVEMENTS_USER" toMany="true">
-		<db-attribute-pair source="ID_USER" target="ID_USER"/>
+	<db-relationship name="usersArray" source="user_roles" target="users" toMany="true">
+		<db-attribute-pair source="id_user_role" target="id_user_role"/>
 	</db-relationship>
-	<db-relationship name="obsUsersArray" source="USERS" target="OBS_USERS" toMany="true">
-		<db-attribute-pair source="ID_USER" target="ID_USER"/>
+	<db-relationship name="auditCloseReportArray" source="users" target="audit_close_report" toMany="true">
+		<db-attribute-pair source="id_user" target="id_to"/>
 	</db-relationship>
-	<db-relationship name="observationsArray" source="USERS" target="OBSERVATIONS" toMany="true">
-		<db-attribute-pair source="ID_USER" target="ID_RESPONSIBLE"/>
+	<db-relationship name="auditInitialReportArray" source="users" target="audit_initial_report" toMany="true">
+		<db-attribute-pair source="id_user" target="id_to"/>
 	</db-relationship>
-	<db-relationship name="requirementsInformationArray" source="USERS" target="REQUIREMENTS_INFORMATION" toMany="true">
-		<db-attribute-pair source="ID_USER" target="ID_USER"/>
+	<db-relationship name="companyDepartmentsArray" source="users" target="company_departments" toMany="true">
+		<db-attribute-pair source="id_user" target="id_user_responsable"/>
 	</db-relationship>
-	<db-relationship name="toUserRoles" source="USERS" target="USER_ROLES" toMany="false">
-		<db-attribute-pair source="ID_USER_ROLE" target="ID_USER_ROLE"/>
+	<db-relationship name="movementsUserArray" source="users" target="movements_user" toMany="true">
+		<db-attribute-pair source="id_user" target="id_user"/>
 	</db-relationship>
-	<db-relationship name="usersArray" source="USER_ROLES" target="USERS" toMany="true">
-		<db-attribute-pair source="ID_USER_ROLE" target="ID_USER_ROLE"/>
+	<db-relationship name="obsUserCommentsArray" source="users" target="obs_user_comments" toMany="true">
+		<db-attribute-pair source="id_user" target="id_user"/>
+	</db-relationship>
+	<db-relationship name="obsUsersArray" source="users" target="obs_users" toMany="true">
+		<db-attribute-pair source="id_user" target="id_user"/>
+	</db-relationship>
+	<db-relationship name="observationsArray" source="users" target="observations" toMany="true">
+		<db-attribute-pair source="id_user" target="id_responsible"/>
+	</db-relationship>
+	<db-relationship name="requirementsInformationArray" source="users" target="requirements_information" toMany="true">
+		<db-attribute-pair source="id_user" target="id_user"/>
+	</db-relationship>
+	<db-relationship name="toUserRoles" source="users" target="user_roles" toMany="false">
+		<db-attribute-pair source="id_user_role" target="id_user_role"/>
 	</db-relationship>
 	<obj-relationship name="toAudits" source="AuditCloseReport" target="Audits" deleteRule="Nullify" db-relationship-path="toAudits"/>
 	<obj-relationship name="toUsers" source="AuditCloseReport" target="Users" deleteRule="Nullify" db-relationship-path="toUsers"/>
@@ -746,6 +760,7 @@
 	<obj-relationship name="auditorTeamsArray" source="Auditors" target="AuditorTeams" deleteRule="Deny" db-relationship-path="auditorTeamsArray"/>
 	<obj-relationship name="effortDocumentsArray" source="Auditors" target="EffortDocuments" deleteRule="Deny" db-relationship-path="effortDocumentsArray"/>
 	<obj-relationship name="movementsAuditorArray" source="Auditors" target="MovementsAuditor" deleteRule="Deny" db-relationship-path="movementsAuditorArray"/>
+	<obj-relationship name="obsAuditorCommentsArray" source="Auditors" target="ObsAuditorComments" deleteRule="Deny" db-relationship-path="obsAuditorCommentsArray"/>
 	<obj-relationship name="observationsArray" source="Auditors" target="Observations" deleteRule="Deny" db-relationship-path="observationsArray"/>
 	<obj-relationship name="reqDocumentsArray" source="Auditors" target="ReqDocuments" deleteRule="Deny" db-relationship-path="reqDocumentsArray"/>
 	<obj-relationship name="requirementsInformationArray" source="Auditors" target="RequirementsInformation" deleteRule="Deny" db-relationship-path="requirementsInformationArray"/>
@@ -770,12 +785,14 @@
 	<obj-relationship name="auditJobsArray" source="JobStatus" target="AuditJobs" deleteRule="Deny" db-relationship-path="auditJobsArray"/>
 	<obj-relationship name="toAuditors" source="MovementsAuditor" target="Auditors" deleteRule="Nullify" db-relationship-path="toAuditors"/>
 	<obj-relationship name="toUsers" source="MovementsUser" target="Users" deleteRule="Nullify" db-relationship-path="toUsers"/>
+	<obj-relationship name="toAuditors" source="ObsAuditorComments" target="Auditors" deleteRule="Nullify" db-relationship-path="toAuditors"/>
 	<obj-relationship name="toObservations" source="ObsAuditorComments" target="Observations" deleteRule="Nullify" db-relationship-path="toObservations"/>
 	<obj-relationship name="observationsArray" source="ObsComplexities" target="Observations" deleteRule="Deny" db-relationship-path="observationsArray"/>
 	<obj-relationship name="observationsArray" source="ObsFindings" target="Observations" deleteRule="Deny" db-relationship-path="observationsArray"/>
 	<obj-relationship name="observationsArray" source="ObsImpacts" target="Observations" deleteRule="Deny" db-relationship-path="observationsArray"/>
 	<obj-relationship name="observationsArray" source="ObsStatus" target="Observations" deleteRule="Deny" db-relationship-path="observationsArray"/>
 	<obj-relationship name="toObservations" source="ObsUserComments" target="Observations" deleteRule="Nullify" db-relationship-path="toObservations"/>
+	<obj-relationship name="toUsers" source="ObsUserComments" target="Users" deleteRule="Nullify" db-relationship-path="toUsers"/>
 	<obj-relationship name="toObservations" source="ObsUsers" target="Observations" deleteRule="Nullify" db-relationship-path="toObservations"/>
 	<obj-relationship name="toUsers" source="ObsUsers" target="Users" deleteRule="Nullify" db-relationship-path="toUsers"/>
 	<obj-relationship name="obsAuditorCommentsArray" source="Observations" target="ObsAuditorComments" deleteRule="Deny" db-relationship-path="obsAuditorCommentsArray"/>
@@ -802,6 +819,7 @@
 	<obj-relationship name="auditInitialReportArray" source="Users" target="AuditInitialReport" deleteRule="Deny" db-relationship-path="auditInitialReportArray"/>
 	<obj-relationship name="companyDepartmentsArray" source="Users" target="CompanyDepartments" deleteRule="Deny" db-relationship-path="companyDepartmentsArray"/>
 	<obj-relationship name="movementsUserArray" source="Users" target="MovementsUser" deleteRule="Deny" db-relationship-path="movementsUserArray"/>
+	<obj-relationship name="obsUserCommentsArray" source="Users" target="ObsUserComments" deleteRule="Deny" db-relationship-path="obsUserCommentsArray"/>
 	<obj-relationship name="obsUsersArray" source="Users" target="ObsUsers" deleteRule="Deny" db-relationship-path="obsUsersArray"/>
 	<obj-relationship name="observationsArray" source="Users" target="Observations" deleteRule="Deny" db-relationship-path="observationsArray"/>
 	<obj-relationship name="requirementsInformationArray" source="Users" target="RequirementsInformation" deleteRule="Deny" db-relationship-path="requirementsInformationArray"/>

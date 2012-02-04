@@ -17,7 +17,7 @@ public abstract class _AuditTypes extends CayenneDataObject {
     public static final String NAME_PROPERTY = "name";
     public static final String AUDITS_ARRAY_PROPERTY = "auditsArray";
 
-    public static final String ID_AUDIT_TYPE_PK_COLUMN = "ID_AUDIT_TYPE";
+    public static final String ID_AUDIT_TYPE_PK_COLUMN = "id_audit_type";
 
     public void setName(String name) {
         writeProperty("name", name);

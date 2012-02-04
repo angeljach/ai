@@ -11,6 +11,7 @@ import com.bmv.auditoria.ai.persistent.AuditorTeamMembers;
 import com.bmv.auditoria.ai.persistent.AuditorTeams;
 import com.bmv.auditoria.ai.persistent.EffortDocuments;
 import com.bmv.auditoria.ai.persistent.MovementsAuditor;
+import com.bmv.auditoria.ai.persistent.ObsAuditorComments;
 import com.bmv.auditoria.ai.persistent.Observations;
 import com.bmv.auditoria.ai.persistent.ReqDocuments;
 import com.bmv.auditoria.ai.persistent.RequirementsInformation;
@@ -30,12 +31,13 @@ public abstract class _Auditors extends CayenneDataObject {
     public static final String AUDITOR_TEAMS_ARRAY_PROPERTY = "auditorTeamsArray";
     public static final String EFFORT_DOCUMENTS_ARRAY_PROPERTY = "effortDocumentsArray";
     public static final String MOVEMENTS_AUDITOR_ARRAY_PROPERTY = "movementsAuditorArray";
+    public static final String OBS_AUDITOR_COMMENTS_ARRAY_PROPERTY = "obsAuditorCommentsArray";
     public static final String OBSERVATIONS_ARRAY_PROPERTY = "observationsArray";
     public static final String REQ_DOCUMENTS_ARRAY_PROPERTY = "reqDocumentsArray";
     public static final String REQUIREMENTS_INFORMATION_ARRAY_PROPERTY = "requirementsInformationArray";
     public static final String TO_AUDITOR_ROLES_PROPERTY = "toAuditorRoles";
 
-    public static final String ID_AUDITOR_PK_COLUMN = "ID_AUDITOR";
+    public static final String ID_AUDITOR_PK_COLUMN = "id_auditor";
 
     public void setAuditorName(String auditorName) {
         writeProperty("auditorName", auditorName);
@@ -113,6 +115,18 @@ public abstract class _Auditors extends CayenneDataObject {
     @SuppressWarnings("unchecked")
     public List<MovementsAuditor> getMovementsAuditorArray() {
         return (List<MovementsAuditor>)readProperty("movementsAuditorArray");
+    }
+
+
+    public void addToObsAuditorCommentsArray(ObsAuditorComments obj) {
+        addToManyTarget("obsAuditorCommentsArray", obj, true);
+    }
+    public void removeFromObsAuditorCommentsArray(ObsAuditorComments obj) {
+        removeToManyTarget("obsAuditorCommentsArray", obj, true);
+    }
+    @SuppressWarnings("unchecked")
+    public List<ObsAuditorComments> getObsAuditorCommentsArray() {
+        return (List<ObsAuditorComments>)readProperty("obsAuditorCommentsArray");
     }
 
 

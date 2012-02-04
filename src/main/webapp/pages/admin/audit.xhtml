@@ -94,11 +94,11 @@
             
             
             
-            <h:panelGrid columns="2" styleClass="tblTopVerticalAlign" columnClasses="tbl50,tbl50">
+            <h:panelGrid columns="3" styleClass="tblTopVerticalAlign" columnClasses="tbl49,tbl02,tbl48">
                 
                 <h:panelGroup>
-                    <p:dataTable id="tblDocFromAudit" var="itemDoc" value="#{audit.documentsFromAudit}"
-                                 paginator="true" rows="5" 
+                    <p:dataTable id="tblDocFromAudit" var="itemDoc" value="#{audit.auditFile.items}"
+                                 paginator="true" rows="5" style="font-size: x-small"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
                         <f:facet name="header">
@@ -131,18 +131,38 @@
                             <f:facet name="header">Tamaño</f:facet>
                             <h:outputText value="#{itemDoc.bitsSize}" />
                         </p:column>
+                        
+                        <p:column style="text-align: center;" >
+                            <f:facet name="header">------Acciones------</f:facet>
+                            <p:commandButton icon="ui-icon-search" title="Ver">
+                                
+                            </p:commandButton>
+                            <p:commandButton icon="ui-icon-pencil" title="Modificar">
+                                
+                            </p:commandButton>
+                            <p:commandButton icon="ui-icon-closethick" title="Eliminar">
+                                
+                            </p:commandButton>
+                        </p:column>
 
-                        <!--f:facet name="footer">
-                            <p:commandButton action="# {audit.addNewFile()}"
-                                             ajax="false" value="Nuevo" />
-                        </f:facet-->
+                        <f:facet name="footer">
+                            <!-- Solo lo pueden ver auditores -->
+                            <p:commandButton action="#{audit.auditFile.prepareCreate()}"
+                                             ajax="false" value="Nuevo Archivo" 
+                                             rendered="#{login.auditor}">
+                                <f:setPropertyActionListener value="#{audit.current}" 
+                                                             target="#{audit.auditFile.audit}" />
+                            </p:commandButton>
+                        </f:facet>
 
                     </p:dataTable>
                 </h:panelGroup>
                 
+                <h:outputLabel value="" />
+                
                 <h:panelGroup>
                     <p:dataTable id="tblReqInfFromAudit" var="itemReqInf" value="#{audit.requirementsInformationFromAudit}"
-                                 paginator="true" rows="5" 
+                                 paginator="true" rows="5" style="font-size: x-small"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
                         <f:facet name="header">
@@ -200,7 +220,7 @@
             
             
             <p:dataTable id="tblObsFromAudit" var="itemObs" value="#{audit.observationsFromAudit}"
-                         paginator="true" rows="5" 
+                         paginator="true" rows="5" style="font-size: x-small"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
                 
                 <f:facet name="header">
@@ -260,6 +280,24 @@
                                     styleClass="img16x16" title="#{itemObs.toObsComplexities.name}"/>
                 </p:column>
                 
+                <p:column style="text-align: center;" >
+                            <f:facet name="header">------Acciones------</f:facet>
+                            <p:commandButton icon="ui-icon-search" title="Ver">
+                                
+                            </p:commandButton>
+                            <p:commandButton icon="ui-icon-pencil" title="Modificar">
+                                
+                            </p:commandButton>
+                            <p:commandButton icon="ui-icon-closethick" title="Eliminar">
+                                
+                            </p:commandButton>
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:commandButton action="#{audit.addNewObservation()}"
+                                             ajax="false" value="Nuevo" />
+                        </f:facet>
+                
             </p:dataTable>
             
             
@@ -269,7 +307,7 @@
             
             
             <p:dataTable id="tblJobsFromAudit" var="itemJob" value="#{audit.jobsFromAudit}"
-                         paginator="true" rows="5" 
+                         paginator="true" rows="5" style="font-size: x-small"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
                 
                 <f:facet name="header">
@@ -322,7 +360,7 @@
             
             
             <p:dataTable id="tblSubprocessesFromAudit" var="itemSubp" value="#{audit.subprocessesFromAudit}"
-                         paginator="true" rows="5" 
+                         paginator="true" rows="5" style="font-size: x-small"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
                 
                 <f:facet name="header">

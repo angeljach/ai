@@ -18,7 +18,7 @@ public abstract class _MovementsAuditor extends CayenneDataObject {
     public static final String MOV_DATE_PROPERTY = "movDate";
     public static final String TO_AUDITORS_PROPERTY = "toAuditors";
 
-    public static final String ID_MOV_PK_COLUMN = "ID_MOV";
+    public static final String ID_MOV_PK_COLUMN = "id_mov";
 
     public void setDetail(String detail) {
         writeProperty("detail", detail);

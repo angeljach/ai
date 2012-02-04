@@ -47,7 +47,7 @@ public abstract class _Audits extends CayenneDataObject {
     public static final String TO_AUDITOR_TEAMS_PROPERTY = "toAuditorTeams";
     public static final String TO_COMPANY_DEPARTMENTS_PROPERTY = "toCompanyDepartments";
 
-    public static final String ID_AUDIT_PK_COLUMN = "ID_AUDIT";
+    public static final String ID_AUDIT_PK_COLUMN = "id_audit";
 
     public void setAuditName(String auditName) {
         writeProperty("auditName", auditName);

@@ -30,7 +30,7 @@ public abstract class _AuditJobs extends CayenneDataObject {
     public static final String TO_AUDITS_PROPERTY = "toAudits";
     public static final String TO_JOB_STATUS_PROPERTY = "toJobStatus";
 
-    public static final String ID_AUDIT_JOB_PK_COLUMN = "ID_AUDIT_JOB";
+    public static final String ID_AUDIT_JOB_PK_COLUMN = "id_audit_job";
 
     public void setDateEnd(Date dateEnd) {
         writeProperty("dateEnd", dateEnd);

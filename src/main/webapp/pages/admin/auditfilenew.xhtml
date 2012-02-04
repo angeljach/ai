@@ -1,0 +1,71 @@
+<ui:composition template="/resources/templates/headandcenter.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <h:form id="frmNewAuditFile">
+
+            <p:growl id="growlMessage" showDetail="true" life="5000" />
+
+            <fieldset class="demo_fieldset">
+                <legend class="demo_legend">Información General</legend>
+                <div class="sample-container">
+                    <h:panelGrid columns="2" width="100%" columnClasses="labelGrid4, fieldGrid4, labelGrid4, fieldGrid4" >
+
+                        <h:outputLabel value="Auditoría: " style="font-weight: bold;" />
+                        <h:outputText value="#{auditFile.audit.auditName}"
+                                          style="font-weight: bold;"/>
+                        
+                        <h:outputLabel value="Usuario: " style="font-weight: bold;" />
+                        <h:outputText value="#{login.displayName}"
+                                          style="font-weight: bold;"/>
+                        
+                        <h:outputLabel value="Ruta Archivo: " />
+                        <h:inputText value="#{auditFile.selected.pathFile}"
+                                         label="Ruta" >
+                            <f:validateLength maximum="1024" />
+                        </h:inputText>
+                                                
+                        <h:outputLabel value="Descripción: " />
+                        <p:inputTextarea value="#{auditFile.selected.description}"
+                                         style="width:220px;height:60px;"
+                                         label="Desc" >
+                            <f:validateLength maximum="2048" />
+                        </p:inputTextarea>
+                        
+                        <h:outputLabel value="Fecha de Actualización: " rendered="#{auditFile.edit}"/>
+                        <h:outputText value="#{auditFile.selected.updateDate}" 
+                                      rendered="#{auditFile.edit}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                        
+                        <h:outputLabel value="Tamaño [bits]: " 
+                                       rendered="#{auditFile.edit}" />
+                        <h:outputText value="#{auditFile.selected.bitsSize}" 
+                                      rendered="#{auditFile.edit}" />
+
+                    </h:panelGrid>
+                </div>
+            </fieldset>
+
+            <div class="centered">
+                <h:panelGrid columns="1" style="text-align: center;">
+                    <p:commandButton action="#{auditFile.create()}" ajax="false" 
+                                     icon="ui-icon-plusthick" value="Registrar"
+                                     rendered="#{!auditFile.edit}"/>
+                    <p:commandButton action="#{auditFile.cancelCreate()}" ajax="false" 
+                                 icon="ui-icon-closethick" value="Cancelar"
+                                 rendered="#{!auditFile.edit}"/>
+
+                    <p:commandButton action="#{auditFile.update()}" ajax="false" 
+                                     icon="ui-icon-disk" value="Actualizar"
+                                     rendered="#{auditFile.edit}"/>
+                    <p:commandButton action="#{auditFile.cancelUpdate()}" ajax="false" 
+                                     icon="ui-icon-closethick" value="Cancelar"
+                                     rendered="#{auditFile.edit}"/>
+                </h:panelGrid>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

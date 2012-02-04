@@ -16,7 +16,7 @@ public abstract class _AuditorTeamMembers extends CayenneDataObject {
     public static final String TO_AUDITOR_TEAMS_PROPERTY = "toAuditorTeams";
     public static final String TO_AUDITORS_PROPERTY = "toAuditors";
 
-    public static final String ID_AUDITOR_TEAM_MEMBER_PK_COLUMN = "ID_AUDITOR_TEAM_MEMBER";
+    public static final String ID_AUDITOR_TEAM_MEMBER_PK_COLUMN = "id_auditor_team_member";
 
     public void setToAuditorTeams(AuditorTeams toAuditorTeams) {
         setToOneTarget("toAuditorTeams", toAuditorTeams, true);

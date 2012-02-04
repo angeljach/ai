@@ -12,7 +12,7 @@ public abstract class _ProcessStagesRisk extends CayenneDataObject {
 
     public static final String NAME_PROPERTY = "name";
 
-    public static final String ID_PROCESS_STAGE_PK_COLUMN = "ID_PROCESS_STAGE";
+    public static final String ID_PROCESS_STAGE_PK_COLUMN = "id_process_stage";
 
     public void setName(String name) {
         writeProperty("name", name);
