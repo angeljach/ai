@@ -8,7 +8,7 @@ import com.jach.jachtoolkit.ldap.LdapTools;
 import java.util.ResourceBundle;
 import javax.naming.NamingException;
 import javax.naming.directory.Attributes;
-import org.apache.cayenne.DataObjectUtils;
+import org.apache.cayenne.Cayenne;
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.access.DataContext;
 import org.apache.cayenne.exp.Expression;
@@ -69,11 +69,12 @@ public class Login {
         //Un Auditor NO puede ser usuario local.
 
         //---|| Obtengo el rol.
-        ObjectContext context = DataContext.createDataContext();
+        ObjectContext context = DataContext.getThreadObjectContext();
+        
         Expression e = ExpressionFactory.matchExp(Users.USER_NAME_PROPERTY, usr);
         SelectQuery select = new SelectQuery(Users.class, e);
 
-        Users tmpUser = (Users) DataObjectUtils.objectForQuery(context, select);
+        Users tmpUser = (Users) Cayenne.objectForQuery(context, select);
 
         if (tmpUser != null) {
             logger.trace(String.format("El usuario '%s' existe en la BD.", usr));
@@ -165,14 +166,14 @@ public class Login {
             logger.debug(String.format("Credenciales de '%s' validadas. Obteniendo rol.", usr));
 
             //---|| Obtengo el rol.
-            ObjectContext context = DataContext.createDataContext();
+            ObjectContext context = DataContext.getThreadObjectContext();
             Expression e;
             SelectQuery select;
 
             if (isAuditor) {
                 e = ExpressionFactory.matchExp(Auditors.AUDITOR_NAME_PROPERTY, usr);
                 select = new SelectQuery(Auditors.class, e);
-                Auditors tmpUser = (Auditors) DataObjectUtils.objectForQuery(context, select);
+                Auditors tmpUser = (Auditors) Cayenne.objectForQuery(context, select);
 
                 if (tmpUser != null) {
                     //---|| Si es un usuario valido, regreso un objeto UsrInfoVO
@@ -189,7 +190,7 @@ public class Login {
             } else {
                 e = ExpressionFactory.matchExp(Users.USER_NAME_PROPERTY, usr);
                 select = new SelectQuery(Users.class, e);
-                Users tmpUser = (Users) DataObjectUtils.objectForQuery(context, select);
+                Users tmpUser = (Users) Cayenne.objectForQuery(context, select);
 
                 if (tmpUser != null) {
                     //---|| Si es un usuario valido, regreso un objeto UsrInfoVO

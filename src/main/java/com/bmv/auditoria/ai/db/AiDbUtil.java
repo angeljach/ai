@@ -16,7 +16,8 @@ import com.bmv.auditoria.ai.persistent.Subprocesses;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.cayenne.DataObjectUtils;
+import org.apache.cayenne.Cayenne;
+import org.apache.cayenne.CayenneContext;
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.access.DataContext;
 import org.apache.cayenne.exp.Expression;
@@ -37,7 +38,7 @@ public class AiDbUtil implements Serializable {
 
     public AiDbUtil() {
         logger.trace("Entrando a constructor de CounselorsDbUtil");
-        context = DataContext.createDataContext();
+        context = DataContext.getThreadObjectContext();
     }
 
     /**
@@ -101,7 +102,7 @@ public class AiDbUtil implements Serializable {
             Expression e = ExpressionFactory.matchExp(Auditors.AUDITOR_NAME_PROPERTY, userName);
             SelectQuery sel = new SelectQuery(Auditors.class, e);
 
-            Auditors objUser = (Auditors) DataObjectUtils.objectForQuery(context, sel);
+            Auditors objUser = (Auditors) Cayenne.objectForQuery(context, sel);
 
             if (objUser != null) {
                 //donde el auditor sea miembro

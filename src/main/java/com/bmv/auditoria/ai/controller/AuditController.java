@@ -103,7 +103,7 @@ public class AuditController {
         
         String tmpAudit = "", tmpCia = "", tmpDepto = "";
         try {
-            ObjectContext context = DataContext.createDataContext();
+            ObjectContext context = DataContext.getThreadObjectContext();
             
             CompanyDepartments objDep 
                     = AiDbObjectFromString.getCompanyDepartmentsObjectFromString(context, departmentName);

@@ -10,12 +10,7 @@ import com.bmv.auditoria.ai.persistent.AuditDocuments;
 import com.bmv.auditoria.ai.persistent.Auditors;
 import com.bmv.auditoria.ai.persistent.Audits;
 import com.jach.jachtoolkit.log.Movements;
-import org.apache.cayenne.DataObjectUtils;
 import org.apache.cayenne.ObjectContext;
-import org.apache.cayenne.access.DataContext;
-import org.apache.cayenne.exp.Expression;
-import org.apache.cayenne.exp.ExpressionFactory;
-import org.apache.cayenne.query.SelectQuery;
 import org.apache.log4j.Logger;
 
 /**
@@ -145,11 +140,11 @@ public class AuditFileController {
 //        
 //        Expression e = ExpressionFactory.matchExp(Auditors.AUDITOR_NAME_PROPERTY, "acruzh");
 //        SelectQuery sel = new SelectQuery(Auditors.class, e);
-//        Auditors auditor = (Auditors) DataObjectUtils.objectForQuery(c, sel);
+//        Auditors auditor = (Auditors) Cayenne.objectForQuery(c, sel);
 //        
 //        e = ExpressionFactory.matchExp(Audits.AUDIT_NAME_PROPERTY, "Auditoría Fábrica de Software");
 //        sel = new SelectQuery(Audits.class, e);
-//        Audits audit = (Audits) DataObjectUtils.objectForQuery(c, sel);
+//        Audits audit = (Audits) Cayenne.objectForQuery(c, sel);
 //        
 //        AuditDocuments auditFile = new AuditDocuments();
 //        

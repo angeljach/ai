@@ -6,7 +6,7 @@ import com.bmv.auditoria.ai.login.InfoUsuario;
 import com.jach.jachtoolkit.log.Movements;
 import java.util.Date;
 import java.util.List;
-import org.apache.cayenne.DataObjectUtils;
+import org.apache.cayenne.Cayenne;
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.access.DataContext;
 import org.apache.cayenne.exp.Expression;
@@ -39,7 +39,7 @@ public class MovementsFromAuditor implements Movements {
     
     public MovementsFromAuditor() {
         logger.trace("Entrando a constructor de Movimientos");
-        context = DataContext.createDataContext();
+        context = DataContext.getThreadObjectContext();
         
         //---|| Obtención del usuario.
         logger.debug("Obtención del nombre del usuario.");
@@ -49,7 +49,7 @@ public class MovementsFromAuditor implements Movements {
         logger.debug("Obtención del objeto usuario.");
         Expression e1 = ExpressionFactory.matchExp(Auditors.AUDITOR_NAME_PROPERTY,  userName);
         SelectQuery select = new SelectQuery(Auditors.class, e1);
-        userObj = (Auditors) DataObjectUtils.objectForQuery(context, select);
+        userObj = (Auditors) Cayenne.objectForQuery(context, select);
     }
 
     /**
