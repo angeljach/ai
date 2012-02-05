@@ -3,8 +3,10 @@ package com.bmv.auditoria.ai.db;
 import com.bmv.auditoria.ai.persistent.AuditStatus;
 import com.bmv.auditoria.ai.persistent.AuditTypes;
 import com.bmv.auditoria.ai.persistent.AuditorTeams;
+import com.bmv.auditoria.ai.persistent.Auditors;
 import com.bmv.auditoria.ai.persistent.Companies;
 import com.bmv.auditoria.ai.persistent.CompanyDepartments;
+import com.bmv.auditoria.ai.persistent.Users;
 import org.apache.cayenne.DataObjectUtils;
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.exp.Expression;
@@ -19,6 +21,20 @@ import org.apache.log4j.Logger;
 public class AiDbObjectFromString {
     
     static Logger logger = Logger.getLogger(AiDbObjectFromString.class);
+    
+    public static Auditors getAuditorsObjectFromString(ObjectContext c, String auditorName) {
+        logger.debug(String.format("Obteniendo el objeto AuditorTeams de '%s'", auditorName));
+        Expression e = ExpressionFactory.matchExp(Auditors.AUDITOR_NAME_PROPERTY, auditorName);
+        SelectQuery sel = new SelectQuery(Auditors.class, e);
+        return (Auditors) DataObjectUtils.objectForQuery(c, sel);
+    }
+    
+    public static Users getUsersObjectFromString(ObjectContext c, String userName) {
+        logger.debug(String.format("Obteniendo el objeto AuditorTeams de '%s'", userName));
+        Expression e = ExpressionFactory.matchExp(Users.USER_NAME_PROPERTY, userName);
+        SelectQuery sel = new SelectQuery(Users.class, e);
+        return (Users) DataObjectUtils.objectForQuery(c, sel);
+    }
     
     public static AuditorTeams getAuditorTeamsObjectFromString(ObjectContext c, String teamName) {
         logger.debug(String.format("Obteniendo el objeto AuditorTeams de '%s'", teamName));

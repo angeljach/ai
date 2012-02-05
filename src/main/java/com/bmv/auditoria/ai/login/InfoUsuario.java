@@ -1,6 +1,7 @@
 package com.bmv.auditoria.ai.login;
 
 import com.bmv.auditoria.ai.bean.LoginBean;
+import java.io.Serializable;
 import javax.faces.context.FacesContext;
 import org.apache.log4j.Logger;
 
@@ -8,7 +9,7 @@ import org.apache.log4j.Logger;
  * Allow the application to obtain Session information of the user.
  * @author acruzh
  */
-public class InfoUsuario {
+public class InfoUsuario implements Serializable {
 
     /**
      * Faces Context object.

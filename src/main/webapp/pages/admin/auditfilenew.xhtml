@@ -14,7 +14,7 @@
                     <h:panelGrid columns="2" width="100%" columnClasses="labelGrid4, fieldGrid4, labelGrid4, fieldGrid4" >
 
                         <h:outputLabel value="Auditoría: " style="font-weight: bold;" />
-                        <h:outputText value="#{auditFile.selected.toAudits.auditName}"
+                        <h:outputText value="#{auditFile.audit.auditName}"
                                           style="font-weight: bold;"/>
                         
                         <h:outputLabel value="Usuario: " style="font-weight: bold;" />
@@ -56,7 +56,10 @@
                                      rendered="#{!auditFile.edit}"/>
                     <p:commandButton action="#{auditFile.cancelCreate()}" ajax="false" 
                                  icon="ui-icon-closethick" value="Cancelar"
-                                 rendered="#{!auditFile.edit}"/>
+                                 rendered="#{!auditFile.edit}">
+                        <f:setPropertyActionListener value="#{auditFile.current.toAudits}" 
+                                                     target="#{audit.current}" />
+                    </p:commandButton>
 
                     <p:commandButton action="#{auditFile.update()}" ajax="false" 
                                      icon="ui-icon-disk" value="Actualizar"

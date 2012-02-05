@@ -38,8 +38,6 @@ public class AuditBean implements Crud, Serializable {
     private Audits current;
     private DataModel items = new ListDataModel();
     
-    AuditFileBean auditFile;
-    
     private String selectedDepartmentName;    
     private String selectedAuditTypeName;
     private String selectedAuditStatusName;
@@ -69,20 +67,9 @@ public class AuditBean implements Crud, Serializable {
         current = new Audits();
                 
         edit = false;
-        
-        
-        //
-        //
-        auditFile = new AuditFileBean(current);
     }
     
     public Audits getSelected() {
-//        if (current == null) {
-//            current = new Audits();
-//            
-//            auditFile = new AuditFileBean(current);
-//        }
-//        return current;
         return (current == null) ? (new Audits()) : current;
     }
 
@@ -173,13 +160,6 @@ public class AuditBean implements Crud, Serializable {
     }
 
     public void setCurrent(Audits current) {
-        //Defino la 
-        auditFile.setAudit(current);
-        //
-        //
-        //
-        
-        
         this.current = current;
     }
     
@@ -277,16 +257,6 @@ public class AuditBean implements Crud, Serializable {
     
     public AuditCloseReport getCloseReportFromAudit() {
         throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-    
-    
-    
-    //
-
-    public AuditFileBean getAuditFile() {
-        return auditFile;
-    }
-    
+    }    
     
 }

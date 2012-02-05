@@ -64,21 +64,6 @@ public class AuditFileBean implements Crud, Serializable{
         edit = false;
     }
     
-    public AuditFileBean(Audits audit) {
-        
-        this.audit = audit;
-        
-        infoUsr = new InfoUsuario();
-        
-        //---|| Valido si es un usuario o un auditor el que se está conectando.
-        mov = (infoUsr.isAuditor()) ? new MovementsFromAuditor() : new MovementsFromUser();
-        
-        aiDbUtil = new AiDbUtil();
-        current = new AuditDocuments();
-        
-        edit = false;
-    }
-    
     public AuditDocuments getSelected() {
         return (current == null) ? (new AuditDocuments()) : current;
     }
@@ -132,12 +117,23 @@ public class AuditFileBean implements Crud, Serializable{
 
     @Override
     public String create() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        FacesContext notifyCntx = FacesContext.getCurrentInstance();
+         try {
+            AuditFileController.create(current, mov, audit);
+            notifyCntx.addMessage(null, new FacesMessage(
+                    FacesMessage.SEVERITY_INFO, "Creación exitosa", 
+                    "El archivo fue agregado de manera exitosa"));
+            return LIST_PAGE;
+        } catch(Exception ex) {
+            notifyCntx.addMessage(null, new FacesMessage(
+                        FacesMessage.SEVERITY_ERROR, "Problema", ex.getMessage()));
+            return null;
+        }
     }
 
     @Override
     public String cancelCreate() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return LIST_PAGE;
     }
 
     @Override

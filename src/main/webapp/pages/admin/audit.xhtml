@@ -97,9 +97,9 @@
             <h:panelGrid columns="3" styleClass="tblTopVerticalAlign" columnClasses="tbl49,tbl02,tbl48">
                 
                 <h:panelGroup>
-                    <p:dataTable id="tblDocFromAudit" var="itemDoc" value="#{audit.auditFile.items}"
+                    <p:dataTable id="tblDocFromAudit" var="itemDoc" value="#{auditFile.items}"
                                  paginator="true" rows="5" style="font-size: x-small"
-                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">                        
 
                         <f:facet name="header">
                             <h:outputText value="ARCHIVOS ADJUNTOS" />
@@ -153,7 +153,7 @@
                             <p:commandButton action="#{auditFile.prepareCreate()}"
                                              ajax="false" value="Nuevo Archivo" 
                                              rendered="#{login.auditor}">
-                                <f:setPropertyActionListener value="#{audit.selected}" 
+                                <f:setPropertyActionListener value="#{audit.current}"
                                                              target="#{auditFile.audit}" />
                             </p:commandButton>
                         </f:facet>

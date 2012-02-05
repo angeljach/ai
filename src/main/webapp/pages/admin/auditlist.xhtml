@@ -69,6 +69,7 @@
                     <p:commandButton action="audit.xhtml?faces-redirect=true" 
                                      icon="ui-icon-home" title="General">
                         <f:setPropertyActionListener value="#{item}" target="#{audit.current}" />
+                        <f:setPropertyActionListener value="#{item}" target="#{auditFile.audit}" />
                     </p:commandButton>
                 </p:column>
                     

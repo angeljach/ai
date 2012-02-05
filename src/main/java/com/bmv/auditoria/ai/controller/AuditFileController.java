@@ -4,8 +4,18 @@
  */
 package com.bmv.auditoria.ai.controller;
 
+import com.bmv.auditoria.ai.db.AiDbObjectFromString;
+import com.bmv.auditoria.ai.login.InfoUsuario;
 import com.bmv.auditoria.ai.persistent.AuditDocuments;
+import com.bmv.auditoria.ai.persistent.Auditors;
+import com.bmv.auditoria.ai.persistent.Audits;
 import com.jach.jachtoolkit.log.Movements;
+import org.apache.cayenne.DataObjectUtils;
+import org.apache.cayenne.ObjectContext;
+import org.apache.cayenne.access.DataContext;
+import org.apache.cayenne.exp.Expression;
+import org.apache.cayenne.exp.ExpressionFactory;
+import org.apache.cayenne.query.SelectQuery;
 import org.apache.log4j.Logger;
 
 /**
@@ -76,5 +86,81 @@ public class AuditFileController {
             throw new Exception(tmpMsg);
         }
     }
+    
+    public static void create(AuditDocuments auditFile, Movements m, Audits audits) 
+            throws NullPointerException, Exception {
+        String tmpMsg = "";
+        if (auditFile == null) {
+            tmpMsg = "El objeto Audits audit es nulo. La creación no puede realizarse.";
+            logger.error(tmpMsg);
+            throw new NullPointerException(tmpMsg);
+        }
+        //TODO Validar si habilito el siguiente código.
+//        if (m == null) {
+//            logger.error("El objeto Movements m es nulo. La actualización no puede realizarse.");
+//            throw new NullPointerException();
+//        }
+        
+        try {
+            //ObjectContext context = DataContext.createDataContext();
+            ObjectContext context = audits.getObjectContext();
+            
+            String tmpAuditor = (new InfoUsuario()).getUserName();
+            
+            Auditors objAud = 
+                    AiDbObjectFromString.getAuditorsObjectFromString(context, tmpAuditor);
+            
+            auditFile.setToAuditors(objAud);
+            auditFile.setToAudits(audits);
+            auditFile.setBitsSize(100l);
+            auditFile.setUpdateDate(new java.util.Date());
+            
+//            tmpAudit = auditFile.getAuditName();
+//            tmpCia = auditFile.getToCompanyDepartments().getToCompanies().getShortName();
+//            tmpDepto = auditFile.getToCompanyDepartments().getDepartment();
+//            logger.debug(String.format("Tratando de crear la auditoría '%s' "
+//                    + "del departamento '%s' de la empresa '%s'", 
+//                    tmpAudit, tmpDepto, tmpCia));
+            
+            context.commitChanges();
+
+//            tmpMsg = String.format("Creación de la auditoría '%s' "
+//                    + "del departamento '%s' de la empresa '%s'", 
+//                    tmpAudit, tmpDepto, tmpCia);
+//            m.save(tmpMsg);
+//            logger.info(tmpMsg);
+        } catch (Exception ex) {
+//            tmpMsg = String.format("Ocurrió un error al tratar de crear la "
+//                    + "auditoría '%s' del departamento '%s' de la empresa '%s'", 
+//                    tmpAudit, tmpDepto, tmpCia);
+//            logger.error(tmpMsg);
+//            logger.error(ex.getMessage());
+//            //TODO Validar si pasar el mensaje de error es buena práctica.
+            throw new Exception(tmpMsg);
+        }
+    }
+//
+//    public static void main(String[] args) {
+//        ObjectContext c = DataContext.createDataContext();
+//        
+//        Expression e = ExpressionFactory.matchExp(Auditors.AUDITOR_NAME_PROPERTY, "acruzh");
+//        SelectQuery sel = new SelectQuery(Auditors.class, e);
+//        Auditors auditor = (Auditors) DataObjectUtils.objectForQuery(c, sel);
+//        
+//        e = ExpressionFactory.matchExp(Audits.AUDIT_NAME_PROPERTY, "Auditoría Fábrica de Software");
+//        sel = new SelectQuery(Audits.class, e);
+//        Audits audit = (Audits) DataObjectUtils.objectForQuery(c, sel);
+//        
+//        AuditDocuments auditFile = new AuditDocuments();
+//        
+//        auditFile.setToAuditors(auditor);
+//        auditFile.setToAudits(audit);
+//        auditFile.setPathFile("abc.exe");
+//        auditFile.setDescription("La descripción");
+//        auditFile.setBitsSize(100l);
+//        auditFile.setUpdateDate(new java.util.Date());
+//
+//        c.commitChanges();        
+//    }
     
 }
