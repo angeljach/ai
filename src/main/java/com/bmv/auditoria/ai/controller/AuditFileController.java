@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.bmv.auditoria.ai.controller;
 
 import com.bmv.auditoria.ai.db.AiDbObjectFromString;
@@ -55,10 +51,11 @@ public class AuditFileController {
         }
     }
     
-    public static void cancelUpdate(AuditDocuments auditFile) throws NullPointerException, Exception {
+    public static void cancelUpdate(AuditDocuments auditFile) 
+            throws NullPointerException, Exception {
         String tmpMsg = "";
         if (auditFile == null) {
-            tmpMsg = "El objeto AuditDocuments audit es nulo.";
+            tmpMsg = "El objeto AuditDocuments auditFile es nulo.";
             logger.error(tmpMsg);
             throw new NullPointerException(tmpMsg);
         }
@@ -73,8 +70,8 @@ public class AuditFileController {
             auditFile.getObjectContext().rollbackChanges();
         } catch (Exception e) {
             tmpMsg = String.format("Ocurrió un error al tratar de hacer "
-                    + "rollback a los cambios para la modificación del archivo '%s' de "
-                + "la auditoría '%s'.", tmpFile, tmpAudit);
+                    + "rollback a los cambios para la modificación del "
+                    + "archivo '%s' de la auditoría '%s'.", tmpFile, tmpAudit);
             logger.error(tmpMsg);
             logger.error(e.getMessage());
             //TODO Validar si pasar el mensaje de error es buena práctica.
@@ -86,7 +83,8 @@ public class AuditFileController {
             throws NullPointerException, Exception {
         String tmpMsg = "";
         if (auditFile == null) {
-            tmpMsg = "El objeto Audits audit es nulo. La creación no puede realizarse.";
+            tmpMsg = "El objeto AuditDocuments auditFile es nulo. "
+                    + "La creación no puede realizarse.";
             logger.error(tmpMsg);
             throw new NullPointerException(tmpMsg);
         }
@@ -96,11 +94,11 @@ public class AuditFileController {
 //            throw new NullPointerException();
 //        }
         
+        String tmpAuditor = (new InfoUsuario()).getUserName();
+        String tmpAudit = "", tmpFile = "";
+        
         try {
-            //ObjectContext context = DataContext.createDataContext();
             ObjectContext context = audits.getObjectContext();
-            
-            String tmpAuditor = (new InfoUsuario()).getUserName();
             
             Auditors objAud = 
                     AiDbObjectFromString.getAuditorsObjectFromString(context, tmpAuditor);
@@ -110,52 +108,27 @@ public class AuditFileController {
             auditFile.setBitsSize(100l);
             auditFile.setUpdateDate(new java.util.Date());
             
-//            tmpAudit = auditFile.getAuditName();
-//            tmpCia = auditFile.getToCompanyDepartments().getToCompanies().getShortName();
-//            tmpDepto = auditFile.getToCompanyDepartments().getDepartment();
-//            logger.debug(String.format("Tratando de crear la auditoría '%s' "
-//                    + "del departamento '%s' de la empresa '%s'", 
-//                    tmpAudit, tmpDepto, tmpCia));
+            tmpAudit = audits.getAuditName();
+            tmpFile = auditFile.getPathFile();
+            logger.debug(String.format("Tratando de crear el archivo '%s' "
+                    + "de la auditoría '%s'", 
+                    tmpFile, tmpAudit));
             
             context.commitChanges();
 
-//            tmpMsg = String.format("Creación de la auditoría '%s' "
-//                    + "del departamento '%s' de la empresa '%s'", 
-//                    tmpAudit, tmpDepto, tmpCia);
-//            m.save(tmpMsg);
-//            logger.info(tmpMsg);
+            tmpMsg = String.format("Creación del archivo '%s' de la auditoría '%s'", 
+                    tmpFile, tmpAudit);
+            m.save(tmpMsg);
+            logger.info(tmpMsg);
         } catch (Exception ex) {
-//            tmpMsg = String.format("Ocurrió un error al tratar de crear la "
-//                    + "auditoría '%s' del departamento '%s' de la empresa '%s'", 
-//                    tmpAudit, tmpDepto, tmpCia);
-//            logger.error(tmpMsg);
-//            logger.error(ex.getMessage());
-//            //TODO Validar si pasar el mensaje de error es buena práctica.
+            tmpMsg = String.format("Ocurrió un error al tratar de crear el "
+                    + "archivo '%s' de la auditoría '%s'", 
+                    tmpFile, tmpAudit);
+            logger.error(tmpMsg);
+            logger.error(ex.getMessage());
+            //TODO Validar si pasar el mensaje de error es buena práctica.
             throw new Exception(tmpMsg);
         }
     }
-//
-//    public static void main(String[] args) {
-//        ObjectContext c = DataContext.createDataContext();
-//        
-//        Expression e = ExpressionFactory.matchExp(Auditors.AUDITOR_NAME_PROPERTY, "acruzh");
-//        SelectQuery sel = new SelectQuery(Auditors.class, e);
-//        Auditors auditor = (Auditors) Cayenne.objectForQuery(c, sel);
-//        
-//        e = ExpressionFactory.matchExp(Audits.AUDIT_NAME_PROPERTY, "Auditoría Fábrica de Software");
-//        sel = new SelectQuery(Audits.class, e);
-//        Audits audit = (Audits) Cayenne.objectForQuery(c, sel);
-//        
-//        AuditDocuments auditFile = new AuditDocuments();
-//        
-//        auditFile.setToAuditors(auditor);
-//        auditFile.setToAudits(audit);
-//        auditFile.setPathFile("abc.exe");
-//        auditFile.setDescription("La descripción");
-//        auditFile.setBitsSize(100l);
-//        auditFile.setUpdateDate(new java.util.Date());
-//
-//        c.commitChanges();        
-//    }
     
 }

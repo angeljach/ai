@@ -51,8 +51,6 @@ public class AuditFileBean implements Crud, Serializable{
     private static final String EDIT_PAGE = "auditfilenew";
 
     public AuditFileBean() {
-        // Es requisito para evitar la excepción ManagedBeanCreationException 
-        // que exista un constructor público sin argumentos.
         infoUsr = new InfoUsuario();
         
         //---|| Valido si es un usuario o un auditor el que se está conectando.

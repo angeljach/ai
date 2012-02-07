@@ -83,12 +83,21 @@ td {
     width: 70%;
 }
 
+
 .labelGrid4 {
     width: 16%;
 }
 .fieldGrid4 {
     width: 34%;
 }
+
+.labelGrid6 {
+    width: 11%;
+}
+.fieldGrid6 {
+    width: 22%;
+}
+
 
 .labelGrid2 {
     width: 32%;

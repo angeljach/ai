@@ -10,14 +10,18 @@ import com.bmv.auditoria.ai.persistent.Auditors;
 import com.bmv.auditoria.ai.persistent.Audits;
 import com.bmv.auditoria.ai.persistent.Companies;
 import com.bmv.auditoria.ai.persistent.CompanyDepartments;
+import com.bmv.auditoria.ai.persistent.ObsComplexities;
+import com.bmv.auditoria.ai.persistent.ObsFindings;
+import com.bmv.auditoria.ai.persistent.ObsImpacts;
+import com.bmv.auditoria.ai.persistent.ObsStatus;
 import com.bmv.auditoria.ai.persistent.Observations;
 import com.bmv.auditoria.ai.persistent.RequirementsInformation;
 import com.bmv.auditoria.ai.persistent.Subprocesses;
+import com.bmv.auditoria.ai.persistent.Users;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.cayenne.Cayenne;
-import org.apache.cayenne.CayenneContext;
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.access.DataContext;
 import org.apache.cayenne.exp.Expression;
@@ -51,6 +55,29 @@ public class AiDbUtil implements Serializable {
         SelectQuery sel = new SelectQuery(AuditorTeams.class);
         sel.addOrdering(new Ordering("teamName", SortOrder.ASCENDING));
         return (List<AuditorTeams>) context.performQuery(sel);
+    }
+    
+    public List<Auditors> getAuditorList() {
+        logger.debug("Llamado al método getAuditorList");
+        SelectQuery sel = new SelectQuery(Auditors.class);
+        sel.addOrdering(new Ordering("auditorName", SortOrder.ASCENDING));
+        return (List<Auditors>) context.performQuery(sel);
+    }
+    
+    public List<Users> getUserList(boolean includeLocalUsers) {
+        logger.debug(String.format(
+                "Llamado al método getUserList(includeLocalUsers-->'%s')", 
+                includeLocalUsers ? "TRUE" : "FALSE"));
+        SelectQuery sel;
+        if (includeLocalUsers) {
+            sel = new SelectQuery(Users.class);
+        } else {
+            //Excluyo los usuarios locales.
+            Expression e = ExpressionFactory.matchExp(Users.IS_LOCAL_PROPERTY, false);
+            sel = new SelectQuery(Users.class, e);
+        }
+        sel.addOrdering(new Ordering("userName", SortOrder.ASCENDING));
+        return (List<Users>) context.performQuery(sel);
     }
 
     public List<Companies> getCompanyList() {
@@ -131,7 +158,66 @@ public class AiDbUtil implements Serializable {
         }
         return null;
     }
+    
+    public List<ObsStatus> getObsStatusList() {
+        logger.debug("Llamado al método getObsStatusList");
+        SelectQuery sel = new SelectQuery(ObsStatus.class);
+        //sel.addOrdering(new Ordering("???", SortOrder.ASCENDING));
+        return (List<ObsStatus>) context.performQuery(sel);
+    }
+    
+    public List<ObsFindings> getObsFindingLevelList() {
+        logger.debug("Llamado al método getObsFindingLevelList");
+        SelectQuery sel = new SelectQuery(ObsFindings.class);
+        //sel.addOrdering(new Ordering("???", SortOrder.ASCENDING));
+        return (List<ObsFindings>) context.performQuery(sel);
+    }
+    
+    public List<ObsImpacts> getObsImpactLevelList() {
+        logger.debug("Llamado al método getObsImpactLevelList");
+        SelectQuery sel = new SelectQuery(ObsImpacts.class);
+        //sel.addOrdering(new Ordering("???", SortOrder.ASCENDING));
+        return (List<ObsImpacts>) context.performQuery(sel);
+    }
+    
+    public List<ObsComplexities> getObsComplexityLevelList() {
+        logger.debug("Llamado al método getObsComplexityLevelList");
+        SelectQuery sel = new SelectQuery(ObsComplexities.class);
+        //sel.addOrdering(new Ordering("???", SortOrder.ASCENDING));
+        return (List<ObsComplexities>) context.performQuery(sel);
+    }
+    
+    
+    
+    
 
+    
+    /**
+     * Get a User Name list of all registered users in DB from table 'users'.
+     * @return User Name List.
+     */
+    public List<String> getUserNameList(boolean includeLocalUsers) {
+        logger.debug("Llamado al método getUserNameList");
+        List<String> tmpList = new ArrayList<String>();
+        for (Users objTemp : this.getUserList(includeLocalUsers)) {
+            tmpList.add(objTemp.getUserName());
+        }
+        return tmpList;
+    }
+    
+    /**
+     * Get an Auditor Name list of all registered auditors in DB from table 'auditors'.
+     * @return Auditor Name List.
+     */
+    public List<String> getAuditorNameList() {
+        logger.debug("Llamado al método getAuditorNameList");
+        List<String> tmpList = new ArrayList<String>();
+        for (Auditors objTemp : this.getAuditorList()) {
+            tmpList.add(objTemp.getAuditorName());
+        }
+        return tmpList;
+    }
+    
     /**
      * Get a Company Short Name list of all registered companies in DB from table 'companies'.
      * @return Company Short Name List.
@@ -146,7 +232,7 @@ public class AiDbUtil implements Serializable {
     }
 
     /**
-     * Get an Auditor Team Name list of all registered companies in DB from table 'auditor_teams'.
+     * Get an Auditor Team Name list of all registered auditor teams in DB from table 'auditor_teams'.
      * @return Auditor Team Name List.
      */
     public List<String> getAuditorTeamNameList() {
@@ -159,7 +245,7 @@ public class AiDbUtil implements Serializable {
     }
 
     /**
-     * Get a Department Name list of all registered companies in DB from table 'company_departments'.
+     * Get a Department Name list of all registered company departments in DB from table 'company_departments'.
      * @return Department Name List.
      */
     public List<String> getDepartmentNameList() {
@@ -172,7 +258,7 @@ public class AiDbUtil implements Serializable {
     }
 
     /**
-     * Get a Audit Type Name list of all registered companies in DB from table 'audit_types'.
+     * Get an Audit Type Name list of all registered audit types in DB from table 'audit_types'.
      * @return Audit Type Name List.
      */
     public List<String> getAuditTypeNameList() {
@@ -185,13 +271,71 @@ public class AiDbUtil implements Serializable {
     }
 
     /**
-     * Get a Audit Status Name list of all registered companies in DB from table 'audit_types'.
+     * Get an Audit Status Name list of all registered audit status in DB from table 'audit_types'.
      * @return Audit Status Name List.
      */
     public List<String> getAuditStatusNameList() {
         logger.debug("Llamado al método getAuditStatusNameList");
         List<String> tmpList = new ArrayList<String>();
         for (AuditStatus objTemp : this.getAuditStatusList()) {
+            tmpList.add(objTemp.getName());
+        }
+        return tmpList;
+    }
+    
+    /*Observations*/
+    
+    /**
+     * Get an Observation Status Name list of all registered observation status 
+     * in DB from table 'obs_status'.
+     * @return Observation Status Name List.
+     */
+    public List<String> getObsStatusNameList() {
+        logger.debug("Llamado al método getObsStatusNameList");
+        List<String> tmpList = new ArrayList<String>();
+        for (ObsStatus objTemp : this.getObsStatusList()) {
+            tmpList.add(objTemp.getName());
+        }
+        return tmpList;
+    }
+    
+    /**
+     * Get an Observation Finding Level Name list of all registered observation 
+     * findings in DB from table 'obs_findings'.
+     * @return Observation Finding Level Name List.
+     */
+    public List<String> getObsFindingLevelNameList() {
+        logger.debug("Llamado al método getObsFindingLevelNameList");
+        List<String> tmpList = new ArrayList<String>();
+        for (ObsFindings objTemp : this.getObsFindingLevelList()) {
+            tmpList.add(objTemp.getName());
+        }
+        return tmpList;
+    }
+    
+    /**
+     * Get an Observation Impact Level Name list of all registered observation 
+     * impacts in DB from table 'obs_impacts'.
+     * @return Observation Impact Level Name List.
+     */
+    public List<String> getObsImpactLevelNameList() {
+        logger.debug("Llamado al método getObsImpactLevelNameList");
+        List<String> tmpList = new ArrayList<String>();
+        for (ObsImpacts objTemp : this.getObsImpactLevelList()) {
+            tmpList.add(objTemp.getName());
+        }
+        return tmpList;
+    }
+    
+    /**
+     * Get an Observation Complexity Level Name list of all registered observation 
+     * complexities in DB from table 'obs_complexities'.
+     * @return Observation Complexity Level Name List.
+     */
+    public List<String> getObsComplexityLevelNameList() {
+        logger.debug("Llamado al método getObsComplexityLevelNameList");
+        List<String> tmpList = new ArrayList<String>();
+        for (ObsComplexities objTemp : this.getObsComplexityLevelList()) {
             tmpList.add(objTemp.getName());
         }
         return tmpList;
@@ -238,4 +382,24 @@ public class AiDbUtil implements Serializable {
         return (List<Subprocesses>) audit.getObjectContext().performQuery(sel);
     }
     
+    
+//    public static void main(String[] args) {
+//        ObjectContext context = DataContext.createDataContext();
+//        SelectQuery sel;
+//        boolean a = true;
+//        if (a) {
+//            sel = new SelectQuery(Users.class);
+//        } else {
+//            //Excluyo los usuarios locales.
+//            Expression e = ExpressionFactory.matchDbExp(Users.IS_LOCAL_PROPERTY, false);
+//            sel = new SelectQuery(Users.class, e);
+//        }
+//        sel.addOrdering(new Ordering("userName", SortOrder.ASCENDING));
+//        List<Users> l = (List<Users>) context.performQuery(sel);
+//        
+//        int i=1;
+//        for (Users u : l) {
+//            System.out.println((i++) + ") " + u.getUserName());
+//        }
+//    }
 }

@@ -1,0 +1,117 @@
+<ui:composition template="/resources/templates/headandcenter.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <h:form id="frmNewAuditFile">
+
+            <p:growl id="growlMessage" showDetail="true" life="5000" />
+
+            <fieldset class="demo_fieldset">
+                <legend class="demo_legend">Información General</legend>
+                <div class="sample-container">
+                    <h:panelGrid columns="4" width="100%" columnClasses="labelGrid4, fieldGrid4, labelGrid4, fieldGrid4" >
+
+                        <h:outputLabel value="Auditoría: " style="font-weight: bold;" />
+                        <h:outputText value="#{auditObs.audit.auditName}"
+                                          style="font-weight: bold;"/>
+                        
+                        <h:outputLabel value="Usuario: " style="font-weight: bold;" />
+                        <h:outputText value="#{login.displayName}"
+                                          style="font-weight: bold;"/>
+
+                    </h:panelGrid>
+                </div>
+            </fieldset>
+            
+            <fieldset class="demo_fieldset">
+                <legend class="demo_legend">Observación</legend>
+                <div class="sample-container">
+                    <h:panelGrid columns="4" width="100%" columnClasses="labelGrid4, fieldGrid4, labelGrid4, fieldGrid4" >
+                        
+                        <h:outputLabel value="Título: " />
+                        <h:inputText value="#{auditObs.selected.observation}" style="width:250px;">
+                            <f:validateLength maximum="2048" />
+                        </h:inputText>
+                        <h:outputLabel value="Responsable: " />
+                        <p:selectOneMenu value="#{auditObs.selectedResponsibleUserName}"
+                                         effect="fade">
+                            <f:selectItems value="#{auditObs.responsibleUserNameList}" />
+                        </p:selectOneMenu>
+                        
+                        <h:outputLabel value="Descripción: " />
+                        <p:inputTextarea value="#{auditObs.selected.description}"
+                                         style="width:250px;height:100px;" >
+                            <f:validateLength maximum="2048" />
+                        </p:inputTextarea>
+                        <h:outputLabel value="Recomendación: " />
+                        <p:inputTextarea value="#{auditObs.selected.recommendation}"
+                                         style="width:250px;height:100px;" >
+                            <f:validateLength maximum="2048" />
+                        </p:inputTextarea>
+                        
+                        <h:outputLabel value="Fecha Solución: " />
+                        <p:calendar value="#{auditObs.selected.solutionDate}" navigator="true"
+                                    effect="slideDown" pattern="dd/MM/yyyy"/>
+                        <h:outputLabel value="Estado: " />
+                        <p:selectOneMenu value="#{auditObs.selectedObsStatusName}"
+                                         effect="fade">
+                            <f:selectItems value="#{auditObs.obsStatusNameList}" />
+                        </p:selectOneMenu>
+                        
+                    </h:panelGrid>
+                </div>
+            </fieldset>
+            
+            
+            <fieldset class="demo_fieldset">
+                <legend class="demo_legend">Niveles</legend>
+                <div class="sample-container">
+                    <h:panelGrid columns="6" width="100%" columnClasses="labelGrid6, fieldGrid6, labelGrid6, fieldGrid6, labelGrid6, fieldGrid6" >
+                        <h:outputLabel value="Hallazgo: " />
+                        <p:selectOneMenu value="#{auditObs.selectedObsFindingName}"
+                                         effect="fade">
+                            <f:selectItems value="#{auditObs.obsFindingNameList}" />
+                        </p:selectOneMenu>                        
+                        <h:outputLabel value="Impacto: " />
+                        <p:selectOneMenu value="#{auditObs.selectedObsImpactName}"
+                                         effect="fade">
+                            <f:selectItems value="#{auditObs.obsImpactNameList}" />
+                        </p:selectOneMenu>                        
+                        <h:outputLabel value="Complejidad: " />
+                        <p:selectOneMenu value="#{auditObs.selectedObsComplexityName}"
+                                         effect="fade">
+                            <f:selectItems value="#{auditObs.obsComplexityNameList}" />
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                </div>
+            </fieldset>
+            
+            
+            <div class="centered">
+                <h:panelGrid columns="1" style="text-align: center;">
+                    <p:commandButton action="#{auditObs.create()}" ajax="false" 
+                                     icon="ui-icon-plusthick" value="Registrar"
+                                     rendered="#{!auditObs.edit}"/>
+                    <p:commandButton action="#{auditObs.cancelCreate()}" ajax="false" 
+                                 icon="ui-icon-closethick" value="Cancelar"
+                                 rendered="#{!auditObs.edit}">
+                        <f:setPropertyActionListener value="#{auditObs.current.toAudits}" 
+                                                     target="#{audit.current}" />
+                    </p:commandButton>
+
+                    <p:commandButton action="#{auditObs.update()}" ajax="false" 
+                                     icon="ui-icon-disk" value="Actualizar"
+                                     rendered="#{auditObs.edit}">
+                        <f:setPropertyActionListener value="#{auditObs.current.toAudits}" 
+                                                     target="#{audit.current}" />
+                    </p:commandButton>
+                    <p:commandButton action="#{auditObs.cancelUpdate()}" ajax="false" 
+                                     icon="ui-icon-closethick" value="Cancelar"
+                                     rendered="#{auditObs.edit}"/>
+                </h:panelGrid>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

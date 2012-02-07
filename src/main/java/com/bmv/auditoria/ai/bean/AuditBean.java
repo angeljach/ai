@@ -38,7 +38,7 @@ public class AuditBean implements Crud, Serializable {
     private Audits current;
     private DataModel items = new ListDataModel();
     
-    private String selectedDepartmentName;    
+    private String selectedDepartmentName;
     private String selectedAuditTypeName;
     private String selectedAuditStatusName;
     private String selectedAuditorTeamName;

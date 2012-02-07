@@ -6,6 +6,10 @@ import com.bmv.auditoria.ai.persistent.AuditorTeams;
 import com.bmv.auditoria.ai.persistent.Auditors;
 import com.bmv.auditoria.ai.persistent.Companies;
 import com.bmv.auditoria.ai.persistent.CompanyDepartments;
+import com.bmv.auditoria.ai.persistent.ObsComplexities;
+import com.bmv.auditoria.ai.persistent.ObsFindings;
+import com.bmv.auditoria.ai.persistent.ObsImpacts;
+import com.bmv.auditoria.ai.persistent.ObsStatus;
 import com.bmv.auditoria.ai.persistent.Users;
 import org.apache.cayenne.Cayenne;
 import org.apache.cayenne.ObjectContext;
@@ -69,6 +73,38 @@ public class AiDbObjectFromString {
         Expression e = ExpressionFactory.matchExp(AuditStatus.NAME_PROPERTY, auditStatus);
         SelectQuery sel = new SelectQuery(AuditStatus.class, e);
         return (AuditStatus) Cayenne.objectForQuery(c, sel);
+    }
+    
+    
+    
+    /*Observations*/
+    
+    public static ObsStatus getObsStatusFromString(ObjectContext c, String obsStatus) {
+        logger.debug(String.format("Obteniendo el objeto ObsStatus de '%s'", obsStatus));
+        Expression e = ExpressionFactory.matchExp(ObsStatus.NAME_PROPERTY, obsStatus);
+        SelectQuery sel = new SelectQuery(ObsStatus.class, e);
+        return (ObsStatus) Cayenne.objectForQuery(c, sel);
+    }
+    
+    public static ObsFindings getObsFindingsFromString(ObjectContext c, String obsFindings) {
+        logger.debug(String.format("Obteniendo el objeto ObsFindings de '%s'", obsFindings));
+        Expression e = ExpressionFactory.matchExp(ObsFindings.NAME_PROPERTY, obsFindings);
+        SelectQuery sel = new SelectQuery(ObsFindings.class, e);
+        return (ObsFindings) Cayenne.objectForQuery(c, sel);
+    }
+    
+    public static ObsImpacts getObsImpactsFromString(ObjectContext c, String obsImpacts) {
+        logger.debug(String.format("Obteniendo el objeto ObsImpacts de '%s'", obsImpacts));
+        Expression e = ExpressionFactory.matchExp(ObsImpacts.NAME_PROPERTY, obsImpacts);
+        SelectQuery sel = new SelectQuery(ObsImpacts.class, e);
+        return (ObsImpacts) Cayenne.objectForQuery(c, sel);
+    }
+    
+    public static ObsComplexities getObsComplexitiesFromString(ObjectContext c, String obsComplexities) {
+        logger.debug(String.format("Obteniendo el objeto ObsComplexities de '%s'", obsComplexities));
+        Expression e = ExpressionFactory.matchExp(ObsComplexities.NAME_PROPERTY, obsComplexities);
+        SelectQuery sel = new SelectQuery(ObsComplexities.class, e);
+        return (ObsComplexities) Cayenne.objectForQuery(c, sel);
     }
     
 }

@@ -222,7 +222,7 @@
             
             
             
-            <p:dataTable id="tblObsFromAudit" var="itemObs" value="#{audit.observationsFromAudit}"
+            <p:dataTable id="tblObsFromAudit" var="itemObs" value="#{auditObs.items}"
                          paginator="true" rows="5" style="font-size: x-small"
                          paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
                 
@@ -284,22 +284,30 @@
                 </p:column>
                 
                 <p:column style="text-align: center;" >
-                            <f:facet name="header">------Acciones------</f:facet>
-                            <p:commandButton icon="ui-icon-search" title="Ver">
-                                
-                            </p:commandButton>
-                            <p:commandButton icon="ui-icon-pencil" title="Modificar">
-                                
-                            </p:commandButton>
-                            <p:commandButton icon="ui-icon-closethick" title="Eliminar">
-                                
-                            </p:commandButton>
-                        </p:column>
+                    <f:facet name="header">------Acciones------</f:facet>
+                    <p:commandButton icon="ui-icon-search" title="Ver">
 
-                        <f:facet name="footer">
-                            <p:commandButton action="#{audit.addNewObservation()}"
-                                             ajax="false" value="Nuevo" />
-                        </f:facet>
+                    </p:commandButton>
+                    <p:commandButton action="auditobsnew.xhtml?faces-redirect=true" 
+                        icon="ui-icon-pencil" title="Modificar">
+                        <f:setPropertyActionListener value="#{itemObs}" target="#{auditObs.current}" />
+                        <f:setPropertyActionListener value="TRUE" 
+                                                     target="#{auditObs.edit}" />
+                    </p:commandButton>
+                    <p:commandButton icon="ui-icon-closethick" title="Eliminar">
+
+                    </p:commandButton>
+                </p:column>
+
+                <f:facet name="footer">
+                    <!-- Solo lo pueden ver auditores -->
+                    <p:commandButton action="#{auditObs.prepareCreate()}"
+                                     ajax="false" value="Nueva Observación" 
+                                     rendered="#{login.auditor}">
+                        <f:setPropertyActionListener value="#{audit.current}"
+                                                     target="#{auditObs.audit}" />
+                    </p:commandButton>
+                </f:facet>
                 
             </p:dataTable>
             
