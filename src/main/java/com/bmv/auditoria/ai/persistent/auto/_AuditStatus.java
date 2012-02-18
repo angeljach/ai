@@ -14,10 +14,18 @@ import com.bmv.auditoria.ai.persistent.Audits;
  */
 public abstract class _AuditStatus extends CayenneDataObject {
 
+    public static final String ICON_PROPERTY = "icon";
     public static final String NAME_PROPERTY = "name";
     public static final String AUDITS_ARRAY_PROPERTY = "auditsArray";
 
     public static final String ID_AUDIT_STATUS_PK_COLUMN = "id_audit_status";
+
+    public void setIcon(String icon) {
+        writeProperty("icon", icon);
+    }
+    public String getIcon() {
+        return (String)readProperty("icon");
+    }
 
     public void setName(String name) {
         writeProperty("name", name);

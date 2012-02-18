@@ -14,10 +14,18 @@ import com.bmv.auditoria.ai.persistent.RequirementsInformation;
  */
 public abstract class _RequirementStatus extends CayenneDataObject {
 
+    public static final String ICON_PROPERTY = "icon";
     public static final String NAME_PROPERTY = "name";
     public static final String REQUIREMENTS_INFORMATION_ARRAY_PROPERTY = "requirementsInformationArray";
 
     public static final String ID_REQ_STATUS_PK_COLUMN = "id_req_status";
+
+    public void setIcon(String icon) {
+        writeProperty("icon", icon);
+    }
+    public String getIcon() {
+        return (String)readProperty("icon");
+    }
 
     public void setName(String name) {
         writeProperty("name", name);
