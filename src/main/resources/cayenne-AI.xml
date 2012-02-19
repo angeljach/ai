@@ -7,10 +7,10 @@
 		>
 		<map-ref name="AIMap"/>
 		<data-source>
-			<driver value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-			<url value="jdbc:sqlserver://BMVKIANRIESGOS;databaseName=AuditoriaInterna"/>
+			<driver value="org.h2.Driver"/>
+			<url value="jdbc:h2:tcp://localhost:9192/~/Documents/trabajo/workspace_aud/AI/bd/data/testdb"/>
 			<connectionPool min="1" max="1"/>
-			<login userName="ai" password="4ud1t0_iA"/>
+			<login userName="sa" password="sa"/>
 		</data-source>
 	</node>
 </domain>

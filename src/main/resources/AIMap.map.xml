@@ -52,6 +52,7 @@
 		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
 	<db-entity name="audit_status" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="icon" type="VARCHAR" isMandatory="true" length="128"/>
 		<db-attribute name="id_audit_status" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
@@ -139,6 +140,7 @@
 		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
 	<db-entity name="job_status" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="icon" type="VARCHAR" isMandatory="true" length="128"/>
 		<db-attribute name="id_job_status" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
@@ -181,6 +183,7 @@
 		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
 	<db-entity name="obs_status" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="icon" type="VARCHAR" isMandatory="true" length="128"/>
 		<db-attribute name="id_status" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
@@ -230,6 +233,7 @@
 		<db-attribute name="update_date" type="TIMESTAMP" isMandatory="true" length="23"/>
 	</db-entity>
 	<db-entity name="requirement_status" schema="ai" catalog="AuditoriaInterna">
+		<db-attribute name="icon" type="VARCHAR" isMandatory="true" length="128"/>
 		<db-attribute name="id_req_status" type="INTEGER" isPrimaryKey="true" isGenerated="true" isMandatory="true" length="10"/>
 		<db-attribute name="name" type="VARCHAR" isMandatory="true" length="128"/>
 	</db-entity>
@@ -311,6 +315,7 @@
 		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
 	<obj-entity name="AuditStatus" className="com.bmv.auditoria.ai.persistent.AuditStatus" dbEntityName="audit_status">
+		<obj-attribute name="icon" type="java.lang.String" db-attribute-path="icon"/>
 		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
 	<obj-entity name="AuditTypes" className="com.bmv.auditoria.ai.persistent.AuditTypes" dbEntityName="audit_types">
@@ -371,6 +376,7 @@
 		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
 	<obj-entity name="JobStatus" className="com.bmv.auditoria.ai.persistent.JobStatus" dbEntityName="job_status">
+		<obj-attribute name="icon" type="java.lang.String" db-attribute-path="icon"/>
 		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
 	<obj-entity name="LikelihoodsRisk" className="com.bmv.auditoria.ai.persistent.LikelihoodsRisk" dbEntityName="likelihoods_risk">
@@ -401,6 +407,7 @@
 		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
 	<obj-entity name="ObsStatus" className="com.bmv.auditoria.ai.persistent.ObsStatus" dbEntityName="obs_status">
+		<obj-attribute name="icon" type="java.lang.String" db-attribute-path="icon"/>
 		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
 	<obj-entity name="ObsUserComments" className="com.bmv.auditoria.ai.persistent.ObsUserComments" dbEntityName="obs_user_comments">
@@ -430,6 +437,7 @@
 		<obj-attribute name="updateDate" type="java.util.Date" db-attribute-path="update_date"/>
 	</obj-entity>
 	<obj-entity name="RequirementStatus" className="com.bmv.auditoria.ai.persistent.RequirementStatus" dbEntityName="requirement_status">
+		<obj-attribute name="icon" type="java.lang.String" db-attribute-path="icon"/>
 		<obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
 	</obj-entity>
 	<obj-entity name="RequirementsInformation" className="com.bmv.auditoria.ai.persistent.RequirementsInformation" dbEntityName="requirements_information">
