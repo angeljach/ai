@@ -45,6 +45,11 @@
                         <p:menubar>
                             <p:submenu label="Mi Cuenta">
                                 <p:menuitem value="Inicio" url="/faces/menu.xhtml" />
+                                <p:submenu label="Mis Tareas">
+                                    <p:menuitem value="Requerimientos" url="#" />
+                                    <p:menuitem value="Observaciones" url="/faces/pages/my/observations.xhtml" />
+                                    <p:menuitem value="Riesgos" url="#" />
+                                </p:submenu>
                                 <p:menuitem value="Salir" action="#{login.logOut()}" ajax="false"/>
                             </p:submenu>
 
